@@ -12,12 +12,14 @@ VALUES
 -- =========================
 -- CATEGORIES
 -- =========================
-INSERT INTO category (category_name, description)
+
+INSERT INTO category (category_name, description, image_url)
 VALUES
-('Fruits', 'Fresh fruits'),
-('Vegetables', 'Green vegetables'),
-('Dairy', 'Milk and dairy products'),
-('Beverages', 'Drinks and juices');
+('Fruits', 'Fresh fruits', 'Images/fruits.jpg'),
+('Vegetables', 'Green vegetables', 'Images/vegetables.jpg'),
+('Dairy', 'Milk and dairy products', 'Images/dairy.jpg'),
+('Beverages', 'Drinks and juices', 'Images/beverages.jpg');
+
 
 -- =========================
 -- PRODUCTS
