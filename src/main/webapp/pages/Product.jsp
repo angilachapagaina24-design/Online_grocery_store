@@ -18,7 +18,8 @@
 		<div class= "Nav-bar">
 			<a href="#">Home</a>
 			<a href="#">Product</a>
-			<a href="#">About</a>
+			<a href="#">About us</a>
+			<a href="#">About us</a>
 		
 		</div>
 		
@@ -30,6 +31,8 @@
 					<a href="cart.jsp">
 						<img src="${pageContext.request.contextPath}/Images/360_F_560176615_cUua21qgzxDiLiiyiVGYjUnLSGnVLIi6.jpg" width="30">
 					</a>
+					<div class="Login"></div>
+					<a href ="login.jsp">Sign in</a>
 		</div>
 	</div>	
 	
@@ -43,21 +46,21 @@
     <div class="category-container">
         <div class="cat-item">
             <div class="circle-box">
-                <img src="path/to/fruits.png" alt="Fruits">
+                <img src="${pageContext.request.contextPath}/Images/fruits%201.png" width="90" alt="Fruits">
             </div>
             <p>Fruits</p>
         </div>
         
         <div class="cat-item">
             <div class="circle-box">
-                <img src="path/to/vegies.png" alt="Vegetables">
+                	<img src="${pageContext.request.contextPath}/Images/vegetables%201.png" width="80"alt="Vegetables">
             </div>
             <p>Vegetables</p>
         </div>
 
         <div class="cat-item">
             <div class="circle-box">
-                <img src="path/to/dairy.png" alt="Dairy">
+                <img src="${pageContext.request.contextPath}/Images/dairy%201.png" width="90" alt="Dairy">
             </div>
             <p>Foodgrains</p>
         </div>
@@ -75,13 +78,36 @@
     
     <div class="product-list">
         <div class="product-item">
-            <div class="img-placeholder"></div>
+            <div class="img-placeholder">
+            	<img src="${pageContext.request.contextPath}/Images/Banana%201%201.png" width = "140">
+            </div>
             <p>Organic Bananas</p>
             <span>$3.50</span>
         </div>
-        <div class="product-item"><div class="img-placeholder"></div><p>Fresh Milk</p><span>$4.00</span></div>
-        <div class="product-item"><div class="img-placeholder"></div><p>Whole Bread</p><span>$2.20</span></div>
-        <div class="product-item"><div class="img-placeholder"></div><p>Brown Eggs</p><span>$5.10</span></div>
+        
+        <div class="product-item">
+        	<div class="img-placeholder">
+        		<img src="${pageContext.request.contextPath}/Images/milk%201.png" width = "120">
+        	</div>
+        	<p>Fresh Milk</p>
+        	<span>$4.00</span>
+        </div>
+        
+        <div class="product-item">
+        	<div class="img-placeholder">
+        		<img src="${pageContext.request.contextPath}/Images/bread%201.png" width = "80">
+        	</div>
+        	<p>Whole Bread</p>
+        	<span>$2.20</span>
+        </div>
+        
+        <div class="product-item">
+        	<div class="img-placeholder">
+        		<img src="${pageContext.request.contextPath}/Images/brown%20eggs%201.png" width = "180">
+        	</div>
+        	<p>Brown Eggs</p>
+        	<span>$5.10</span>
+        </div>
     </div>
 </div>
 <!---------------------------------------------------------special products----------------------------------------->
