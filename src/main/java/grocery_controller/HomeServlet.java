@@ -5,14 +5,13 @@ import grocery_dao.CategoryDAO;
 import java.util.List;
 
 
-import dao.ProductDAO;
+import grocery_dao.ProductDAO;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
-import model.Category;
-import model.Product;
+import grocery_model.Product;
 import grocery_model.Category;
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
