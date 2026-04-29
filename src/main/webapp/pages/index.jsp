@@ -3,36 +3,9 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Online Grocery Store</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
-</head>
-
 <body>
-
-<!-- NAVBAR -->
-<div class="navbar">
-    <div class="logo">Grocery</div>
-
-    <div class="nav-links">
-        <a href="index.jsp">Home</a>
-        <a href="products.jsp">Products</a>
-        <a href="cart.jsp">Cart</a>
-    </div>
-
-    <div class="auth">
-        <c:choose>
-            <c:when test="${not empty sessionScope.user}">
-                <span>Hi, ${sessionScope.user.fullName}</span>
-                <a href="logout">Logout</a>
-            </c:when>
-            <c:otherwise>
-                <a href="login.jsp">Login</a>
-                <a href="register.jsp">Register</a>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</div>
+<!-- index.jsp example -->
+<%@ include file="header.jsp" %>
 
 <!-- HERO SECTION -->
 <div class="hero">
