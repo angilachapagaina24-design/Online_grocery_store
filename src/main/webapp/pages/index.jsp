@@ -1,71 +1,50 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ include file="header.jsp" %>
 <!DOCTYPE html>
 <html>
 <body>
-<!-- index.jsp example -->
-<%@ include file="header.jsp" %>
+
 
 <!-- HERO SECTION -->
-<div class="hero">
-    <div class="hero-text">
-        <h1>Green Basket</h1>
-        <p>Fresh fruits & vegetables delivered to your door</p>
-        <a href="products.jsp" class="btn">Shop Now</a>
-           </div>
-
-    <div class="hero-img">
-        <img src="${pageContext.request.contextPath}/Images/111.jpg" alt="Cupcake">
+<header class="hero">
+    <div class="hero-content">
+        <h1>Fresh Fruits & Vegetables</h1>
+        <p>Quality organic products delivered to your doorstep in Pokhara.</p>
+        <a href="111.jsp" class="btn">Shop Now</a>
     </div>
-</div>
+</header>
 
-<!-- CATEGORIES -->
-<div class="categories">
-    <h2>Categories</h2>
-
+<!-- FEATURED CATEGORIES -->
+<!-- 2. Category Section (Add your code here) -->
+<div class="section">
+    <h2 class="section-title">Shop by Category</h2>
     <div class="category-container">
-        <div class="category">Fruits</div>
-        <div class="category">Vegetables</div>
-        <div class="category">Dairy</div>
-        <div class="category">Bakery</div>
+        <c:forEach var="cat" items="${categoryList}">
+            <div class="cat-item">
+                <div class="circle-box">
+                    <img src="${pageContext.request.contextPath}/${cat.imageUrl}" alt="${cat.categoryName}">
+                </div>
+                <p>${cat.categoryName}</p>
+            </div>
+        </c:forEach>
     </div>
 </div>
 
-<!-- FEATURED PRODUCTS -->
-<div class="products">
-    <h2>Featured Products</h2>
-
-    <div class="product-container">
-
-        <%-- Add this inside the .product-container div --%>
-<div class="product-container">
-    <c:forEach var="product" items="${productList}">
-        <div class="card">
-            <%-- Use a default image if image_url is empty --%>
-            <img src="${not empty product.imageUrl ? product.imageUrl : 'images/default-product.png'}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>Rs. ${product.price} / ${product.unit}</p>
-            <p class="brand">${product.brand}</p>
-
-            <c:choose>
-                <c:when test="${not empty sessionScope.user}">
-                    <form action="AddToCartServlet" method="POST">
-                        <input type="hidden" name="productId" value="${product.productId}">
-                        <button type="submit" class="btn">Add to Cart</button>
-                    </form>
-                </c:when>
-                <c:otherwise>
-                    <a href="login.jsp" class="btn">Login to Buy</a>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </c:forEach>
-</div>
-
+<!-- OUR PRODUCTS -->
+<section class="section gray-bg">
+    <h2 class="section-title">Our Products</h2>
+    <div class="product-grid">
+        <c:forEach var="product" items="${productList}">
+            <div class="product-card">
+                <img src="${product.imageUrl}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p class="price">Rs. ${product.price}</p>
+                <button class="btn-sm">Add to Cart</button>
+            </div>
+        </c:forEach>
     </div>
-</div>
-
+</section>
 <!-- FOOTER -->
 <div class="footer">
     <p>© 2026 Online Grocery Store</p>

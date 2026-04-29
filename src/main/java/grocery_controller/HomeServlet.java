@@ -18,33 +18,24 @@ public class HomeServlet extends HttpServlet {
 
     protected void doGet(
             HttpServletRequest request,
+            
             HttpServletResponse response)
 
             throws ServletException, IOException {
 
-        CategoryDAO categoryDAO =
-                new CategoryDAO();
+        CategoryDAO categoryDAO =new CategoryDAO();
+        ProductDAO productDAO = new ProductDAO();
 
-        ProductDAO productDAO =
-                new ProductDAO();
+        List<Category> categoryList = categoryDAO.getAllCategories();
+        		request.setAttribute("categoryList", categoryList);
 
-        List<Category> categoryList =
-                categoryDAO.getAllCategories();
+        List<Product> productList = productDAO.getAllProducts();
 
-        List<Product> productList =
-                productDAO.getAllProducts();
+        request.setAttribute( "categoryList", categoryList);
+        request.setAttribute( "productList", productList);
 
-        request.setAttribute(
-                "categoryList",
-                categoryList);
-
-        request.setAttribute(
-                "productList",
-                productList);
-
-        RequestDispatcher rd =
-                request.getRequestDispatcher("index.jsp");
-
-        rd.forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+       rd.forward(request, response);
+        
     }
 }
