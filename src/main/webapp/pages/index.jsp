@@ -32,20 +32,40 @@
 </div>
 
 <!-- OUR PRODUCTS -->
+<!-- OUR PRODUCTS -->
 <section class="section gray-bg">
-    <h2 class="section-title">Our Products</h2>
+
+    <h2 class="section-title">
+        Our Products
+    </h2>
     <div class="product-grid">
         <c:forEach var="product" items="${productList}">
             <div class="product-card">
-                <img src="${product.imageUrl}" alt="${product.name}">
-                <h3>${product.name}</h3>
-                <p class="price">Rs. ${product.price}</p>
-                <button class="btn-sm">Add to Cart</button>
+                <!-- Product Image -->
+                <img src="${pageContext.request.contextPath}/${product.imageUrl}"
+                     alt="${product.name}">
+                <!-- Product Name -->
+                <h3>
+                    ${product.name}
+                </h3>
+                <!-- Brand (Optional but good UI) -->
+                <p class="brand">
+                    ${product.brand}
+                </p>
+                <!-- Price -->
+                <p class="price">
+                    Rs. ${product.price}
+                    / ${product.unit}
+                </p>
+
+                <!-- Add to Cart Button -->
+                <button class="btn-sm"> Add to Cart </button>
             </div>
         </c:forEach>
     </div>
 </section>
 <!-- FOOTER -->
+
 <div class="footer">
     <p>© 2026 Online Grocery Store</p>
 </div>
