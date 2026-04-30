@@ -62,11 +62,43 @@
             <div class="circle-box">
                 <img src="${pageContext.request.contextPath}/Images/dairy%201.png" width="90" alt="Dairy">
             </div>
-            <p>Foodgrains</p>
+            <p>Dairy</p>
         </div>
 
+        
+        <div class="cat-item">
+            <div class="circle-box">
+                <img src="${pageContext.request.contextPath}/Images/bakery.png" width="90" alt="Bakery">
+            </div>
+            <p>Bakery</p>
         </div>
+        
+        <div class="cat-item">
+            <div class="circle-box">
+                <img src="${pageContext.request.contextPath}/Images/spices%20and%20seasoning%201.png" width="90" alt="Spices & seasoning">
+            </div>
+            <p>Spices & seasoning</p>
+        </div>
+        
+        <div class="cat-item">
+            <div class="circle-box">
+                <img src="${pageContext.request.contextPath}/Images/canned%20and%20packages%201.png" width="60" alt="canned & packaged">
+            </div>
+            <p>canned & packaged</p>
+        </div>
+        
+        <div class="cat-item">
+            <div class="circle-box">
+                <img src="${pageContext.request.contextPath}/Images/beverages%201.png" width="90" alt="Beverages">
+            </div>
+            <p>Beverages</p>
+        </div>
+
 </div>
+        
+       
+
+     
 	
 <!---------------------------------------------------------Best Selling----------------------------------------->
 
@@ -82,7 +114,7 @@
             	<img src="${pageContext.request.contextPath}/Images/Banana%201%201.png" width = "140">
             </div>
             <p>Organic Bananas</p>
-            <span>$3.50</span>
+            <span>Rs. 120</span>
         </div>
         
         <div class="product-item">
@@ -90,7 +122,7 @@
         		<img src="${pageContext.request.contextPath}/Images/milk%201.png" width = "120">
         	</div>
         	<p>Fresh Milk</p>
-        	<span>$4.00</span>
+        	<span>Rs. 75</span>
         </div>
         
         <div class="product-item">
@@ -98,7 +130,7 @@
         		<img src="${pageContext.request.contextPath}/Images/bread%201.png" width = "80">
         	</div>
         	<p>Whole Bread</p>
-        	<span>$2.20</span>
+        	<span>Rs. 75</span>
         </div>
         
         <div class="product-item">
@@ -106,8 +138,26 @@
         		<img src="${pageContext.request.contextPath}/Images/brown%20eggs%201.png" width = "180">
         	</div>
         	<p>Brown Eggs</p>
-        	<span>$5.10</span>
+        	<span>Rs. 500</span>
         </div>
+        
+        <div class="product-item">
+        	<div class="img-placeholder">
+        		<img src="${pageContext.request.contextPath}/Images/buldak%201.png" width = "170">
+        	</div>
+        	<p>Buldak Ramen</p>
+        	<span>Rs. 400</span>
+        </div>	
+        
+        	
+        <div class="product-item">
+        	<div class="img-placeholder">
+        		<img src="${pageContext.request.contextPath}/Images/juice%201.png" width = "135">
+        	</div>
+        	<p>Simply Tropical Juice</p>
+        	<span>Rs. 150</span>
+        </div>	
+        
     </div>
 </div>
 <!---------------------------------------------------------special products----------------------------------------->
