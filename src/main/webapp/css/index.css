@@ -1,140 +1,80 @@
-/* Layout Grids */
-.category-grid, .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px 5%;
-}
-
-/* Hero Section matching your reference image */
+/* --- Hero Section --- */
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('../Images/hero-bg.jpg');
-    background-size: cover;
-    height: 450px;
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+                url('../Images/hero-bg.jpg') center/cover no-repeat;
+    height: 420px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     text-align: center;
 }
-
-/* Product Cards */
-.product-card {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 15px;
+ 
+.hero-content h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+ 
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+ 
+.btn-hero {
+    background: #27ae60;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
     transition: 0.3s;
 }
-
-.product-card:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+ 
+.btn-hero:hover {
+    background: #1e8449;
 }
-
-.category-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    padding: 20px;
-    flex-wrap: wrap; /* Makes it responsive for mobile */
-}
-
-.cat-item {
+ 
+/* --- Section Title --- */
+.section h2 {
     text-align: center;
+    color: #2c3e50;
+    margin-top: 30px;
 }
-
-.circle-box {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%; /* This creates the circle */
-    overflow: hidden;
-    border: 2px solid #2d5a27;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f0f0f0;
-}
-
-.circle-box img {
+ 
+/* --- Product image inside card fills placeholder --- */
+.img-placeholder img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Prevents the image from stretching */
-}
-
-
-/* Product Grid */
-
-.product-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fit,
-        minmax(200px,1fr));
-
-    gap: 25px;
-
-    padding: 20px 5%;
-}
-
-/* Product Card */
-
-.product-card {
-
-    background: #fff;
-
-    border-radius: 10px;
-
-    padding: 15px;
-
-    text-align: center;
-
-    transition: 0.3s;
-}
-
-.product-card:hover {
-
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* Product Image */
-
-.product-card img {
-
-    width: 100%;
-    height: 150px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 6px;
 }
-
-/* Brand */
-
-.brand {
-    color: gray;
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-/* Price */
-
-.price {
-    color: #2d5a27;
-    font-weight: bold;
-    font-size: 18px;
-    margin: 10px 0;
-}
-
-/* Button */
-
+ 
+/* --- Add to Cart button --- */
 .btn-sm {
-    background: #2d5a27;
+    background: #27ae60;
     color: white;
     padding: 8px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+    width: 100%;
 }
+ 
+.btn-sm:hover {
+    background: #1e8449;
+}
+ 
+/* --- nav-right links white --- */
+.nav-right a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+ 
+.nav-right a:hover {
+    color: #d1f2eb;
+}
+ 
