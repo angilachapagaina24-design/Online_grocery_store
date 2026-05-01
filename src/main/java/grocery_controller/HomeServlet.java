@@ -5,14 +5,13 @@ import grocery_dao.CategoryDAO;
 import java.util.List;
 
 
-import dao.ProductDAO;
+import grocery_dao.ProductDAO;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
-import model.Category;
-import model.Product;
+import grocery_model.Product;
 import grocery_model.Category;
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
@@ -23,25 +22,20 @@ public class HomeServlet extends HttpServlet {
 
             throws ServletException, IOException {
 
-        CategoryDAO categoryDAO =
-                new CategoryDAO();
+        CategoryDAO categoryDAO = new CategoryDAO();
+        ProductDAO productDAO = new ProductDAO();
 
-        ProductDAO productDAO =
-                new ProductDAO();
-
+        // Get categories
         List<Category> categoryList =
                 categoryDAO.getAllCategories();
 
+        // Get products
         List<Product> productList =
                 productDAO.getAllProducts();
 
-        request.setAttribute(
-                "categoryList",
-                categoryList);
-
-        request.setAttribute(
-                "productList",
-                productList);
+        // Send to JSP
+        request.setAttribute("categoryList", categoryList);
+        request.setAttribute("productList", productList);
 
         RequestDispatcher rd =
                 request.getRequestDispatcher("index.jsp");
