@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #f8f5f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Card */
+.card {
+    background: #ffffff;
+    padding: 40px;
+    width: 400px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+}
+
+/* Brand */
+.brand {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: #2d6a4f;
+}
+
+.brand-tagline {
+    font-size: 12px;
+    color: #7a9e8a;
+    letter-spacing: 2px;
+}
+
+/* Divider */
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    font-weight: bold;
+    color: #1b3a2d;
+}
+
+/* Input */
+.field {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1b3a2d;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1.5px solid #d0e8da;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/* Button */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background: #2d6a4f;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Footer */
+.footer-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.footer-link a {
+    color: #2d6a4f;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Error */
+.error-msg {
+    color: red;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
