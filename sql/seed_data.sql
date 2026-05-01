@@ -17,20 +17,19 @@ VALUES
 INSERT INTO category (category_name, description, image_url)
 VALUES 
 ('Bakery', 'Freshly baked bread and buns', 'Images/bakery.png'),
-('Grains', 'Rice, lentils, and flour', 'Images/grains.jpg');
-('Fruits', 'Apple, Banana, and Mango', 'Images/grains.png');
-
+('Grains', 'Rice, lentils, and flour', 'Images/grains.jpg'),
+('Fruits', 'Apple, Banana, and Mango', 'Images/fruits.png');
 -- =========================
 -- PRODUCTS
 -- =========================
 INSERT INTO product 
 (category_id, name, description, price, stock_quantity, unit, brand, image_url)
 VALUES
-(1, 'Apple', 'Fresh red apples', 200.00, 50, 'kg', 'Local Farm', 'Images/apple.png'),
-(1, 'Banana', 'Sweet bananas', 120.00, 100, 'dozen', 'Organic', 'Images/banana.jpg'),
-(2, 'Potato', 'Fresh potatoes', 60.00, 200, 'kg', 'Local Farm', 'Images/potato.jpg'),
-(2, 'Milk', 'Fresh cow milk', 90.00, 80, 'litre', 'DairyBest', 'Images/milk.jpg'),
-(2, 'Coca Cola', 'Soft drink', 50.00, 150, 'bottle', 'Coca Cola', 'Images/coke.jpg');
+(1, 'Apple', 'Fresh red apples', 200.00, 50, 'kg', 'Local Farm', 'apple.png'),
+(1, 'Banana', 'Sweet bananas', 120.00, 100, 'dozen', 'Organic', 'banana.jpg'),
+(2, 'Potato', 'Fresh potatoes', 60.00, 200, 'kg', 'Local Farm', 'potato.jpg'),
+(2, 'Milk', 'Fresh cow milk', 90.00, 80, 'litre', 'DairyBest', 'milk.jpg'),
+(2, 'Coca Cola', 'Soft drink', 50.00, 150, 'bottle', 'Coca Cola', 'coke.jpg');
 
 -- =========================
 -- CART ITEMS
