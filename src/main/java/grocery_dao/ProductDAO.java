@@ -191,4 +191,22 @@ public class ProductDAO {
         p.setStatus(rs.getString("status"));
         return p;
     }
-}
+
+    public int getTotalProductCount() {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM product";
+
+        try (Connection con = DBGroceryConfig.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+	}
