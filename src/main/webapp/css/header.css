@@ -1,0 +1,42 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #27ae60;
+    padding: 15px 40px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Logo */
+.Logo b {
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
+/* Navigation links */
+.Nav-bar a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.Nav-bar a:hover {
+    color: #d1f2eb;
+}
+
+/* Right side */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-box {
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+}
