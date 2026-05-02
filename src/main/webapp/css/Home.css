@@ -1,15 +1,15 @@
-/* ===== RESET ===== */
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
- 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #f5f6fa;
-        }
- 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Choose ONE font for the whole site so the header doesn't jump */
+    font-family: 'Segoe UI', Arial, sans-serif;
+    /* Choose ONE background color for the whole site */
+    background: #f5f6fa; 
+}
        
  
         /* ===== HERO ===== */

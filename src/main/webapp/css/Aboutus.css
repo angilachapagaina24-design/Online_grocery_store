@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -5,10 +6,11 @@
 }
 
 body {
-    font-family: 'Lato', sans-serif;
-    background: #f8f5f0;
+    /* Choose ONE font for the whole site so the header doesn't jump */
+    font-family: 'Segoe UI', Arial, sans-serif;
+    /* Choose ONE background color for the whole site */
+    background: #f5f6fa; 
 }
-
 
 /* WELCOME */
 .welcome {

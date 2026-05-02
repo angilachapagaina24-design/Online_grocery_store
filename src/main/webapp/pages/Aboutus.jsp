@@ -1,19 +1,15 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>About Us - FreshMart</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lato:wght@400;600&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Aboutus.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Footer.css">
+<meta charset="UTF-8">
+<title>About us</title>
 </head>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Aboutus.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Footer.css">
 <body>
 
 <jsp:include page="header.jsp"/>
@@ -74,7 +70,7 @@
 
 <!-- ================= FIXED SLIDER SCRIPT ================= -->
 <script>
-let index = 0;
+let index = 0; 
 
 function moveSlide(step) {
     const track = document.getElementById("photoTrack");
@@ -96,7 +92,7 @@ function moveSlide(step) {
 }
 </script>
 
-<jsp:include page="Footer.jsp" />
+<jsp:include page="Footer.jsp"/>
 
 </body>
 </html>

@@ -1,4 +1,5 @@
 <!-- ================= FOOTER ================= -->
+
 <footer class="footer">
 
     <div class="footer-content">

@@ -6,18 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Product</title>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Product.css">
-
-
 </head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Product.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Footer.css">
 
 <body>
 
 <jsp:include page="header.jsp"/>
 
 <!-- ONLY PRODUCT CONTENT WRAPPED -->
-<div class="product-page">
 
     <!-- ================= CATEGORY ================= -->
     <div class="section">
@@ -118,9 +116,10 @@
         </div>
     </div>
 
-</div>
+
 
 <jsp:include page="Footer.jsp"/>
 
 </body>
 </html>
+

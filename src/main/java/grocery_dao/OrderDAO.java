@@ -9,9 +9,9 @@ import grocery_utilities.DBGroceryConfig;
 
 public class OrderDAO {
 
-    // -------------------------------
+    
     // Total number of orders
-    // -------------------------------
+
     public int getTotalOrderCount() {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM orders";
@@ -30,9 +30,9 @@ public class OrderDAO {
         return count;
     }
 
-    // -------------------------------
+
     // Total sales amount
-    // -------------------------------
+
     public double getTotalSalesAmount() {
         double total = 0;
         String sql = "SELECT SUM(total_amount) FROM orders WHERE order_status='delivered'";
@@ -51,9 +51,9 @@ public class OrderDAO {
         return total;
     }
 
-    // -------------------------------
+ 
     // Get recent orders (LIMIT)
-    // -------------------------------
+   
     public List<Order> getRecentOrders(int limit) {
         List<Order> list = new ArrayList<>();
 
@@ -69,10 +69,10 @@ public class OrderDAO {
 
             while (rs.next()) {
                 Order o = new Order();
-                o.setOrderId(rs.getInt("order_id"));
+                o.setOrder_status(rs.getInt("order_id"));
                 o.setUserName(rs.getString("full_name"));
-                o.setTotalAmount(rs.getDouble("total_amount"));
-                o.setOrderStatus(rs.getString("order_status"));
+                o.setTotal_amount(rs.getDouble("total_amount"));
+                o.setOrder_status(rs.getString("order_status"));
 
                 list.add(o);
             }

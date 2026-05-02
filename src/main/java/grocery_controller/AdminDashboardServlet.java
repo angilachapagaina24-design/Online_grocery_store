@@ -3,6 +3,7 @@ package grocery_controller;
 import grocery_dao.ProductDAO;
 import grocery_dao.OrderDAO;
 import grocery_model.Product;
+import grocery_model.User;
 import grocery_model.Order;
 
 import jakarta.servlet.ServletException;
@@ -10,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,6 +23,13 @@ public class AdminDashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+    	HttpSession session = request.getSession(false);
+        User user = (session != null) ? (User) session.getAttribute("user") : null;
+
+        if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
         ProductDAO productDAO = new ProductDAO();
         OrderDAO orderDAO     = new OrderDAO();
 
@@ -38,7 +47,7 @@ public class AdminDashboardServlet extends HttpServlet {
         request.setAttribute("productList", productList);
         request.setAttribute("recentOrders", recentOrders);
 
-        // ✅ FIXED PATH
+        //
         request.getRequestDispatcher("/pages/dashboard.jsp")
                .forward(request, response);
     }

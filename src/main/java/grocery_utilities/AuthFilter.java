@@ -40,33 +40,54 @@ public class AuthFilter implements Filter {
         HttpSession session = request.getSession(false);
         User user = (session != null) ? (User) session.getAttribute("user") : null;
  
-        String requestURI = request.getRequestURI();
+        String uri = request.getRequestURI();
+        String context = request.getContextPath();
  
-        // ---- Check: Admin pages ----
-        if (requestURI.contains("/admin/")) {
-            if (user == null) {
-                // Not logged in → redirect to login
-                response.sendRedirect(request.getContextPath() + "/login.jsp?error=login_required");
-            } else if (!"admin".equals(user.getRole())) {
-                // Logged in but not admin → redirect to unauthorized page
-                response.sendRedirect(request.getContextPath() + "/error/unauthorized.jsp");
-            } else {
-                // Admin user → allow through
+        // ---- public pages ----
+        if (uri.equals(context + "/") ||
+                uri.equals(context + "/home") ||
+                uri.equals(context + "/login.jsp") ||
+                uri.equals(context + "/login") ||
+                uri.equals(context + "/register.jsp") ||
+                uri.equals(context + "/register") ||
+                uri.startsWith(context + "/css/") ||
+                uri.startsWith(context + "/js/") ||
+                uri.startsWith(context + "/images/")) {
+
                 chain.doFilter(req, res);
+                return;
             }
  
-        // ---- Check: User pages ----
-        } else if (requestURI.contains("/user/")) {
+        // ------------ADMIN PAGES-----------------
+        if (uri.startsWith(context + "/admin/")) {
+
             if (user == null) {
-                response.sendRedirect(request.getContextPath() + "/login.jsp?error=login_required");
-            } else {
-                chain.doFilter(req, res);
+                response.sendRedirect(context + "/login.jsp?error=login_required");
+                return;
             }
- 
-        } else {
-            // Not a protected URL → allow through
+
+            if (!"admin".equalsIgnoreCase(user.getRole())) {
+                response.sendRedirect(context + "/error/unauthorized.jsp");
+                return;
+            }
+
             chain.doFilter(req, res);
+            return;
         }
+
+        // -----------------USER PAGES---------
+        if (uri.startsWith(context + "/user/")) {
+
+            if (user == null) {
+                response.sendRedirect(context + "/login.jsp?error=login_required");
+                return;
+            }
+
+            chain.doFilter(req, res);
+            return;
+        }
+        
+        chain.doFilter(req, res);
     }
  
     @Override

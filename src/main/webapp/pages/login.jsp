@@ -29,10 +29,10 @@
 
         <p class="error-msg">${error}</p>
 
-        <div class="field">
-            <label>USER ID</label>
-            <input type="text" name="username" placeholder="Enter your User ID" required>
-        </div>
+       <div class="field">
+    		<label>EMAIL</label>
+    		<input type="text" name="email" placeholder="Enter your Email" required>
+		</div>
 
         <div class="field">
             <label>PASSWORD</label>
