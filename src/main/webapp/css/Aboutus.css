@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background: #f8f5f0;
+}
+
+
+/* WELCOME */
+.welcome {
+    text-align: center;
+    padding: 40px;
+}
+
+.welcome h2 {
+    color: #2d6a4f;
+}
+
+.welcome p {
+    max-width: 600px;
+    margin: auto;
+    color: #555;
+}
+
+/* TEAM SLIDER */
+.team {
+    text-align: center;
+    padding: 40px;
+}
+
+.photo-slider {
+    position: relative;
+    max-width: 500px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.photo-track {
+    display: flex;
+    transition: transform 0.4s ease;
+}
+
+.photo {
+    min-width: 100%;
+}
+
+.photo .img {
+    width: 180px;
+    height: 180px;
+    background: #ddd;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+}
+
+.photo p {
+    font-weight: 600;
+}
+
+/* BUTTONS */
+.prev, .next {
+    position: absolute;
+    top: 40%;
+    background: #2d6a4f;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.prev { left: 0; }
+.next { right: 0; }
+
+/* WHY */
+.why {
+    text-align: center;
+    padding: 40px;
+}
+
+.why h3 {
+    color: #2d6a4f;
+    margin-bottom: 10px;
+}
+
+.why p {
+    max-width: 700px;
+    margin: 10px auto;
+    color: #555;
+}

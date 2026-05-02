@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Product.css">
 
+
 </head>
 
 <body>

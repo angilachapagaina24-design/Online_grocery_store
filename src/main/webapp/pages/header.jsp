@@ -11,8 +11,8 @@
     <!-- Navigation -->
     <div class="Nav-bar">
         <a href="${pageContext.request.contextPath}/home">Home</a>
-        <a href="${pageContext.request.contextPath}/product">Product</a>
-        <a href="about.jsp">About Us</a>
+		<a href="${pageContext.request.contextPath}/product">Product</a>
+        <a href="${pageContext.request.contextPath}/about">About Us</a>
         <a href="contact.jsp">Contact</a>
     </div>
 
