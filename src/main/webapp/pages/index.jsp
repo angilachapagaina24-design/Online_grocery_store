@@ -6,12 +6,14 @@
     <meta charset="UTF-8">
     <title> - Home</title>
     <%-- Product.css le navbar ra footer ko exact same styling dinccha --%>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Index.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Product.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+     
+   
 </head>
 <body>
 
-<!-- ======================= NAVBAR (exactly same as product.jsp) ======================= -->
+
 <div class="navbar">
 
     <div class="Logo">
@@ -51,77 +53,85 @@
 
 
 <!-- ======================= HERO SECTION ======================= -->
-<header class="hero">
+<!-- ================= HERO ================= -->
+<div class="hero">
     <div class="hero-content">
-        <h1>Fresh Fruits &amp; Vegetables</h1>
-        <p>Quality organic products delivered to your doorstep in Pokhara.</p>
-        <a href="${pageContext.request.contextPath}/home" class="btn-hero">Shop Now</a>
+    <img src="${pageContext.request.contextPath}/Images/main1.jpg" width="1400" height="500" alt="Home">
+        <h1>Fresh Fruits & Vegetables</h1>
+        
+        <p>Healthy and organic groceries at your doorstep</p>
+        <a href="#" class="btn">Shop Now</a>
     </div>
-</header>
-<!-- ======================= END HERO ======================= -->
+</div>
 
-
-<!-- ======================= CATEGORY SECTION (same style as product.jsp) ======================= -->
+<!-- ================= CATEGORY ================= -->
 <div class="section">
-    <h2>Category</h2>
-    <div class="category-container">
+    <h2>Featured Categories</h2>
 
+    <div class="category-container">
         <c:forEach var="cat" items="${categoryList}">
             <div class="cat-item">
-                <div class="circle-box">
-                    <img src="${pageContext.request.contextPath}/${cat.imageUrl}"
-                         alt="${cat.categoryName}" width="90">
-                </div>
+                <img src="${pageContext.request.contextPath}/Images/${cat.imageUrl}">
                 <p>${cat.categoryName}</p>
             </div>
         </c:forEach>
-
-        <c:if test="${empty categoryList}">
-            <p style="text-align:center; color:#888;">No categories found.</p>
-        </c:if>
-
     </div>
 </div>
-<!-- ======================= END CATEGORY ======================= -->
 
+<!-- ================= PRODUCTS ================= -->
+<div class="section">
+    <h2>Our Products</h2>
 
-<!-- ======================= PRODUCTS SECTION (same style as product.jsp) ======================= -->
-<div class="section box">
-    <div class="tabs">
-        <h3>Best Selling</h3>
-        <h3>Latest</h3>
-    </div>
-
-    <div class="product-list">
-
+    <div class="product-container">
         <c:forEach var="product" items="${productList}">
-            <div class="product-item">
+            <div class="product-card">
 
-                <div class="img-placeholder">
-                    <img src="${pageContext.request.contextPath}/${product.imageUrl}"
-                         alt="${product.name}" width="140">
-                </div>
+                <img src="${pageContext.request.contextPath}/Images/${product.imageUrl}">
 
-                <p>${product.name}</p>
-                <span>Rs. ${product.price}</span>
+                <h4>${product.name}</h4>
+                <p>Rs. ${product.price}</p>
 
-                <%-- Add to Cart --%>
                 <form action="${pageContext.request.contextPath}/cart" method="post">
                     <input type="hidden" name="productId" value="${product.productId}">
-                    <input type="hidden" name="action" value="add">
-                    <button type="submit" class="btn-sm">Add to Cart</button>
+                    <button>Add to Cart</button>
                 </form>
 
             </div>
         </c:forEach>
+    </div>
+</div>
 
-        <c:if test="${empty productList}">
-            <p style="text-align:center; color:#888; width:100%;">No products available.</p>
-        </c:if>
+<!-- ================= SERVICES ================= -->
+<div class="section">
+    <h2>Our Services</h2>
+    <div class="section service-section">
+
+        <div class="service-box">
+        <p>Explore</p>
+            <img src="${pageContext.request.contextPath}/Images/explore.gif">
+            
+        </div>
+
+        <div class="service-box">
+        <p>Cart</p>
+            <img src="${pageContext.request.contextPath}/Images/cart.gif">
+            
+        </div>
+
+        <div class="service-box">
+        <p>Payment</p>
+            <img src="${pageContext.request.contextPath}/Images/payment.gif">
+            
+        </div>
+
+        <div class="service-box">
+        <p>Delivery</p>
+            <img src="${pageContext.request.contextPath}/Images/delivery.gif">
+            
+        </div>
 
     </div>
 </div>
-<!-- ======================= END PRODUCTS ======================= -->
 
 
 <!-- ======================= FOOTER (exactly same as product.jsp) ======================= -->
