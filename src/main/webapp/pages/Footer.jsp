@@ -26,7 +26,7 @@
         <!-- Column 3 -->
         <div class="footer-col">
             <h4>Connect With Us</h4>
-            <p>ABCDEF Online Business</p>
+            <p>Freshmart Grocery Store</p>
             <p>Pokhara, Nepal</p>
         </div>
 

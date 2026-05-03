@@ -15,46 +15,62 @@
 
     <h2>Your Cart</h2>
 
-    <% List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-        double total = 0; %>
+    <% 
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        double total = 0; 
+    %>
+
     <% if (cart != null && !cart.isEmpty()) { %>
-        <% for (CartItem item : cart) {  total += item.getPrice() * item.getQuantity(); %>
+
+        <% for (CartItem item : cart) { 
+            total += item.getPrice() * item.getQuantity(); %>
 
         <div class="cart-row">
-            <div class="img-box"></div>
+
+            <%-- Image --%>
+            <div class="img-box">
+                <img src="${pageContext.request.contextPath}/Images/<%= item.getImage() %>"
+                     alt="<%= item.getName() %>"
+                     onerror="this.src='${pageContext.request.contextPath}/Images/placeholder.jpg'">
+            </div>
+
+            <%-- Name + Price --%>
             <div class="details">
                 <p class="name"><%= item.getName() %></p>
-
-                <form action="cart" method="post" class="qty-form">
-                    <input type="hidden" name="action" value="update">
-                    <input type="hidden" name="id" value="<%= item.getId() %>">
-                    <input type="number" name="qty" value="<%= item.getQuantity() %>" min="1">
-                    <button class="update-btn">Update</button>
-                </form>
+                <p class="item-price">Rs. <%= item.getPrice() %></p>
             </div>
-            <form action="cart" method="post">
-                <input type="hidden" name="action" value="remove">
+
+            <%-- Qty Update Form --%>
+            <form action="${pageContext.request.contextPath}/cart" method="post" class="qty-form">
+                <input type="hidden" name="action" value="update">
                 <input type="hidden" name="id" value="<%= item.getId() %>">
-                <button class="remove-btn">Remove</button>
+                <input type="number" name="qty" value="<%= item.getQuantity() %>" min="1">
+                <button type="submit" class="update-btn">Update</button>
             </form>
 
-        </div>
+            <%-- Remove Form --%>
+            <form action="${pageContext.request.contextPath}/cart" method="post">
+                <input type="hidden" name="action" value="remove">
+                <input type="hidden" name="id" value="<%= item.getId() %>">
+                <button type="submit" class="remove-btn">Remove</button>
+            </form>
+
+        </div><%-- cart-row end --%>
 
         <% } %>
 
-        <div class="total"> Total: Rs <%= total %>
-        </div>
+        <div class="total">Total: Rs <%= String.format("%.2f", total) %></div>
 
     <% } else { %>
-
         <p class="empty">Your cart is empty</p>
-
     <% } %>
-   <div class="actions">
-  <a href="${pageContext.request.contextPath}/home" class="btn view">Continue Shopping</a>
-  <a href="#" class="btn checkout">Checkout</a>
-</div>
-</div>
+
+    <div class="actions">
+        <a href="${pageContext.request.contextPath}/home" class="btn view">Continue Shopping</a>
+        <a href="#" class="btn checkout">Checkout</a>
+    </div>
+
+</div><%-- container end --%>
 
 </body>
 </html>
