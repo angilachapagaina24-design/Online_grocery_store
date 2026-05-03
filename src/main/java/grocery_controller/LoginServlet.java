@@ -12,9 +12,9 @@ import grocery_model.User;
 	@WebServlet("/login")
 	public class LoginServlet extends HttpServlet {
 	
-	    private static final String DB_URL = "jdbc:mysql://localhost:3306/freshmart_db";
+		private static final String DB_URL = "jdbc:mysql://localhost:3306/grocery_store?useSSL=false&allowPublicKeyRetrieval=true";
 	    private static final String DB_USER = "root";
-	    private static final String DB_PASSWORD = "YOUR_PASSWORD"; // 🔥 change this
+	    private static final String DB_PASSWORD = "";
 	
 	    @Override
 	    public void init() throws ServletException {
@@ -31,65 +31,79 @@ import grocery_model.User;
 	        
 	        HttpSession session = request.getSession(false);
 	        
-	        // If the user is already logged in, don't show the login page, just go home
+	        // Auto-login check: If session exists, skip login page
 	        if (session != null && session.getAttribute("user") != null) {
-	            response.sendRedirect(request.getContextPath() + "/home");
+	            User user = (User) session.getAttribute("user");
+	            if ("admin".equalsIgnoreCase(user.getRole())) {
+	                response.sendRedirect(request.getContextPath() + "/adminDashboard");
+	            } else {
+	                response.sendRedirect(request.getContextPath() + "/home");
+	            }
 	        } else {
-	            // Correct path to your login JSP file
 	            request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 	        }
 	    }
-	    
-	
+
 	    @Override
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
-	
-	    	String email = request.getParameter("email");
+
+	        String email = request.getParameter("email");
 	        String password = request.getParameter("password");
-	
-	        if (email == null || password == null ||
-	            email.isEmpty() || password.isEmpty()) {
-	
+
+	        // Basic validation
+	        if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
 	            request.setAttribute("error", "All fields are required!");
-	            request.getRequestDispatcher("login.jsp").forward(request, response);
+	            request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 	            return;
 	        }
-	
+
 	        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-	
+
 	            String sql = "SELECT * FROM users WHERE email=? AND password=?";
 	            PreparedStatement ps = conn.prepareStatement(sql);
-	
 	            ps.setString(1, email);
 	            ps.setString(2, password);
-	
+
 	            ResultSet rs = ps.executeQuery();
-	
+
 	            if (rs.next()) {
-	            	User user = new User();
-	                user.setFullName(rs.getString("full_name"));
+	                // ================= CREATE USER OBJECT =================
+	                User user = new User();
+	                // Matches 'full_name' column in your SQL
+	                user.setFullName(rs.getString("full_name")); 
 	                user.setEmail(rs.getString("email"));
 	                user.setRole(rs.getString("role"));
 
-	                HttpSession session = request.getSession();
+	                // ================= SESSION HANDLING =================
+	                HttpSession session = request.getSession(true);
 	                session.setAttribute("user", user);
-	                
+	                session.setMaxInactiveInterval(30 * 60); // 30 minutes
+
+	                // ================= REDIRECT BASED ON ROLE =================
 	                if ("admin".equalsIgnoreCase(user.getRole())) {
-	                    response.sendRedirect("admin/dashboard");
+	                    // Redirects to AdminDashboardServlet mapping
+	                    response.sendRedirect(request.getContextPath() + "/adminDashboard"); 
 	                } else {
-	                    response.sendRedirect("home");
+	                    //  FIXED: Redirects regular customers to home page
+	                    response.sendRedirect(request.getContextPath() + "/home");
 	                }
 
 	            } else {
-	                request.setAttribute("error", "Invalid login!");
-	                request.getRequestDispatcher("login.jsp").forward(request, response);
+	                // Wrong credentials
+	                request.setAttribute("error", "Invalid email or password!");
+	                request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 	            }
 
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            // This triggers if DB_URL or DB_PASSWORD is wrong
+	            request.setAttribute("error", "Database Connection Error: " + e.getMessage());
+	            request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 	        } catch (Exception e) {
 	            e.printStackTrace();
-	            request.setAttribute("error", "Server error!");
-	            request.getRequestDispatcher("login.jsp").forward(request, response);
+	            request.setAttribute("error", "An unexpected server error occurred.");
+	            request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 	        }
 	    }
 	}

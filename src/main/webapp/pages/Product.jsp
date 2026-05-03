@@ -70,6 +70,7 @@
                 </div>
                 <p>Organic Bananas</p>
                 <span>Rs. 120</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
 
             <div class="product-item">
@@ -78,6 +79,7 @@
                 </div>
                 <p>Fresh Milk</p>
                 <span>Rs. 75</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
 
             <div class="product-item">
@@ -86,6 +88,7 @@
                 </div>
                 <p>Whole Bread</p>
                 <span>Rs. 75</span>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
 
         </div>

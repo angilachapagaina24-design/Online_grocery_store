@@ -19,45 +19,33 @@ import java.util.List;
 @WebServlet("/adminDashboard")
 public class AdminDashboardServlet extends HttpServlet {
 
-    @Override	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	   
+	@Override    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-    	HttpSession session = request.getSession(false);
-        User user = (session != null) ? (User) session.getAttribute("user") : null;
-
-        if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
-            return;
-        }
         
+        // 1. Load your database stats (Sales, Orders, etc.)
         loadDashboardData(request);
-        request.getRequestDispatcher("/pages/dashboard.jsp")
-        .forward(request, response);
-}
-        private void loadDashboardData(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		
-	}
-		ProductDAO productDAO = new ProductDAO();
-        OrderDAO orderDAO     = new OrderDAO();
+        
+        // 2. Forward to the actual JSP file
+        
+        request.getRequestDispatcher("/pages/Admin.jsp").forward(request, response);
+    }
 
-        int totalProducts = productDAO.getTotalProductCount();
-        int totalOrders   = orderDAO.getTotalOrderCount();
-        double totalSales = orderDAO.getTotalSalesAmount();
+    private void loadDashboardData(HttpServletRequest request) {
+        ProductDAO productDAO = new ProductDAO();
+        OrderDAO orderDAO = new OrderDAO();
 
-        request.setAttribute("totalProducts", totalProducts);
-        request.setAttribute("totalOrders", totalOrders);
-        request.setAttribute("totalSales", String.format("%.2f", totalSales));
+        request.setAttribute("totalProducts", productDAO.getTotalProductCount());
+        request.setAttribute("totalOrders", orderDAO.getTotalOrderCount());
+        request.setAttribute("totalSales", String.format("%.2f", orderDAO.getTotalSalesAmount()));
 
-        List<Product> productList  = productDAO.getAllProducts();
-        List<Order>   recentOrders = orderDAO.getRecentOrders(5);
-
-        request.setAttribute("productList", productList);
-        request.setAttribute("recentOrders", recentOrders);
-
-        //
-        request.getRequestDispatcher("/pages/dashboard.jsp")
-               .forward(request, response);
+        request.setAttribute("productList", productDAO.getAllProducts());
+        request.setAttribute("recentOrders", orderDAO.getRecentOrders(5));
     }
 }

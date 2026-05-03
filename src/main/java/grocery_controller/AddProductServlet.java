@@ -14,8 +14,6 @@ import jakarta.servlet.http.Part;
  
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import grocery_model.Category;
  
 /**
  * AddProductServlet
@@ -34,14 +32,9 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         CategoryDAO categoryDAO = new CategoryDAO();
-        List<Category> categoryList = categoryDAO.getAllCategories();
-        request.setAttribute("categoryList", categoryList);
-
-        // ✅ FIXED PATH
-        request.getRequestDispatcher("/pages/addProduct.jsp")
-               .forward(request, response);
+        request.setAttribute("categoryList", categoryDAO.getAllCategories());
+        request.getRequestDispatcher("/pages/addProduct.jsp").forward(request, response);
     }
 
     @Override
@@ -49,9 +42,8 @@ public class AddProductServlet extends HttpServlet {
             throws ServletException, IOException {
 
         CategoryDAO categoryDAO = new CategoryDAO();
-
-  // 1. Get form values
-      
+        
+        // 1. Get form values
         String name          = request.getParameter("name");
         String brand         = request.getParameter("brand");
         String description   = request.getParameter("description");
@@ -61,87 +53,58 @@ public class AddProductServlet extends HttpServlet {
         String categoryIdStr = request.getParameter("categoryId");
         String expiryDate    = request.getParameter("expiryDate");
 
-
-        // 2. Validation
-    
-        if (name == null || name.isBlank() ||
-            priceStr == null || priceStr.isBlank() ||
-            stockStr == null || stockStr.isBlank() ||
-            categoryIdStr == null || categoryIdStr.isBlank()) {
-
-            request.setAttribute("errorMsg", "Please fill in all required fields.");
+        // 2. Simple Validation
+        if (name == null || name.isBlank() || priceStr == null || stockStr == null) {
+            request.setAttribute("errorMsg", "Required fields are missing.");
             request.setAttribute("categoryList", categoryDAO.getAllCategories());
             request.getRequestDispatcher("/pages/addProduct.jsp").forward(request, response);
             return;
         }
 
-   
-        // 3. Parse values
-  
-        double price;
-        int stockQuantity;
-        int categoryId;
-
-        try {
-            price = Double.parseDouble(priceStr);
-            stockQuantity = Integer.parseInt(stockStr);
-            categoryId = Integer.parseInt(categoryIdStr);
-        } catch (NumberFormatException e) {
-            request.setAttribute("errorMsg", "Invalid numeric values.");
-            request.setAttribute("categoryList", categoryDAO.getAllCategories());
-            request.getRequestDispatcher("/pages/addProduct.jsp").forward(request, response);
-            return;
-        }
-
-      
-        // 4. Image upload
-       
+        // 3. Parse and Image Upload
         String imageUrl = "Images/placeholder.png";
+        try {
+            double price = Double.parseDouble(priceStr);
+            int stockQuantity = Integer.parseInt(stockStr);
+            int categoryId = Integer.parseInt(categoryIdStr);
 
-        Part filePart = request.getPart("imageFile");
-        if (filePart != null && filePart.getSize() > 0) {
-            String fileName = filePart.getSubmittedFileName();
+            Part filePart = request.getPart("imageFile");
+            if (filePart != null && filePart.getSize() > 0) {
+                String fileName = filePart.getSubmittedFileName();
+                // Ensure Images folder exists in webapp
+                String uploadPath = getServletContext().getRealPath("") + File.separator + "Images";
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) uploadDir.mkdirs();
 
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "Images";
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdirs();
+                filePart.write(uploadPath + File.separator + fileName);
+                imageUrl = "Images/" + fileName;
+            }
 
-            filePart.write(uploadPath + File.separator + fileName);
-            imageUrl = "Images/" + fileName;
-        }
+            // 4. Create and Save Product
+            Product product = new Product();
+            product.setName(name);
+            product.setBrand(brand);
+            product.setDescription(description);
+            product.setPrice(price);
+            product.setStockQuantity(stockQuantity);
+            product.setUnit(unit);
+            product.setCategoryId(categoryId);
+            product.setExpiryDate(expiryDate);
+            product.setImageUrl(imageUrl);
+            product.setStatus("available");
 
-      
-        // 5. Create Product object
-       
-        Product product = new Product();
-        product.setName(name);
-        product.setBrand(brand);
-        product.setDescription(description);
-        product.setPrice(price);
-        product.setStockQuantity(stockQuantity);
-        product.setUnit(unit);
-        product.setCategoryId(categoryId);
-        product.setExpiryDate((expiryDate != null && !expiryDate.isBlank()) ? expiryDate : null);
-        product.setImageUrl(imageUrl);
-        product.setStatus("available");
+            ProductDAO productDAO = new ProductDAO();
+            if (productDAO.addProduct(product)) {
+                // REDIRECT TO CORRECT SERVLET PATH
+                response.sendRedirect(request.getContextPath() + "/inventory?successMsg=Product+Added!");
+            } else {
+                throw new Exception("Database insert failed");
+            }
 
-    
-        // 6. Save to DB
-      
-        ProductDAO productDAO = new ProductDAO();
-        boolean saved = productDAO.addProduct(product);
-
-        
-        // 7. RESULT HANDLING
-    
-        if (saved) {
-            response.sendRedirect(request.getContextPath()
-                    + "/admin/inventory?successMsg=Product+added+successfully!");
-        } else {
-            request.setAttribute("errorMsg", "Failed to add product.");
+        } catch (Exception e) {
+            request.setAttribute("errorMsg", "Error: " + e.getMessage());
             request.setAttribute("categoryList", categoryDAO.getAllCategories());
             request.getRequestDispatcher("/pages/addProduct.jsp").forward(request, response);
         }
     }
-    
 }

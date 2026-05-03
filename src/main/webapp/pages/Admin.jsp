@@ -15,35 +15,32 @@
     <div class="sidebar">
         <div class="sidebar-logo">
         
-            <span></span>
+           	<span>🛒</span>
             <p>FreshMart</p>
         </div>
         <nav class="sidebar-nav">
             <a href="${pageContext.request.contextPath}/adminDashboard" class="nav-item active">
-           
-                <span class="nav-icon"></span>
+                <span class="nav-icon">🏠</span>
                 <span>Dashboard</span>
             </a>
-            
-            
-            <a href="${pageContext.request.contextPath}/inventory" class="nav-item">
-                <span class="nav-icon"></span>
+            <a href="${pageContext.request.contextPath}/inventory" class="nav-item ">
+                <span class="nav-icon">📦</span>
                 <span>Inventory</span>
             </a>
             <a href="${pageContext.request.contextPath}/addProduct" class="nav-item">
-                <span class="nav-icon"></span>
+                <span class="nav-icon">➕</span>
                 <span>Add Product</span>
             </a>
             <a href="${pageContext.request.contextPath}/manageOrders" class="nav-item">
-                <span class="nav-icon"></span>
+                <span class="nav-icon">📋</span>
                 <span>Orders</span>
             </a>
             <a href="${pageContext.request.contextPath}/manageUsers" class="nav-item">
-                <span class="nav-icon"></span>
+                <span class="nav-icon">👥</span>
                 <span>Users</span>
             </a>
             <a href="${pageContext.request.contextPath}/logout" class="nav-item logout">
-                <span class="nav-icon"></span>
+                <span class="nav-icon">🚪</span>
                 <span>Logout</span>
             </a>
         </nav>

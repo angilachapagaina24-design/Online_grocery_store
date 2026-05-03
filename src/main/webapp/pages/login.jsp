@@ -25,7 +25,7 @@
     <div class="divider">Welcome Back</div>
 
     <!-- Form -->
-    <form action="login" method="post">
+    <form action="${pageContext.request.contextPath}/login" method="POST">
 
         <p class="error-msg">${error}</p>
 
