@@ -1,13 +1,17 @@
 .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #27ae60;
     padding: 15px 40px;
     color: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-
 /* Logo */
 .Logo b {
     font-size: 22px;
@@ -39,4 +43,10 @@
     border-radius: 20px;
     border: none;
     outline: none;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }

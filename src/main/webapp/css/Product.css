@@ -1,14 +1,8 @@
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     /* Choose ONE font for the whole site so the header doesn't jump */
     font-family: 'Segoe UI', Arial, sans-serif;
-    /* Choose ONE background color for the whole site */
+    padding-top: 70px;
     background: #f5f6fa; 
 }
 

@@ -16,7 +16,7 @@
     <div class="hero-content">
         <h1>Fresh Fruits &amp; Vegetables</h1>
         <p>Healthy and organic groceries at your doorstep</p>
-        <a href="#" class="btn">Shop Now</a>
+        <a href="${pageContext.request.contextPath}/product" class="btn">Shop Now</a>
     </div>
 </div>
  
@@ -49,38 +49,79 @@
  
 <!-- ===== PRODUCTS ===== -->
 <div class="section" style="background: white;">
-    <h2>Our Products</h2>
-    <div class="product-container">
-        <div class="product-card">
-            <img src="Images/apple.jpg" alt="Apple">
-            <h4>Fresh Apple</h4>
-            <p class="price">Rs. 120</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <img src="Images/banana.jpg" alt="Banana">
-            <h4>Banana</h4>
-            <p class="price">Rs. 60</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <img src="Images/tomato.jpg" alt="Tomato">
-            <h4>Tomato</h4>
-            <p class="price">Rs. 80</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <img src="Images/carrot.jpg" alt="Carrot">
-            <h4>Carrot</h4>
-            <p class="price">Rs. 50</p>
-            <button>Add to Cart</button>
-        </div>
-        <div class="product-card">
-            <img src="Images/milk.jpg" alt="Milk">
-            <h4>Fresh Milk</h4>
-            <p class="price">Rs. 90</p>
-            <button>Add to Cart</button>
-        </div>
+  <h2>Our Products</h2>
+  <div class="product-container">
+
+    <div class="product-card">
+      <img src="Images/apple.jpg" alt="Apple">
+      <h4>Fresh Apple</h4>
+      <p class="price">Rs. 120</p>
+      <form action="${pageContext.request.contextPath}/cart" method="post">
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="id"    value="1">
+        <input type="hidden" name="name"  value="Fresh Apple">
+        <input type="hidden" name="price" value="120">
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+    
+    
+    
+       <div class="product-card">
+      <img src="Images/banana.jpg" alt="Banana">
+      <h4>Banana</h4>
+      <p class="price">Rs. 60</p>
+      <form action="${pageContext.request.contextPath}/cart" method="post">
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="id"    value="2">
+        <input type="hidden" name="name"  value="Banana">
+        <input type="hidden" name="price" value="60">
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+    
+    
+    	<div class="product-card">
+      <img src="Images/tomato.jpg" alt="Tomato">
+      <h4>Tomato</h4>
+      <p class="price">Rs. 80</p>
+      <form action="${pageContext.request.contextPath}/cart" method="post">
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="id"    value="3">
+        <input type="hidden" name="name"  value="Tomato">
+        <input type="hidden" name="price" value="80">
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+    
+    	<div class="product-card">
+      <img src="Images/carrot.jpg" alt="Carrot">
+      <h4>Carrot</h4>
+      <p class="price">Rs. 80</p>
+      <form action="${pageContext.request.contextPath}/cart" method="post">
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="id"    value="4">
+        <input type="hidden" name="name"  value="Carrot">
+        <input type="hidden" name="price" value="50">
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+    
+    
+    	 <div class="product-card">
+      <img src="Images/milk.jpg" alt="Milk">
+      <h4>Milk</h4>
+      <p class="price">Rs. 80</p>
+      <form action="${pageContext.request.contextPath}/cart" method="post">
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="id"    value="3">
+        <input type="hidden" name="name"  value="Milk">
+        <input type="hidden" name="price" value="100">
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+    
+    
     </div>
 </div>
  
