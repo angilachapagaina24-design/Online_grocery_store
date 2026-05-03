@@ -24,6 +24,22 @@ import grocery_model.User;
 	            throw new ServletException("Driver not found", e);
 	        }
 	    }
+	    
+	    @Override
+	    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+	        
+	        HttpSession session = request.getSession(false);
+	        
+	        // If the user is already logged in, don't show the login page, just go home
+	        if (session != null && session.getAttribute("user") != null) {
+	            response.sendRedirect(request.getContextPath() + "/home");
+	        } else {
+	            // Correct path to your login JSP file
+	            request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+	        }
+	    }
+	    
 	
 	    @Override
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response)

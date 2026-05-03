@@ -71,7 +71,7 @@
     </form>
 
     <p class="login-link">
-        Already have an account? <a href="login.jsp">Login</a>
+        Already have an account? <a href="${pageContext.request.contextPath}/login">Login</a>
     </p>
 
 </div>

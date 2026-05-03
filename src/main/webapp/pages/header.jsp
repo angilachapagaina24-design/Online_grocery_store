@@ -24,7 +24,7 @@
 
         <!-- Cart -->
         <a href="cart.jsp">
-            <img src="${pageContext.request.contextPath}/Images/360_F_560176615_cUua21qgzxDiLiiyiVGYjUnLSGnVLIi6.jpg" width="30" alt="Cart">
+            <img src="${pageContext.request.contextPath}/Images/shopping-cart.png" width="30" alt="Cart">
         </a>
 
         <!-- Login -->
@@ -37,7 +37,7 @@
             </c:when>
 
             <c:otherwise>
-                <a href="login.jsp">Sign in</a>
+                <a href="${pageContext.request.contextPath}/login">Sign in</a>
             </c:otherwise>
         </c:choose>
 

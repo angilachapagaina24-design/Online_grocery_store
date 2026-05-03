@@ -44,7 +44,7 @@
     </form>
 
     <p class="footer-link">
-        New to FreshMart? <a href="register.jsp">Create an account</a>
+        New to FreshMart? <a href="${pageContext.request.contextPath}/register">Create an Account</a>
     </p>
 
 </div>
