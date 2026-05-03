@@ -28,20 +28,18 @@ public class CartServlet extends HttpServlet {
 
         // ADD ITEM
         if ("add".equals(action)) {
-
             String idParam    = request.getParameter("id");
             String nameParam  = request.getParameter("name");
             String priceParam = request.getParameter("price");
+            String imageParam = request.getParameter("image"); 
 
-            // Guard against missing parameters
             if (idParam != null && nameParam != null && priceParam != null) {
-
                 int    id    = Integer.parseInt(idParam);
                 String name  = nameParam;
                 double price = Double.parseDouble(priceParam);
+                String image = (imageParam != null) ? imageParam : "";  
 
                 boolean found = false;
-
                 for (CartItem item : cart) {
                     if (item.getId() == id) {
                         item.setQuantity(item.getQuantity() + 1);
@@ -51,7 +49,7 @@ public class CartServlet extends HttpServlet {
                 }
 
                 if (!found) {
-                    cart.add(new CartItem(id, name, price, 1));
+                    cart.add(new CartItem(id, name, price, 1, image));  
                 }
             }
         }
