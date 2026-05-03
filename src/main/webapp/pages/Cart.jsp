@@ -15,34 +15,23 @@
 
     <h2>Your Cart</h2>
 
-    <%
-        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-        double total = 0;
-    %>
-
+    <% List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        double total = 0; %>
     <% if (cart != null && !cart.isEmpty()) { %>
-
-        <% for (CartItem item : cart) { 
-            total += item.getPrice() * item.getQuantity();
-        %>
+        <% for (CartItem item : cart) {  total += item.getPrice() * item.getQuantity(); %>
 
         <div class="cart-row">
-
             <div class="img-box"></div>
-
             <div class="details">
                 <p class="name"><%= item.getName() %></p>
 
                 <form action="cart" method="post" class="qty-form">
                     <input type="hidden" name="action" value="update">
                     <input type="hidden" name="id" value="<%= item.getId() %>">
-
-                    Qty:
                     <input type="number" name="qty" value="<%= item.getQuantity() %>" min="1">
                     <button class="update-btn">Update</button>
                 </form>
             </div>
-
             <form action="cart" method="post">
                 <input type="hidden" name="action" value="remove">
                 <input type="hidden" name="id" value="<%= item.getId() %>">
@@ -53,8 +42,7 @@
 
         <% } %>
 
-        <div class="total">
-            Total: Rs <%= total %>
+        <div class="total"> Total: Rs <%= total %>
         </div>
 
     <% } else { %>
@@ -62,12 +50,10 @@
         <p class="empty">Your cart is empty</p>
 
     <% } %>
-
-    <div class="actions">
-        <a href="home.jsp" class="btn view">View Cart</a>
-        <a href="#" class="btn checkout">Checkout</a>
-    </div>
-
+   <div class="actions">
+  <a href="${pageContext.request.contextPath}/home" class="btn view">Continue Shopping</a>
+  <a href="#" class="btn checkout">Checkout</a>
+</div>
 </div>
 
 </body>

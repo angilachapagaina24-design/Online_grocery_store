@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!-- ================= HEADER ================= -->
 <div class="navbar">
@@ -23,9 +23,34 @@
         <input type="text" placeholder="Search products..." class="search-box">
 
         <!-- Cart -->
-        <a href="cart.jsp">
-            <img src="${pageContext.request.contextPath}/Images/shopping-cart.png" width="30" alt="Cart">
-        </a>
+        <a href="${pageContext.request.contextPath}/cart" class="cart-link">
+   		 <div style="position: relative; display: inline-block;">
+        <img src="${pageContext.request.contextPath}/Images/shopping-cart.png" width="30" alt="Cart">
+        
+        <!-- CART COUNT -->
+        <c:set var="cartSize" value="0" />
+        
+        <c:if test="${not empty sessionScope.cart}">
+            <c:set var="cartSize" value="${fn:length(sessionScope.cart)}" />
+        </c:if>
+
+        <c:if test="${cartSize > 0}">
+            <span style="
+                position:absolute;
+                top:-8px;
+                right:-10px;
+                background:red;
+                color:white;
+                border-radius:50%;
+                padding:3px 7px;
+                font-size:12px;">
+                ${cartSize}
+            </span>
+        </c:if>
+
+    </div>
+
+</a>
 
         <!-- Login -->
         <c:choose>
