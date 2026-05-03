@@ -30,7 +30,16 @@ public class AdminDashboardServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
-        ProductDAO productDAO = new ProductDAO();
+        
+        loadDashboardData(request);
+        request.getRequestDispatcher("/pages/dashboard.jsp")
+        .forward(request, response);
+}
+        private void loadDashboardData(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		
+	}
+		ProductDAO productDAO = new ProductDAO();
         OrderDAO orderDAO     = new OrderDAO();
 
         int totalProducts = productDAO.getTotalProductCount();
