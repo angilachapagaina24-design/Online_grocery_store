@@ -92,6 +92,7 @@
             	<input type="hidden" name="id"    value="101">
             	<input type="hidden" name="name"  value="Organic Bananas">
             	<input type="hidden" name="price" value="120">
+            	<input type="hidden" name="image" value="/Images/Banana 1 1.png">
             	<button type="submit" class="add-to-cart-btn">Add to Cart</button>
        			</form>
             </div>
@@ -107,6 +108,7 @@
             	<input type="hidden" name="id"    value="102">
             	<input type="hidden" name="name"  value="Fresh Milk">
             	<input type="hidden" name="price" value="75">
+            	<input type="hidden" name="image" value="/Images/milk 1.png">
             	<button type="submit" class="add-to-cart-btn">Add to Cart</button>
         		</form>
             </div>
@@ -122,6 +124,7 @@
             	<input type="hidden" name="id"    value="103">
             	<input type="hidden" name="name"  value="Whole Bread">
             	<input type="hidden" name="price" value="75">
+            	<input type="hidden" name="image" value="/Images/bread 1.png">
             	<button type="submit" class="add-to-cart-btn">Add to Cart</button>
         		</form>
             </div>
@@ -138,6 +141,7 @@
             <input type="hidden" name="id"    value="103">
             <input type="hidden" name="name"  value="Tropical Drinks">
             <input type="hidden" name="price" value="75">
+            <input type="hidden" name="image" value="/Images/juice%201.png">
             <button type="submit" class="add-to-cart-btn">Add to Cart</button>
         </form>
             </div>
@@ -154,6 +158,7 @@
             <input type="hidden" name="id"    value="103">
             <input type="hidden" name="name"  value="uldak Ramen">
             <input type="hidden" name="price" value="75">
+            <input type="hidden" name="image" value="/Images/buldak%201.png">
             <button type="submit" class="add-to-cart-btn">Add to Cart</button>
         </form>
             </div>
@@ -170,6 +175,7 @@
             <input type="hidden" name="id"    value="103">
             <input type="hidden" name="name"  value="Brown Egg">
             <input type="hidden" name="price" value="75">
+            <input type="hidden" name="image" value="/Images/brown%20eggs%201.png">
             <button type="submit" class="add-to-cart-btn">Add to Cart</button>
         </form>
             </div>
@@ -186,6 +192,7 @@
             <input type="hidden" name="id"    value="103">
             <input type="hidden" name="name"  value="Mapel Syrup">
             <input type="hidden" name="price" value="75">
+            <input type="hidden" name="image" value="/Images/mapel%20syrup.png">
             <button type="submit" class="add-to-cart-btn">Add to Cart</button>
         </form>
             </div>
@@ -201,6 +208,7 @@
             <input type="hidden" name="id"    value="103">
             <input type="hidden" name="name"  value="Strawberry Milk">
             <input type="hidden" name="price" value="75">
+            <input type="hidden" name="image" value="/Images/strawberrymilk%201.png">
             <button type="submit" class="add-to-cart-btn">Add to Cart</button>
         </form>
             </div>
