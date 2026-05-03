@@ -39,18 +39,35 @@
 
             <div class="cat-item">
                 <div class="circle-box">
-                    <img src="${pageContext.request.contextPath}/Images/dairy 1.png" width="90">
+                 <img src="${pageContext.request.contextPath}/Images/dairy 1.png" width="90">
                 </div>
                 <p>Dairy</p>
             </div>
 
             <div class="cat-item">
                 <div class="circle-box">
-                    <img src="${pageContext.request.contextPath}/Images/bakery.png" width="90">
+                <img src="${pageContext.request.contextPath}/Images/bakery.png" width="90">
                 </div>
                 <p>Bakery</p>
             </div>
-
+            
+            <div class="cat-item">
+                <div class="circle-box">
+                <img src="${pageContext.request.contextPath}/Images/beverages%201.png" width="90">
+                </div>
+                <p>beverages</p>
+            </div>
+            
+            <div class="cat-item">
+                <div class="circle-box">
+                <img src="${pageContext.request.contextPath}/Images/spices%20and%20seasoning%201.png" width="90">
+                </div>
+                <p>Spices & Seasoning</p>
+            </div>
+            
+            
+            
+          
         </div>
     </div>
 
@@ -70,7 +87,13 @@
                 </div>
                 <p>Organic Bananas</p>
                 <span>Rs. 120</span>
-                <button class="add-to-cart-btn">Add to Cart</button>
+                <form action="${pageContext.request.contextPath}/cart" method="post">
+            	<input type="hidden" name="action" value="add">
+            	<input type="hidden" name="id"    value="101">
+            	<input type="hidden" name="name"  value="Organic Bananas">
+            	<input type="hidden" name="price" value="120">
+            	<button type="submit" class="add-to-cart-btn">Add to Cart</button>
+       			</form>
             </div>
 
             <div class="product-item">
@@ -79,7 +102,13 @@
                 </div>
                 <p>Fresh Milk</p>
                 <span>Rs. 75</span>
-                <button class="add-to-cart-btn">Add to Cart</button>
+                <form action="${pageContext.request.contextPath}/cart" method="post">
+            	<input type="hidden" name="action" value="add">
+            	<input type="hidden" name="id"    value="102">
+            	<input type="hidden" name="name"  value="Fresh Milk">
+            	<input type="hidden" name="price" value="75">
+            	<button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        		</form>
             </div>
 
             <div class="product-item">
@@ -88,9 +117,94 @@
                 </div>
                 <p>Whole Bread</p>
                 <span>Rs. 75</span>
-                <button class="add-to-cart-btn">Add to Cart</button>
+                <form action="${pageContext.request.contextPath}/cart" method="post">
+            	<input type="hidden" name="action" value="add">
+            	<input type="hidden" name="id"    value="103">
+            	<input type="hidden" name="name"  value="Whole Bread">
+            	<input type="hidden" name="price" value="75">
+            	<button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        		</form>
             </div>
 
+
+			<div class="product-item">
+                <div class="img-placeholder">
+                    <img src="${pageContext.request.contextPath}/Images/juice%201.png" width="140">
+                </div>
+                <p>Tropical Drinks</p>
+                <span>Rs. 100</span>
+                <form action="${pageContext.request.contextPath}/cart" method="post">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="id"    value="103">
+            <input type="hidden" name="name"  value="Tropical Drinks">
+            <input type="hidden" name="price" value="75">
+            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        </form>
+            </div>
+            
+            
+            <div class="product-item">
+                <div class="img-placeholder">
+                    <img src="${pageContext.request.contextPath}/Images/buldak%201.png" width="130">
+                </div>
+                <p>Buldak Ramen</p>
+                <span>Rs. 250</span>
+                <form action="${pageContext.request.contextPath}/cart" method="post">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="id"    value="103">
+            <input type="hidden" name="name"  value="uldak Ramen">
+            <input type="hidden" name="price" value="75">
+            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        </form>
+            </div>
+            
+            
+            <div class="product-item">
+                <div class="img-placeholder">
+                    <img src="${pageContext.request.contextPath}/Images/brown%20eggs%201.png" width="140">
+                </div>
+                <p>Brown Egg</p>
+                <span>Rs. 500</span>
+                <form action="${pageContext.request.contextPath}/cart" method="post">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="id"    value="103">
+            <input type="hidden" name="name"  value="Brown Egg">
+            <input type="hidden" name="price" value="75">
+            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        </form>
+            </div>
+            
+            
+             <div class="product-item">
+                <div class="img-placeholder">
+                    <img src="${pageContext.request.contextPath}/Images/mapel%20syrup.png" width="80">
+                </div>
+                <p>Mapel Syrup</p>
+                <span>Rs. 380</span>
+                <form action="${pageContext.request.contextPath}/cart" method="post">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="id"    value="103">
+            <input type="hidden" name="name"  value="Mapel Syrup">
+            <input type="hidden" name="price" value="75">
+            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        </form>
+            </div>
+            
+             <div class="product-item">
+                <div class="img-placeholder">
+                    <img src="${pageContext.request.contextPath}/Images/strawberrymilk%201.png" width="105">
+                </div>
+                <p>Strawberry Milk</p>
+                <span>Rs. 250</span>
+                <form action="${pageContext.request.contextPath}/cart" method="post">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="id"    value="103">
+            <input type="hidden" name="name"  value="Strawberry Milk">
+            <input type="hidden" name="price" value="75">
+            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        </form>
+            </div>
+	
         </div>
     </div>
 

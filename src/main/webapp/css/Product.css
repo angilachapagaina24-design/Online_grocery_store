@@ -37,13 +37,24 @@ body {
     box-sizing: border-box;
 }
 
+
 /* ================= CATEGORY ================= */
 .category-container {
     display: flex;
     justify-content: center;
     gap: 50px;
     padding: 20px 0;
+    align-items: flex-start; /* Ensures all items start at the same top level */
 }
+
+.cat-item {
+    display: flex;
+    flex-direction: column; /* Stack circle and text vertically */
+    align-items: center;    /* Center the text horizontally under the circle */
+    width: 120px;           /* Give it a fixed width so text doesn't push the circle */
+    text-align: center;
+}
+
 .circle-box {
     width: 110px;
     height: 110px;
@@ -53,8 +64,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;      /* Keeps the image inside the circle */
+    margin-bottom: 10px;   /* Pushes the text down */
 }
 
+.cat-item p {
+    margin: 0;             /* Reset any hidden margins */
+    font-size: 15px;
+    color: #2c3e50;
+    font-weight: 600;
+}
 /* ================= PRODUCTS ================= */
 .product-list {
     display: flex;

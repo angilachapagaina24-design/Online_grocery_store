@@ -19,7 +19,7 @@ public class ContactServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("contact.jsp").forward(request, response);
+    	request.getRequestDispatcher("/pages/Contact.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -32,13 +32,13 @@ public class ContactServlet extends HttpServlet {
 
         try {
             sendEmail(name, email, subject, messageText);
-            request.setAttribute("message", "✅ Message sent successfully!");
+            request.setAttribute("message", "Message sent successfully!");
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("message", "❌ Failed to send message.");
+            request.setAttribute("message", "Failed to send message.");
         }
 
-        request.getRequestDispatcher("contact.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/Contact.jsp").forward(request, response);
     }
 
     private void sendEmail(String name, String email, String subject, String messageText) throws Exception {

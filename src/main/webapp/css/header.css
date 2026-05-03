@@ -1,37 +1,52 @@
+/* 1. Reset always goes at the top */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 2. Specific styles go below the reset */
+body {
+    /* This will now stay active and not be reset to 0 */
+    padding-top: 85px; 
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f5f6fa;
+}
+
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #27ae60;
     padding: 15px 40px;
     color: white;
-}
-/* Logo */
-.Logo b {
-    font-size: 22px;
-    letter-spacing: 1px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* Navigation links */
-.Nav-bar a {
+.Logo b {
+    font-size: 24px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Fix for links so they don't turn blue/purple */
+.Nav-bar a, .nav-right a {
     margin: 0 15px;
     text-decoration: none;
-    color: white;
+    color: white;	
     font-weight: 600;
     transition: 0.3s;
 }
 
-.Nav-bar a:hover {
+.Nav-bar a:hover, .nav-right a:hover {
     color: #d1f2eb;
 }
 
-/* Right side */
 .nav-right {
     display: flex;
     align-items: center;
@@ -43,10 +58,4 @@
     border-radius: 20px;
     border: none;
     outline: none;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }
