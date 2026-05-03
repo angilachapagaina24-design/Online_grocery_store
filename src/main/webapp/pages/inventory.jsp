@@ -18,23 +18,23 @@
             <p>FreshMart</p>
         </div>
         <nav class="sidebar-nav">
-            <a href="${pageContext.request.contextPath}/admin/dashboard" class="nav-item">
+            <a href="${pageContext.request.contextPath}/adminDashboard" class="nav-item">
                 <span class="nav-icon">🏠</span>
                 <span>Dashboard</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/inventory" class="nav-item active">
+            <a href="${pageContext.request.contextPath}/inventory" class="nav-item active">
                 <span class="nav-icon">📦</span>
                 <span>Inventory</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/addProduct" class="nav-item">
+            <a href="${pageContext.request.contextPath}/addProduct" class="nav-item">
                 <span class="nav-icon">➕</span>
                 <span>Add Product</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/manageOrders" class="nav-item">
+            <a href="${pageContext.request.contextPath}/manageOrders" class="nav-item">
                 <span class="nav-icon">📋</span>
                 <span>Orders</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/manageUsers" class="nav-item">
+            <a href="${pageContext.request.contextPath}/manageUsers" class="nav-item">
                 <span class="nav-icon">👥</span>
                 <span>Users</span>
             </a>
@@ -56,7 +56,7 @@
                 <p class="breadcrumb">Manage all your products here.</p>
             </div>
             <div class="topbar-right">
-                <a href="${pageContext.request.contextPath}/admin/addProduct" class="btn-add">
+                <a href="${pageContext.request.contextPath}/addProduct" class="btn-add">
                     ➕ Add New Product
                 </a>
             </div>
@@ -72,7 +72,7 @@
 
         <!-- ── SEARCH BAR ── -->
         <div class="search-bar-row">
-            <form action="${pageContext.request.contextPath}/admin/inventory" method="get">
+            <form action="${pageContext.request.contextPath}/inventory" method="get">
                 <div class="search-input-wrap">
                     <span class="search-icon">🔍</span>
                     <input
@@ -145,13 +145,13 @@
                                     <td class="action-cell">
 
                                         <%-- EDIT: go to editProduct page with productId --%>
-                                        <a href="${pageContext.request.contextPath}/admin/editProduct?productId=${product.productId}"
+                                        <a href="${pageContext.request.contextPath}/editProduct?productId=${product.productId}"
                                            class="btn-icon btn-edit" title="Edit">
                                             ✏️
                                         </a>
 
                                         <%-- DELETE: POST form with productId --%>
-                                        <form action="${pageContext.request.contextPath}/admin/deleteProduct"
+                                        <form action="${pageContext.request.contextPath}/deleteProduct"
                                               method="post"
                                               style="display:inline;"
                                               onsubmit="return confirm('Are you sure you want to delete ${product.name}?')">
@@ -167,7 +167,7 @@
                             <tr>
                                 <td colspan="7" class="empty-row">
                                     No products found.
-                                    <a href="${pageContext.request.contextPath}/admin/addProduct">Add one now →</a>
+                                    <a href="${pageContext.request.contextPath}/addProduct">Add one now →</a>
                                 </td>
                             </tr>
                         </c:otherwise>

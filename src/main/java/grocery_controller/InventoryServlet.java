@@ -17,7 +17,7 @@ import java.util.List;
  * URL: /admin/inventory
  * GET  → shows all products (or search results)
  */
-@WebServlet("/admin/inventory")
+@WebServlet("/inventory")
 public class InventoryServlet extends HttpServlet {
  
     @Override

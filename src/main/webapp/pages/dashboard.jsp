@@ -11,44 +11,44 @@
 
 <div class="admin-wrapper">
 
-    <!-- ----------- SIDEBAR ------------>
+   
     <div class="sidebar">
         <div class="sidebar-logo">
         
-            <span>🛒</span>
+            <span></span>
             <p>FreshMart</p>
         </div>
         <nav class="sidebar-nav">
-            <a href="${pageContext.request.contextPath}/admin/dashboard" class="nav-item active">
+            <a href="${pageContext.request.contextPath}/adminDashboard" class="nav-item active">
            
-                <span class="nav-icon">🏠</span>
+                <span class="nav-icon"></span>
                 <span>Dashboard</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/inventory" class="nav-item">
-                <span class="nav-icon">📦</span>
+            
+            
+            <a href="${pageContext.request.contextPath}/inventory" class="nav-item">
+                <span class="nav-icon"></span>
                 <span>Inventory</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/addProduct" class="nav-item">
-                <span class="nav-icon">➕</span>
+            <a href="${pageContext.request.contextPath}/addProduct" class="nav-item">
+                <span class="nav-icon"></span>
                 <span>Add Product</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/manageOrders" class="nav-item">
-                <span class="nav-icon">📋</span>
+            <a href="${pageContext.request.contextPath}/manageOrders" class="nav-item">
+                <span class="nav-icon"></span>
                 <span>Orders</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/manageUsers" class="nav-item">
-                <span class="nav-icon">👥</span>
+            <a href="${pageContext.request.contextPath}/manageUsers" class="nav-item">
+                <span class="nav-icon"></span>
                 <span>Users</span>
             </a>
             <a href="${pageContext.request.contextPath}/logout" class="nav-item logout">
-                <span class="nav-icon">🚪</span>
+                <span class="nav-icon"></span>
                 <span>Logout</span>
             </a>
         </nav>
     </div>
-    <!--------------------------------- END SIDEBAR ----------------->
 
-    <!-----------------MAIN CONTENT -------------------------------->
     <div class="main-content">
 
         <!-- Top Bar -->
@@ -59,7 +59,7 @@
             </div>
             <div class="topbar-right">
                 <div class="admin-badge">
-                    <span>👤</span>
+                    <span></span>
                     <span>${sessionScope.user.fullName}</span>
                     <span class="role-tag">Admin</span>
                 </div>
@@ -69,21 +69,21 @@
         <!-- ── STATS CARDS ── -->
         <div class="stats-row">
             <div class="stat-card green">
-                <div class="stat-icon">💰</div>
+                <div class="stat-icon"></div>
                 <div class="stat-info">
                     <p class="stat-label">Total Sales</p>
                     <h3 class="stat-value">Rs. ${totalSales != null ? totalSales : '0.00'}</h3>
                 </div>
             </div>
             <div class="stat-card orange">
-                <div class="stat-icon">🧾</div>
+                <div class="stat-icon"></div>
                 <div class="stat-info">
                     <p class="stat-label">Total Orders</p>
                     <h3 class="stat-value">${totalOrders != null ? totalOrders : '0'}</h3>
                 </div>
             </div>
             <div class="stat-card blue">
-                <div class="stat-icon">🛍️</div>
+                <div class="stat-icon"></div>
                 <div class="stat-info">
                     <p class="stat-label">Total Products</p>
                     <h3 class="stat-value">${totalProducts != null ? totalProducts : '0'}</h3>
@@ -175,10 +175,9 @@
             </div>
 
         </div>
-        <!-- ── END TABLES ROW ── -->
+       
 
     </div>
-    <!-- ===================== END MAIN CONTENT ===================== -->
 
 </div>
 

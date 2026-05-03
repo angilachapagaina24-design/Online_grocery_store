@@ -18,15 +18,15 @@
             <p>FreshMart</p>
         </div>
         <nav class="sidebar-nav">
-            <a href="${pageContext.request.contextPath}/admin/dashboard" class="nav-item">
+            <a href="${pageContext.request.contextPath}/adminDashboard" class="nav-item">
                 <span class="nav-icon">🏠</span>
                 <span>Dashboard</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/inventory" class="nav-item">
+            <a href="${pageContext.request.contextPath}/inventory" class="nav-item">
                 <span class="nav-icon">📦</span>
                 <span>Inventory</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/addProduct" class="nav-item active">
+            <a href="${pageContext.request.contextPath}/addProduct" class="nav-item active">
                 <span class="nav-icon">➕</span>
                 <span>Add Product</span>
             </a>

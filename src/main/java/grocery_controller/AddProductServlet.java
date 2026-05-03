@@ -23,7 +23,7 @@ import grocery_model.Category;
  * GET  → loads category list and shows addProduct.jsp form
  * POST → saves new product to DB, then redirects to inventory
  */
-@WebServlet("/admin/addProduct") // ✅ FIXED (lowercase)
+@WebServlet("/addProduct")
 @MultipartConfig(
     fileSizeThreshold = 1024 * 1024,
     maxFileSize       = 1024 * 1024 * 10,
