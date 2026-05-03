@@ -20,7 +20,12 @@
     <!-- Right side -->
     <div class="nav-right">
 
-        <input type="text" placeholder="Search products..." class="search-box">
+        <!-- ===== SEARCH FORM — यो मात्र नयाँ ===== -->
+        <form action="${pageContext.request.contextPath}/search" method="get" class="search-form">
+            <input type="text" name="q" placeholder="Search products..."
+                   class="search-box" value="${param.q}">
+            <button type="submit" class="search-btn"></button>
+        </form>
 
         <!-- Cart -->
         <a href="${pageContext.request.contextPath}/cart" class="cart-link">

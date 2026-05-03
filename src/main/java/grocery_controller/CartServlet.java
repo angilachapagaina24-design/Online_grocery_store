@@ -98,7 +98,7 @@ public class CartServlet extends HttpServlet {
         
         String referer = request.getHeader("referer");
         if (referer != null) {
-            response.sendRedirect(referer.split("#")[0]); // remove anchor
+            response.sendRedirect(referer.split("#")[0]); 
         } else {
             response.sendRedirect(request.getContextPath() + "/home");
         }

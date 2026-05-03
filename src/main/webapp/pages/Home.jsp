@@ -124,7 +124,7 @@
       <p class="price">Rs. 100/ltr</p>
       <form action="${pageContext.request.contextPath}/cart" method="post">
         <input type="hidden" name="action" value="add">
-        <input type="hidden" name="id"    value="3">
+        <input type="hidden" name="id"    value="5">
         <input type="hidden" name="name"  value="Milk">
         <input type="hidden" name="price" value="100">
          <input type="hidden" name="image"  value="milk2.png">
@@ -138,7 +138,7 @@
       <p class="price">Rs. 450</p>
       <form action="${pageContext.request.contextPath}/cart" method="post">
         <input type="hidden" name="action" value="add">
-        <input type="hidden" name="id"    value="3">
+        <input type="hidden" name="id"    value="6">
         <input type="hidden" name="name"  value="Jam">
         <input type="hidden" name="price" value="450">
          <input type="hidden" name="image"  value="jam.png">

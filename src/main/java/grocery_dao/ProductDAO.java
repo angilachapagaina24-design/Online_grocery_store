@@ -58,20 +58,23 @@ public class ProductDAO {
     // -------------------------------------------------------
     // Search products by name (for search bar)
     // -------------------------------------------------------
-    public List<Product> searchProducts(String keyword) throws ClassNotFoundException {
+    public List<Product> searchProducts(String keyword) {
         List<Product> list = new ArrayList<>();
-        String query = "SELECT * FROM products WHERE name LIKE ? OR brand LIKE ?";
-        try (Connection conn = DBGroceryConfig.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            
-            ps.setString(1, "%" + keyword + "%");
-            ps.setString(2, "%" + keyword + "%");
-            
+        String sql = "SELECT * FROM product WHERE (name LIKE ? OR description LIKE ?) AND status='available'";
+
+        try (Connection con = DBGroceryConfig.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            String k = "%" + keyword + "%";
+            ps.setString(1, k);
+            ps.setString(2, k);
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                // Map ResultSet to Product object and add to list
+                list.add(mapRow(rs));  // mapRow() already cha
             }
-        } catch (SQLException e) {
+
+        } catch (Exception e) {   // ← ClassNotFoundException पनि catch हुन्छ
             e.printStackTrace();
         }
         return list;

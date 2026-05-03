@@ -14,22 +14,26 @@ VALUES
 -- =========================
 
 
-INSERT INTO category (category_name, description, image_url)
-VALUES 
-('Bakery', 'Freshly baked bread and buns', 'Images/bakery.png'),
-('Grains', 'Rice, lentils, and flour', 'Images/grains.jpg'),
-('Fruits', 'Apple, Banana, and Mango', 'Images/fruits.png');
+INSERT INTO category (category_name, description, image_url) VALUES
+('Fruits',             'Fresh fruits',          'fruits 1.png'),
+('Vegetables',         'Fresh vegetables',      'vegetables 1.png'),
+('Dairy',              'Dairy products',        'dairy 1.png'),
+('Bakery',             'Baked goods',           'bakery.png'),
+('Beverages',          'Drinks and juices',     'beverages 1.png'),
+('Spices & Seasoning', 'Spices and seasonings', 'spices and seasoning 1.png');
+
 -- =========================
 -- PRODUCTS
 -- =========================
-INSERT INTO product 
-(category_id, name, description, price, stock_quantity, unit, brand, image_url)
-VALUES
-(1, 'Apple', 'Fresh red apples', 200.00, 50, 'kg', 'Local Farm', 'apple.png'),
-(1, 'Banana', 'Sweet bananas', 120.00, 100, 'dozen', 'Organic', 'banana.jpg'),
-(2, 'Potato', 'Fresh potatoes', 60.00, 200, 'kg', 'Local Farm', 'potato.jpg'),
-(2, 'Milk', 'Fresh cow milk', 90.00, 80, 'litre', 'DairyBest', 'milk.jpg'),
-(2, 'Coca Cola', 'Soft drink', 50.00, 150, 'bottle', 'Coca Cola', 'coke.jpg');
+INSERT INTO product (category_id, name, description, price, stock_quantity, unit, image_url, brand) VALUES
+(1, 'Organic Bananas', 'Fresh organic bananas',  120, 100, 'dozen',  'Banana 1 1.png',       'Organic'),
+(3, 'Fresh Milk',      'Fresh cow milk',          75,  80, 'litre',  'milk 1.png',           'DairyBest'),
+(4, 'Whole Bread',     'Whole wheat bread',       75,  50, 'piece',  'bread 1.png',          'BakeryFresh'),
+(5, 'Tropical Drinks', 'Tropical fruit juice',   100,  60, 'bottle', 'juice 1.png',          'TropicFresh'),
+(6, 'Buldak Ramen',    'Spicy Korean ramen',     250,  40, 'pack',   'buldak 1.png',         'Samyang'),
+(1, 'Brown Egg',       'Farm fresh brown eggs',  500,  30, 'dozen',  'brown eggs 1.png',     'LocalFarm'),
+(6, 'Mapel Syrup',     'Pure maple syrup',       380,  25, 'bottle', 'mapel syrup.png',      'PureLeaf'),
+(3, 'Strawberry Milk', 'Fresh strawberry milk',  250,  45, 'litre',  'strawberrymilk 1.png', 'DairyBest');
 
 -- =========================
 -- CART ITEMS

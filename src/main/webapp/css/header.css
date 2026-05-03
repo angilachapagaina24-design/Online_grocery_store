@@ -53,9 +53,42 @@ body {
     gap: 15px;
 }
 
+
+.search-form {
+    display: flex;
+    align-items: center;
+    background: white;          /* ← form नै white */
+    border-radius: 20px;        /* ← पूरै form rounded */
+    overflow: hidden;           /* ← children बाहिर जान दिँदैन */
+    height: 38px;
+}
+
 .search-box {
     padding: 8px 12px;
-    border-radius: 20px;
     border: none;
     outline: none;
+    width: 180px;
+    height: 100%;
+    font-size: 14px;
+    background: transparent;    /* ← form को white देखिन्छ */
 }
+
+.search-btn {
+    background: #219150;
+    border: none;
+    padding: 0 14px;
+    height: 100%;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.search-btn:hover {
+    background: #1a7a40;
+}
+.search-btn::after {
+    content: '\21B5';
+    font-size: 35px;    /* ← size बढाउनुस् */
+} 
+
