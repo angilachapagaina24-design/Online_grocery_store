@@ -16,10 +16,10 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin/dashboard")
+@WebServlet("/adminDashboard")
 public class AdminDashboardServlet extends HttpServlet {
 
-    @Override
+    @Override	
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
