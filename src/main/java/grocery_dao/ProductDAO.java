@@ -6,18 +6,17 @@ import java.util.List;
 import grocery_model.Product;
 import grocery_utilities.DBGroceryConfig;
  
-/**
- * Data Access Object for Product.
- * Handles all DB operations related to the 'product' table.
- */
 public class ProductDAO {
  
-    // -------------------------------------------------------
+   
     // Get all available products (for homepage / product page)
-    // -------------------------------------------------------
+  
     public List<Product> getAllProducts() {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM product WHERE status='available'";
+        String sql = "SELECT product_id, category_id, name, description, price, " +
+                "stock_quantity, unit, image_url, brand, expiry_date, status " +
+                "FROM product WHERE LOWER(status)='available'";
+
  
         try (Connection con = DBGroceryConfig.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -33,12 +32,12 @@ public class ProductDAO {
         return list;
     }
  
-    // -------------------------------------------------------
+ 
     // Get products by category (for category filter)
-    // -------------------------------------------------------
+
     public List<Product> getProductsByCategory(int categoryId) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM product WHERE category_id=? AND status='available'";
+        String sql = "SELECT * FROM product WHERE category_id=? AND LOWER(status)='available'";
  
         try (Connection con = DBGroceryConfig.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -55,12 +54,15 @@ public class ProductDAO {
         return list;
     }
  
-    // -------------------------------------------------------
+  
     // Search products by name (for search bar)
-    // -------------------------------------------------------
+ 
     public List<Product> searchProducts(String keyword) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM product WHERE (name LIKE ? OR description LIKE ?) AND status='available'";
+        String sql =  "SELECT * FROM product WHERE " +
+                "(LOWER(name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)) " +
+                "AND LOWER(status)='available'";
+
 
         try (Connection con = DBGroceryConfig.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -74,16 +76,16 @@ public class ProductDAO {
                 list.add(mapRow(rs));  // mapRow() already cha
             }
 
-        } catch (Exception e) {   // ← ClassNotFoundException पनि catch हुन्छ
-            e.printStackTrace();
+        } catch (Exception e) {  
+        	e.printStackTrace();
         }
         return list;
     }
     
  
-    // -------------------------------------------------------
+   
     // Get single product by ID
-    // -------------------------------------------------------
+
     public Product getProductById(int productId) {
         Product product = null;
         String sql = "SELECT * FROM product WHERE product_id=?";
@@ -103,9 +105,9 @@ public class ProductDAO {
         return product;
     }
  
-    // -------------------------------------------------------
+  
     // ADMIN: Add new product
-    // -------------------------------------------------------
+   
     public boolean addProduct(Product p) {
         String sql = "INSERT INTO product (category_id, name, description, price, stock_quantity, unit, image_url, brand, expiry_date, status) VALUES (?,?,?,?,?,?,?,?,?,?)";
  
@@ -131,11 +133,13 @@ public class ProductDAO {
         return false;
     }
  
-    // -------------------------------------------------------
+
     // ADMIN: Update existing product
-    // -------------------------------------------------------
+
     public boolean updateProduct(Product p) {
-        String sql = "UPDATE product SET category_id=?, name=?, description=?, price=?, stock_quantity=?, unit=?, image_url=?, brand=?, expiry_date=?, status=? WHERE product_id=?";
+        String sql = "UPDATE product SET category_id=?, name=?, description=?, price=?, " +
+                "stock_quantity=?, unit=?, image_url=?, brand=?, expiry_date=?, status=? " +
+                "WHERE product_id=?";
  
         try (Connection con = DBGroceryConfig.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -160,9 +164,9 @@ public class ProductDAO {
         return false;
     }
  
-    // -------------------------------------------------------
+ 
     // ADMIN: Delete product by ID
-    // -------------------------------------------------------
+ 
     public boolean deleteProduct(int productId) {
         String sql = "DELETE FROM product WHERE product_id=?";
  
@@ -177,27 +181,14 @@ public class ProductDAO {
         }
         return false;
     }
- 
-    // -------------------------------------------------------
-    // Helper: Map ResultSet row to Product object
-    // -------------------------------------------------------
-    private Product mapRow(ResultSet rs) throws SQLException {
-        Product p = new Product();
-        p.setProductId(rs.getInt("product_id"));
-        p.setCategoryId(rs.getInt("category_id"));
-        p.setName(rs.getString("name"));
-        p.setDescription(rs.getString("description"));
-        p.setPrice(rs.getDouble("price"));
-        p.setStockQuantity(rs.getInt("stock_quantity"));
-        p.setUnit(rs.getString("unit"));
-        p.setImageUrl(rs.getString("image_url"));
-        p.setBrand(rs.getString("brand"));
-        p.setStatus(rs.getString("status"));
-        return p;
-    }
+    
+    
+    // TOTAL PRODUCT COUNT
+    
+    public int getTotalProductCount1() {
 
-    public int getTotalProductCount() {
         int count = 0;
+
         String sql = "SELECT COUNT(*) FROM product";
 
         try (Connection con = DBGroceryConfig.getConnection();
@@ -211,6 +202,29 @@ public class ProductDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return count;
+    }
+
+  
+    // Helper: Map ResultSet row to Product object
+   
+    private Product mapRow(ResultSet rs) throws SQLException {
+
+        Product p = new Product();
+
+        p.setProductId(rs.getInt("product_id"));
+        p.setCategoryId(rs.getInt("category_id"));
+        p.setName(rs.getString("name"));
+        p.setDescription(rs.getString("description"));
+        p.setPrice(rs.getDouble("price"));
+        p.setStockQuantity(rs.getInt("stock_quantity"));
+        p.setUnit(rs.getString("unit"));
+        p.setImageUrl(rs.getString("image_url"));
+        p.setBrand(rs.getString("brand"));
+        p.setExpiryDate(rs.getString("expiry_date"));
+        p.setStatus(rs.getString("status"));
+
+        return p;
     }
 	}
