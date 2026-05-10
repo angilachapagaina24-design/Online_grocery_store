@@ -67,7 +67,7 @@
 
     <div class="actions">
         <a href="${pageContext.request.contextPath}/home" class="btn view">Continue Shopping</a>
-        <a href="#" class="btn checkout">Checkout</a>
+       <a href="<%= request.getContextPath() %>/checkout" class="btn checkout">Checkout</a>
     </div>
 
 </div><%-- container end --%>
