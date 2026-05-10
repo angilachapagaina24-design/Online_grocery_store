@@ -1,17 +1,17 @@
 USE grocery_store;
 
--- =========================
+
 -- USERS
--- =========================
+
 INSERT INTO users (full_name, email, password, phone, address, role)
 VALUES
 ('Admin User', 'admin@grocery.com', 'admin123', '9800000000', 'Pokhara', 'admin'),
 ('John Doe', 'john@gmail.com', '123456', '9811111111', 'Kathmandu', 'customer'),
 ('Jane Smith', 'jane@gmail.com', '123456', '9822222222', 'Lalitpur', 'customer');
 
--- =========================
+
 -- CATEGORIES
--- =========================
+
 
 
 INSERT INTO category (category_name, description, image_url) VALUES
@@ -22,9 +22,110 @@ INSERT INTO category (category_name, description, image_url) VALUES
 ('Beverages',          'Drinks and juices',     'beverages 1.png'),
 ('Spices & Seasoning', 'Spices and seasonings', 'spices and seasoning 1.png');
 
--- =========================
+
+
+-- FRUITS
+
+INSERT INTO product
+(category_id, name, description, price, stock_quantity, unit, image_url, brand)
+VALUES
+
+(1, 'Organic Bananas', 'Fresh organic bananas', 120, 100, 'dozen', 'Banana 1 1.png', 'Organic'),
+
+(1, 'Red Apple', 'Fresh red apples', 180, 70, 'kg', 'apple.png', 'FreshFarm'),
+
+(1, 'Orange', 'Sweet juicy oranges', 160, 60, 'kg', 'orange.png', 'CitrusFresh'),
+
+(1, 'Grapes', 'Seedless green grapes', 240, 40, 'kg', 'grapes.png', 'FreshFarm');
+
+
+
+
+-- VEGETABLES
+
+INSERT INTO product
+(category_id, name, description, price, stock_quantity, unit, image_url, brand)
+VALUES
+
+(2, 'Tomato', 'Fresh organic tomatoes', 90, 100, 'kg', 'tomato.png', 'GreenLeaf'),
+
+(2, 'Potato', 'Farm fresh potatoes', 70, 120, 'kg', 'potato.png', 'LocalFarm'),
+
+(2, 'Carrot', 'Healthy orange carrots', 110, 80, 'kg', 'carrot.png', 'VeggieFresh'),
+
+(2, 'Broccoli', 'Fresh green broccoli', 220, 35, 'kg', 'broccoli.png', 'GreenLeaf');
+
+
+
+
+
+
+-- DAIRY
+
+INSERT INTO product
+(category_id, name, description, price, stock_quantity, unit, image_url, brand)
+VALUES
+
+(3, 'Fresh Milk', 'Fresh cow milk', 75, 80, 'litre', 'milk 1.png', 'DairyBest'),
+
+(3, 'Strawberry Milk', 'Fresh strawberry milk', 250, 45, 'litre', 'strawberrymilk 1.png', 'DairyBest'),
+
+(3, 'Cheese', 'Processed cheese block', 350, 40, 'pack', 'cheese.png', 'Amul'),
+
+(3, 'Butter', 'Creamy dairy butter', 280, 50, 'pack', 'butter.png', 'DairyBest');
+
+
+
+-- BAKERY
+
+INSERT INTO product
+(category_id, name, description, price, stock_quantity, unit, image_url, brand)
+VALUES
+
+(4, 'Whole Bread', 'Whole wheat bread', 75, 50, 'piece', 'bread 1.png', 'BakeryFresh'),
+
+(4, 'Chocolate Cake', 'Soft chocolate cake', 550, 20, 'piece', 'cake.png', 'BakeryFresh'),
+
+(4, 'Croissant', 'French butter croissant', 150, 35, 'piece', 'croissant.png', 'BakeHouse'),
+
+(4, 'Donut', 'Sweet chocolate donut', 90, 60, 'piece', 'donut.png', 'SweetBake');
+
+
+
+
+-- BEVERAGES
+
+INSERT INTO product
+(category_id, name, description, price, stock_quantity, unit, image_url, brand)
+VALUES
+
+(5, 'Tropical Drinks', 'Tropical fruit juice', 100, 60, 'bottle', 'juice 1.png', 'TropicFresh'),
+
+(5, 'Coca Cola', 'Cold soft drink', 120, 90, 'bottle', 'cocacola.png', 'CocaCola'),
+
+(5, 'Mineral Water', 'Pure drinking water', 40, 200, 'bottle', 'water.png', 'AquaFresh'),
+
+(5, 'Orange Juice', 'Fresh orange juice', 180, 55, 'bottle', 'orangejuice.png', 'JuicyFresh');
+
+
+
+-- SPICES & SEASONING
+
+INSERT INTO product
+(category_id, name, description, price, stock_quantity, unit, image_url, brand)
+VALUES
+
+(6, 'Buldak Ramen', 'Spicy Korean ramen', 250, 40, 'pack', 'buldak 1.png', 'Samyang'),
+
+(6, 'Mapel Syrup', 'Pure maple syrup', 380, 25, 'bottle', 'mapel syrup.png', 'PureLeaf'),
+
+(6, 'Black Pepper', 'Premium black pepper', 220, 30, 'pack', 'blackpepper.png', 'SpiceWorld'),
+
+(6, 'Turmeric Powder', 'Organic turmeric powder', 180, 45, 'pack', 'turmeric.png', 'SpiceWorld');
+
+
 -- PRODUCTS
--- =========================
+
 INSERT INTO product (category_id, name, description, price, stock_quantity, unit, image_url, brand) VALUES
 (1, 'Organic Bananas', 'Fresh organic bananas',  120, 100, 'dozen',  'Banana 1 1.png',       'Organic'),
 (3, 'Fresh Milk',      'Fresh cow milk',          75,  80, 'litre',  'milk 1.png',           'DairyBest'),
@@ -35,26 +136,27 @@ INSERT INTO product (category_id, name, description, price, stock_quantity, unit
 (6, 'Mapel Syrup',     'Pure maple syrup',       380,  25, 'bottle', 'mapel syrup.png',      'PureLeaf'),
 (3, 'Strawberry Milk', 'Fresh strawberry milk',  250,  45, 'litre',  'strawberrymilk 1.png', 'DairyBest');
 
--- =========================
+
 -- CART ITEMS
--- =========================
+
 INSERT INTO cart_items (user_id, product_id, quantity)
 VALUES
 (2, 1, 2),
 (2, 3, 1),
 (3, 2, 5);
 
--- =========================
+
+
 -- ORDERS
--- =========================
+
 INSERT INTO orders (user_id, total_amount, order_status, payment_method, payment_status, delivery_address)
 VALUES
 (2, 460.00, 'confirmed', 'cash_on_delivery', 'unpaid', 'Kathmandu'),
 (3, 600.00, 'pending', 'online', 'paid', 'Lalitpur');
 
--- =========================
+
 -- ORDER ITEMS
--- =========================
+
 INSERT INTO order_items (order_id, product_id, quantity, price)
 VALUES
 (1, 1, 2, 200.00),
