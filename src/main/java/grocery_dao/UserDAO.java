@@ -62,4 +62,41 @@ public class UserDAO {
         }
         return user;
     }
+    public User getUserById(int userId) {
+        User user = null;
+        String sql = "SELECT * FROM users WHERE user_id=? AND status='active'";
+        try (Connection conn = DBGroceryConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setFullName(rs.getString("full_name"));
+                user.setEmail(rs.getString("email"));
+                user.setPhone(rs.getString("phone"));
+                user.setAddress(rs.getString("address"));
+                user.setRole(rs.getString("role"));
+                user.setStatus(rs.getString("status"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public boolean updateUser(User user) {
+        String sql = "UPDATE users SET full_name=?, phone=?, address=? WHERE user_id=?";
+        try (Connection conn = DBGroceryConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, user.getFullName());
+            ps.setString(2, user.getPhone());
+            ps.setString(3, user.getAddress());
+            ps.setInt(4, user.getUserId());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

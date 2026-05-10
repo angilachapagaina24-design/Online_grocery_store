@@ -59,17 +59,52 @@
 
         <!-- Login -->
         <c:choose>
-            <c:when test="${not empty sessionScope.user}">
-                <span style="color:white; font-weight:600;">
-                    Hi, ${sessionScope.user.fullName}
-                </span>
-                <a href="${pageContext.request.contextPath}/logout">Logout</a>
-            </c:when>
+    <c:when test="${not empty sessionScope.user}">
 
-            <c:otherwise>
-                <a href="${pageContext.request.contextPath}/login">Sign in</a>
-            </c:otherwise>
-        </c:choose>
+        <!-- Profile Avatar Circle + Name — click garda profile jaos -->
+        <a href="${pageContext.request.contextPath}/profile" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: white;">
+
+ 
+            <span style="
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background: #1b5e20;
+                border: 2px solid white;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 15px;
+                color: white;
+                flex-shrink: 0;">
+                ${fn:substring(sessionScope.user.fullName, 0, 1)}
+            </span>
+
+           
+            
+        </a>
+
+        <!-- Logout -->
+        <a href="${pageContext.request.contextPath}/logout"
+           style="color:white; text-decoration:none; margin-left:8px;">
+            Logout
+        </a>
+
+    </c:when>
+
+    <c:otherwise>
+        <a href="${pageContext.request.contextPath}/login"
+           style="color:white; text-decoration:none;">
+            Sign in
+        </a>
+    </c:otherwise>
+</c:choose>
 
     </div>
 
