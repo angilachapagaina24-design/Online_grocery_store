@@ -8,9 +8,10 @@ import grocery_model.Category;
 import grocery_utilities.DBGroceryConfig;
 
 public class CategoryDAO {
-    public List<Category> getAllCategories() {
-        List<Category> list = new ArrayList<>();
 
+    public List<Category> getAllCategories() {
+
+        List<Category> list = new ArrayList<>();
         String sql = "SELECT * FROM category WHERE status='active'";
 
         try (Connection con = DBGroceryConfig.getConnection();

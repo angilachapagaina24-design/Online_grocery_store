@@ -9,11 +9,9 @@ import grocery_utilities.DBGroceryConfig;
 
 public class OrderDAO {
 
-    
-    // Total number of orders
-
     public int getTotalOrderCount() {
         int count = 0;
+
         String sql = "SELECT COUNT(*) FROM orders";
 
         try (Connection con = DBGroceryConfig.getConnection();
@@ -27,14 +25,13 @@ public class OrderDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return count;
     }
 
-
-    // Total sales amount
-
     public double getTotalSalesAmount() {
         double total = 0;
+
         String sql = "SELECT SUM(total_amount) FROM orders WHERE order_status='delivered'";
 
         try (Connection con = DBGroceryConfig.getConnection();
@@ -48,13 +45,12 @@ public class OrderDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return total;
     }
 
- 
-    // Get recent orders (LIMIT)
-   
     public List<Order> getRecentOrders(int limit) {
+
         List<Order> list = new ArrayList<>();
 
         String sql = "SELECT o.order_id, u.full_name, o.total_amount, o.order_status " +
@@ -68,7 +64,9 @@ public class OrderDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+
                 Order o = new Order();
+
                 o.setOrder_status(rs.getInt("order_id"));
                 o.setUserName(rs.getString("full_name"));
                 o.setTotal_amount(rs.getDouble("total_amount"));

@@ -1,250 +1,210 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Product</title>
-</head>
+<title>Products</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Product.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Footer.css">
+
+<style>
+    .product-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 10px !important;
+        margin-top: 25px;
+    }
+    .product-item {
+        width: calc(25% - 8px) !important;
+        min-width: 200px;
+        padding: 20px;
+        border: 1px solid #f0f0f0;
+        background: #fff;
+        text-align: center;
+        border-radius: 12px;
+        transition: 0.3s;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .circle-box {
+    border: 2px solid #f0f0f0;
+    border-radius: 50%;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    width: 90px;
+    overflow: hidden;
+    background: #fff;
+	}
+	
+	.cat-item.active-cat .circle-box {
+    border: 2px solid #2ecc71 !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important;
+}
+    
+</style>
+</head>
 
 <body>
 
 <jsp:include page="header.jsp"/>
 
-<!-- ONLY PRODUCT CONTENT WRAPPED -->
+<!-- ================= CATEGORY SECTION ================= -->
+<div class="section">
+    <h2>Category</h2>
 
-    <!-- ================= CATEGORY ================= -->
-    <div class="section">
-        <h2>Category</h2>
+    <div class="category-container">
 
-        <div class="category-container">
+        <!-- All Products -->
+        <div class="cat-item ${empty param.category ? 'active-cat' : ''}">
+            <a href="${pageContext.request.contextPath}/product">
+                <div class="circle-box">
+                    <img src="${pageContext.request.contextPath}/Images/all.png" width="80"
+                         onerror="this.style.fontSize='30px';this.alt='🛒';this.style.lineHeight='90px';">
+                </div>
+            </a>
+            <p>All</p>
+        </div>
 
-            <div class="cat-item">
+        <!-- Fruits -->
+        <div class="cat-item ${param.category == 'Fruits' ? 'active-cat' : ''}">
+            <a href="${pageContext.request.contextPath}/product?category=Fruits">
                 <div class="circle-box">
                     <img src="${pageContext.request.contextPath}/Images/fruits 1.png" width="90">
                 </div>
-                <p>Fruits</p>
-            </div>
+            </a>
+            <p>Fruits</p>
+        </div>
 
-            <div class="cat-item">
+        <!-- Vegetables -->
+        <div class="cat-item ${param.category == 'Vegetables' ? 'active-cat' : ''}">
+            <a href="${pageContext.request.contextPath}/product?category=Vegetables">
                 <div class="circle-box">
                     <img src="${pageContext.request.contextPath}/Images/vegetables 1.png" width="80">
                 </div>
-                <p>Vegetables</p>
-            </div>
-
-            <div class="cat-item">
-                <div class="circle-box">
-                 <img src="${pageContext.request.contextPath}/Images/dairy 1.png" width="90">
-                </div>
-                <p>Dairy</p>
-            </div>
-
-            <div class="cat-item">
-                <div class="circle-box">
-                <img src="${pageContext.request.contextPath}/Images/bakery.png" width="90">
-                </div>
-                <p>Bakery</p>
-            </div>
-            
-            <div class="cat-item">
-                <div class="circle-box">
-                <img src="${pageContext.request.contextPath}/Images/beverages%201.png" width="90">
-                </div>
-                <p>beverages</p>
-            </div>
-            
-            <div class="cat-item">
-                <div class="circle-box">
-                <img src="${pageContext.request.contextPath}/Images/spices%20and%20seasoning%201.png" width="90">
-                </div>
-                <p>Spices & Seasoning</p>
-            </div>
-            
-            
-            
-          
+            </a>
+            <p>Vegetables</p>
         </div>
+
+        <!-- Dairy -->
+        <div class="cat-item ${param.category == 'Dairy' ? 'active-cat' : ''}">
+            <a href="${pageContext.request.contextPath}/product?category=Dairy">
+                <div class="circle-box">
+                    <img src="${pageContext.request.contextPath}/Images/dairy 1.png" width="90">
+                </div>
+            </a>
+            <p>Dairy</p>
+        </div>
+
+        <!-- Bakery -->
+        <div class="cat-item ${param.category == 'Bakery' ? 'active-cat' : ''}">
+            <a href="${pageContext.request.contextPath}/product?category=Bakery">
+                <div class="circle-box">
+                    <img src="${pageContext.request.contextPath}/Images/bakery.png" width="90">
+                </div>
+            </a>
+            <p>Bakery</p>
+        </div>
+
+        <!-- Beverages -->
+        <div class="cat-item ${param.category == 'Beverages' ? 'active-cat' : ''}">
+            <a href="${pageContext.request.contextPath}/product?category=Beverages">
+                <div class="circle-box">
+                    <img src="${pageContext.request.contextPath}/Images/beverages%201.png" width="90">
+                </div>
+            </a>
+            <p>Beverages</p>
+        </div>
+
+        <!-- Spices -->
+        <div class="cat-item ${param.category == 'Spices & Seasoning' ? 'active-cat' : ''}">
+            <a href="${pageContext.request.contextPath}/product?category=Spices+%26+Seasoning">
+                <div class="circle-box">
+                    <img src="${pageContext.request.contextPath}/Images/spices%20and%20seasoning%201.png" width="90">
+                </div>
+            </a>
+            <p>Spices & Seasoning</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= PRODUCT LIST SECTION ================= -->
+<div class="section box">
+
+    <div class="tabs">
+        <h3 class="tab-active">${activeCategory}</h3>
     </div>
 
-    <!-- ================= BEST SELLING ================= -->
-    <div class="section box">
+    <div class="product-list">
 
-        <div class="tabs">
-            <h3>Best Selling</h3>
-            <h3>Latest</h3>
-        </div>
+        <c:choose>
 
-        <div class="product-list">
+            <%-- Products found → render each one dynamically --%>
+            <c:when test="${not empty productList}">
+                <c:forEach var="p" items="${productList}">
+                    <div class="product-item">
 
-            <div class="product-item">
-                <div class="img-placeholder">
-                    <img src="${pageContext.request.contextPath}/Images/Banana 1 1.png" width="140">
-                </div>
-                <p>Organic Bananas</p>
-                <span>Rs. 120</span>
-                <form action="${pageContext.request.contextPath}/cart" method="post">
-            	<input type="hidden" name="action" value="add">
-            	<input type="hidden" name="id"    value="101">
-            	<input type="hidden" name="name"  value="Organic Bananas">
-            	<input type="hidden" name="price" value="120">
-            	<input type="hidden" name="image" value="Banana 1 1.png">
-            	<button type="submit" class="add-to-cart-btn">Add to Cart</button>
-       			</form>
-            </div>
+                        <div class="img-placeholder" style="width:100%; height:150px; overflow:hidden; border-radius:8px;">
+                            <c:choose>
+                                <c:when test="${not empty p.imageUrl}">
+                                   <img src="${pageContext.request.contextPath}/Images/${p.imageUrl}"
+     									alt="${p.name}"
+    									style="width:100%; height:100%; object-fit:cover;"
+     									onerror="this.parentNode.innerHTML='<span class=\'no-img\'>No Image</span>'">
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="no-img">No Image</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
 
-            <div class="product-item">
-                <div class="img-placeholder">
-                    <img src="${pageContext.request.contextPath}/Images/milk 1.png" width="120">
-                </div>
-                <p>Fresh Milk</p>
-                <span>Rs. 75</span>
-                <form action="${pageContext.request.contextPath}/cart" method="post">
-            	<input type="hidden" name="action" value="add">
-            	<input type="hidden" name="id"    value="102">
-            	<input type="hidden" name="name"  value="Fresh Milk">
-            	<input type="hidden" name="price" value="75">
-            	<input type="hidden" name="image" value="milk 1.png">
-            	<button type="submit" class="add-to-cart-btn">Add to Cart</button>
-        		</form>
-            </div>
+                        <p>${p.name}</p>
+                        <span>Rs. <fmt:formatNumber value="${p.price}" maxFractionDigits="0"/></span>
 
-            <div class="product-item">
-                <div class="img-placeholder">
-                    <img src="${pageContext.request.contextPath}/Images/bread 1.png" width="80">
-                </div>
-                <p>Whole Bread</p>
-                <span>Rs. 75</span>
-                <form action="${pageContext.request.contextPath}/cart" method="post">
-            	<input type="hidden" name="action" value="add">
-            	<input type="hidden" name="id"    value="103">
-            	<input type="hidden" name="name"  value="Whole Bread">
-            	<input type="hidden" name="price" value="75">
-            	<input type="hidden" name="image" value="bread 1.png">
-            	<button type="submit" class="add-to-cart-btn">Add to Cart</button>
-        		</form>
-            </div>
+                        <c:if test="${p.stockQuantity > 0}">
+                            <form action="${pageContext.request.contextPath}/cart" method="post">
+                                <input type="hidden" name="action" value="add">
+                                <input type="hidden" name="id"    value="${p.productId}">
+                                <input type="hidden" name="name"  value="${p.name}">
+                                <input type="hidden" name="price" value="${p.price}">
+                                <input type="hidden" name="image" value="${p.imageUrl}">
+                                <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                            </form>
+                        </c:if>
 
+                        <c:if test="${p.stockQuantity <= 0}">
+                            <button class="add-to-cart-btn out-of-stock-btn" disabled>Out of Stock</button>
+                        </c:if>
 
-			<div class="product-item">
-                <div class="img-placeholder">
-                    <img src="${pageContext.request.contextPath}/Images/juice%201.png" width="140">
+                    </div>
+                </c:forEach>
+            </c:when>
+
+            <%-- No products found --%>
+            <c:otherwise>
+                <div class="no-products">
+                    <p>No products found
+                        <c:if test="${not empty param.category}">in <strong>${param.category}</strong></c:if>.
+                    </p>
                 </div>
-                <p>Tropical Drinks</p>
-                <span>Rs. 100</span>
-                <form action="${pageContext.request.contextPath}/cart" method="post">
-            <input type="hidden" name="action" value="add">
-            <input type="hidden" name="id"    value="104">
-            <input type="hidden" name="name"  value="Tropical Drinks">
-            <input type="hidden" name="price" value="100">
-            <input type="hidden" name="image" value="juice%201.png">
-            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-        </form>
-            </div>
-            
-            
-            <div class="product-item">
-                <div class="img-placeholder">
-                    <img src="${pageContext.request.contextPath}/Images/buldak%201.png" width="130">
-                </div>
-                <p>Buldak Ramen</p>
-                <span>Rs. 250</span>
-                <form action="${pageContext.request.contextPath}/cart" method="post">
-            <input type="hidden" name="action" value="add">
-            <input type="hidden" name="id"    value="105">
-            <input type="hidden" name="name"  value="Buldak Ramen">
-            <input type="hidden" name="price" value="250">
-            <input type="hidden" name="image" value="buldak%201.png">
-            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-        </form>
-            </div>
-            
-            
-            <div class="product-item">
-                <div class="img-placeholder">
-                    <img src="${pageContext.request.contextPath}/Images/brown%20eggs%201.png" width="140">
-                </div>
-                <p>Brown Egg</p>
-                <span>Rs. 500</span>
-                <form action="${pageContext.request.contextPath}/cart" method="post">
-            <input type="hidden" name="action" value="add">
-            <input type="hidden" name="id"    value="106">
-            <input type="hidden" name="name"  value="Brown Egg">
-            <input type="hidden" name="price" value="500">
-            <input type="hidden" name="image" value="brown%20eggs%201.png">
-            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-        </form>
-            </div>
-            
-            
-             <div class="product-item">
-                <div class="img-placeholder">
-                    <img src="${pageContext.request.contextPath}/Images/mapel%20syrup.png" width="80">
-                </div>
-                <p>Mapel Syrup</p>
-                <span>Rs. 380</span>
-                <form action="${pageContext.request.contextPath}/cart" method="post">
-            <input type="hidden" name="action" value="add">
-            <input type="hidden" name="id"    value="107">
-            <input type="hidden" name="name"  value="Mapel Syrup">
-            <input type="hidden" name="price" value="380">
-            <input type="hidden" name="image" value="mapel%20syrup.png">
-            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-        </form>
-            </div>
-            
-             <div class="product-item">
-                <div class="img-placeholder">
-                    <img src="${pageContext.request.contextPath}/Images/strawberrymilk%201.png" width="105">
-                </div>
-                <p>Strawberry Milk</p>
-                <span>Rs. 250</span>
-                <form action="${pageContext.request.contextPath}/cart" method="post">
-            <input type="hidden" name="action" value="add">
-            <input type="hidden" name="id"    value="108">
-            <input type="hidden" name="name"  value="Strawberry Milk">
-            <input type="hidden" name="price" value="250">
-            <input type="hidden" name="image" value="strawberrymilk%201.png">
-            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-        </form>
-            </div>
-	
-        </div>
+            </c:otherwise>
+
+        </c:choose>
+
     </div>
-
-    <!-- ================= SPECIAL PRODUCTS ================= -->
-    <div class="section box">
-
-        <h3>Special Products</h3>
-
-        <div class="product-list">
-
-            <div class="product-item">
-                <div class="img-placeholder"></div>
-                <p>Gift Hamper</p>
-            </div>
-
-            <div class="product-item">
-                <div class="img-placeholder"></div>
-                <p>Olive Oil Set</p>
-            </div>
-
-            <div class="product-item">
-                <div class="img-placeholder"></div>
-                <p>Cheese Box</p>
-            </div>
-
-        </div>
-    </div>
-
-
+</div>
 
 <jsp:include page="Footer.jsp"/>
 
 </body>
 </html>
-

@@ -89,46 +89,50 @@
         </div>
         <!-- ── END STATS CARDS ── -->
 
-        <!-- ── TABLES ROW ── -->
-        <div class="tables-row">
+<div class="tables-row">
+       <!-- Top Selling Products -->
+<div class="table-card">
+    <div class="table-header">
+        <h3>Top Selling Products</h3>
+    </div>
 
-            <!-- Top Selling Products -->
-            <div class="table-card">
-                <div class="table-header">
-                    <h3>Top Selling Products</h3>
-                </div>
-                <table class="dashboard-table">
-                    <thead>
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <c:choose>
+                <c:when test="${productList != null and not empty productList}">
+                    <c:forEach var="product" items="${productList}" varStatus="i">
                         <tr>
-                            <th>#</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Stock</th>
+                            <td>${i.index + 1}</td>
+                            <td>${product.name}</td>
+                            <td>Rs. ${product.price}</td>
+                            <td>
+                                <span class="badge ${product.stockQuantity gt 10 ? 'badge-green' : 'badge-red'}">
+                                    ${product.stockQuantity} ${product.unit}
+                                </span>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <c:choose>
-                            <c:when test="${not empty productList}">
-                                <c:forEach var="product" items="${productList}" varStatus="i">
-                                    <tr>
-                                        <td>${i.count}</td>
-                                        <td>${product.name}</td>
-                                        <td>Rs. ${product.price}</td>
-                                        <td>
-                                            <span class="badge ${product.stockQuantity > 10 ? 'badge-green' : 'badge-red'}">
-                                                ${product.stockQuantity} ${product.unit}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:when>
-                            <c:otherwise>
-                                <tr><td colspan="4" class="empty-row">No products found.</td></tr>
-                            </c:otherwise>
-                        </c:choose>
-                    </tbody>
-                </table>
-            </div>
+                    </c:forEach>
+                </c:when>
+
+                <c:otherwise>
+                    <tr>
+                        <td colspan="4" class="empty-row">No products found.</td>
+                    </tr>
+                </c:otherwise>
+            </c:choose>
+        </tbody>
+
+    </table>
+</div>
 
             <!-- Recent Orders -->
             <div class="table-card">
@@ -145,29 +149,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:choose>
-                            <c:when test="${not empty recentOrders}">
-                                <c:forEach var="order" items="${recentOrders}" varStatus="i">
-                                    <tr>
-                                        <td>${order.orderId}</td>
-                                        <td>${order.userName}</td>
-                                        <td>Rs. ${order.totalAmount}</td>
-                                        <td>
-                                            <span class="badge
-                                                ${order.orderStatus == 'delivered' ? 'badge-green' :
-                                                  order.orderStatus == 'pending'   ? 'badge-orange' :
-                                                  order.orderStatus == 'cancelled' ? 'badge-red' : 'badge-blue'}">
-                                                ${order.orderStatus}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </c:when>
-                            <c:otherwise>
-                                <tr><td colspan="4" class="empty-row">No recent orders found.</td></tr>
-                            </c:otherwise>
-                        </c:choose>
-                    </tbody>
+					    <c:choose>
+					        <c:when test="${recentOrders != null and not empty recentOrders}">
+					            <c:forEach var="order" items="${recentOrders}" varStatus="i">
+					                <tr>
+					                    <td>${i.index + 1}</td>
+					                    <td>${order.userName}</td>
+					                    <td>Rs. ${order.totalAmount}</td>
+					                    <td>
+					                        <span class="badge
+					                            ${order.orderStatus eq 'delivered' ? 'badge-green' :
+					                              order.orderStatus eq 'pending' ? 'badge-orange' :
+					                              order.orderStatus eq 'cancelled' ? 'badge-red' : 'badge-blue'}">
+					                            ${order.orderStatus}
+					                        </span>
+					                    </td>
+					                </tr>
+					            </c:forEach>
+					        </c:when>
+					
+					        <c:otherwise>
+					            <tr>
+					                <td colspan="4" class="empty-row">No recent orders found.</td>
+					            </tr>
+					        </c:otherwise>
+					    </c:choose>
+					</tbody>
                 </table>
             </div>
 
