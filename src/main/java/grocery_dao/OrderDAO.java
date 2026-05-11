@@ -65,65 +65,68 @@ public class OrderDAO {
     }
  
     public int placeOrder(int userId, double totalAmount,
-                          String shippingAddress, String paymentMethod,
-                          List<CartItem> cartItems) {
- 
-        String orderSql = "INSERT INTO orders (user_id, total_amount, shipping_address, payment_method) " +
-                          "VALUES (?, ?, ?, ?)";
-        String itemSql  = "INSERT INTO order_items (order_id, product_id, product_name, quantity, price) " +
-                          "VALUES (?, ?, ?, ?, ?)";
-        int generatedOrderId = -1;
- 
-        try (Connection con = DBGroceryConfig.getConnection()) {
-            con.setAutoCommit(false);
- 
-            // Step 1: Insert into orders table
-            try (PreparedStatement ps = con.prepareStatement(
-                    orderSql, Statement.RETURN_GENERATED_KEYS)) {
- 
-                ps.setInt(1, userId);
-                ps.setDouble(2, totalAmount);
-                ps.setString(3, shippingAddress);
-                ps.setString(4, paymentMethod);
-                ps.executeUpdate();
- 
-                try (ResultSet keys = ps.getGeneratedKeys()) {  // Fix: close ResultSet properly
-                    if (keys.next()) {
-                        generatedOrderId = keys.getInt(1);
-                    }
-                }
-            }
- 
-            // Step 2: Insert each cart item into order_items table
-            if (generatedOrderId != -1) {
-                try (PreparedStatement ps = con.prepareStatement(itemSql)) {
-                    for (CartItem item : cartItems) {
-                        ps.setInt(1, generatedOrderId);
-                        ps.setInt(2, item.getId());
-                        ps.setString(3, item.getName());
-                        ps.setInt(4, item.getQuantity());
-                        ps.setDouble(5, item.getPrice());
-                        ps.addBatch();
-                    }
-                    ps.executeBatch();
-                }
-            }
- 
-            con.commit();
- 
-        } Connection con = null;
-        try {
-            con = DBGroceryConfig.getConnection();
-            con.setAutoCommit(false);
-            // ... your insert logic ...
-            con.commit();
-        } catch (Exception e) {
-            if (con != null) try { con.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
-            e.printStackTrace();
-            generatedOrderId = -1;
-        } finally {
-            if (con != null) try { con.close(); } catch (SQLException ex) { ex.printStackTrace(); }
-        }
+            String shippingAddress, String paymentMethod,
+            List<CartItem> cartItems) {
+
+String orderSql = "INSERT INTO orders (user_id, total_amount, shipping_address, payment_method) " +
+            "VALUES (?, ?, ?, ?)";
+String itemSql  = "INSERT INTO order_items (order_id, product_id, product_name, quantity, price) " +
+            "VALUES (?, ?, ?, ?, ?)";
+int generatedOrderId = -1;
+Connection con = null;
+
+try {
+con = DBGroceryConfig.getConnection();
+con.setAutoCommit(false);
+
+// Step 1: Insert into orders table
+try (PreparedStatement ps = con.prepareStatement(
+      orderSql, Statement.RETURN_GENERATED_KEYS)) {
+
+  ps.setInt(1, userId);
+  ps.setDouble(2, totalAmount);
+  ps.setString(3, shippingAddress);
+  ps.setString(4, paymentMethod);
+  ps.executeUpdate();
+
+  try (ResultSet keys = ps.getGeneratedKeys()) {
+      if (keys.next()) {
+          generatedOrderId = keys.getInt(1);
+      }
+  }
+}
+
+// Step 2: Insert each cart item into order_items table
+if (generatedOrderId != -1) {
+  try (PreparedStatement ps = con.prepareStatement(itemSql)) {
+      for (CartItem item : cartItems) {
+          ps.setInt(1, generatedOrderId);
+          ps.setInt(2, item.getId());
+          ps.setString(3, item.getName());
+          ps.setInt(4, item.getQuantity());
+          ps.setDouble(5, item.getPrice());
+          ps.addBatch();
+      }
+      ps.executeBatch();
+  }
+}
+
+con.commit();
+
+} catch (Exception e) {
+if (con != null) {
+  try { con.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+}
+e.printStackTrace();
+generatedOrderId = -1;
+} finally {
+if (con != null) {
+  try { con.close(); } catch (SQLException ex) { ex.printStackTrace(); }
+}
+}
+
+return generatedOrderId;
+
     }
 }
  

@@ -91,7 +91,7 @@ public class CheckoutServlet extends HttpServlet {
             // Clear cart after successful order
             session.removeAttribute("cart");
             // Pass order id to confirmation page
-            response.sendRedirect(request.getContextPath() + "/checkout?success=true&orderId=" + orderId);
+            response.sendRedirect(request.getContextPath() + "/orderConfirmed?orderId=" + orderId);
         } else {
             request.setAttribute("errorMsg", "Order failed. Please try again.");
             request.setAttribute("cart", cart);
