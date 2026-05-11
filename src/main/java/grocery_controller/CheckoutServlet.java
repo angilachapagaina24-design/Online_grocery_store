@@ -18,42 +18,11 @@ import java.util.List;
 public class CheckoutServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        HttpSession session = request.getSession(false);
-        User user = (session != null) ? (User) session.getAttribute("user") : null;
-
-        // Login check
-        if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
-
-        // Cart empty check
-        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-        if (cart == null || cart.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/cart");
-            return;
-        }
-
-        // Calculate total
-        double total = 0;
-        for (CartItem item : cart) {
-            total += item.getPrice() * item.getQuantity();
-        }
-
-        request.setAttribute("cart", cart);
-        request.setAttribute("total", total);
-        request.setAttribute("user", user);
-        request.getRequestDispatcher("/pages/Checkout.jsp").forward(request, response);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
+
         User user = (session != null) ? (User) session.getAttribute("user") : null;
 
         if (user == null) {
@@ -62,50 +31,73 @@ public class CheckoutServlet extends HttpServlet {
         }
 
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+
         if (cart == null || cart.isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/cart");
             return;
         }
 
-        // Read form fields
-        String fullName       = request.getParameter("fullName");
-        String phone          = request.getParameter("phone");
-        String address        = request.getParameter("address");
-        String city           = request.getParameter("city");
-        String paymentMethod  = request.getParameter("paymentMethod");
+        String fullName = request.getParameter("fullName");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String city = request.getParameter("city");
+        String paymentMethod = request.getParameter("paymentMethod");
 
         String shippingAddress = fullName + ", " + phone + ", " + address + ", " + city;
 
-        // Calculate total
         double total = 0;
         for (CartItem item : cart) {
             total += item.getPrice() * item.getQuantity();
         }
 
-        // Place order in DB
-        OrderDAO orderDAO = new OrderDAO();
-        int orderId = 0;
-		try {
-			orderId = orderDAO.placeOrder(
-			    user.getUserId(), total, shippingAddress, paymentMethod, cart
-			);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        OrderDAO dao = new OrderDAO();
 
-        if (orderId != -1) {
-            // Clear cart after successful order
-            session.removeAttribute("cart");
-            // Pass order id to confirmation page
-            response.sendRedirect(request.getContextPath() + "/orderConfirmed?orderId=" + orderId);
-        } else {
-            request.setAttribute("errorMsg", "Order failed. Please try again.");
+        // ONLY ONE STOCK CHECK (inside DAO is enough)
+        try {
+
+            int orderId = dao.placeOrder(
+                    user.getUserId(),
+                    total,
+                    shippingAddress,
+                    paymentMethod,
+                    cart
+            );
+
+            if (orderId != -1) {
+
+                session.removeAttribute("cart");
+
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/orderConfirmed?orderId="
+                                + orderId
+                );
+
+            } else {
+
+                request.setAttribute(
+                        "errorMsg",
+                        "Order failed. Please try again."
+                );
+
+                request.setAttribute("cart", cart);
+                request.setAttribute("total", total);
+                request.setAttribute("user", user);
+
+                request.getRequestDispatcher(
+                        "/pages/Checkout.jsp"
+                ).forward(request, response);
+            }
+
+        } catch (RuntimeException ex) {
+
+            request.setAttribute("errorMsg", ex.getMessage());
             request.setAttribute("cart", cart);
             request.setAttribute("total", total);
             request.setAttribute("user", user);
-            request.getRequestDispatcher("/pages/Checkout.jsp").forward(request, response);
+
+            request.getRequestDispatcher("/pages/Checkout.jsp")
+                    .forward(request, response);
         }
-        
     }
 }
