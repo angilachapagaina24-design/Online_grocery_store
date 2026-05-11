@@ -13,7 +13,6 @@ import grocery_model.Product;
 
 @WebServlet("/product")
 public class ProductServlet extends HttpServlet {
-
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -22,7 +21,6 @@ public class ProductServlet extends HttpServlet {
         ProductDAO productDAO = new ProductDAO();
         CategoryDAO categoryDAO = new CategoryDAO();
 
-        // Always pass category list for the category section
         request.setAttribute("categoryList", categoryDAO.getAllCategories());
 
         String category = request.getParameter("category");
@@ -33,12 +31,10 @@ public class ProductServlet extends HttpServlet {
         if (search != null && !search.trim().isEmpty()) {
             productList = productDAO.searchProducts(search.trim());
             request.setAttribute("activeCategory", "Search: " + search.trim());
-
         } else if (category != null && !category.trim().isEmpty()) {
-            productList = productDAO.getProductsByCategoryName(category.trim());
+            productList = productDAO.getProductsByCategoryName(category.trim()); // ← FIXED
             System.out.println("Category: " + category + " | Results: " + productList.size());
             request.setAttribute("activeCategory", category.trim());
-
         } else {
             productList = productDAO.getAllProducts();
             System.out.println(">>> PRODUCT LIST SIZE: " + productList.size());
@@ -46,8 +42,7 @@ public class ProductServlet extends HttpServlet {
         }
 
         request.setAttribute("productList", productList);
-        request.setAttribute("selectedCategory", category); // keep tab highlighted
-
+        request.setAttribute("selectedCategory", category);
         request.getRequestDispatcher("/pages/Product.jsp").forward(request, response);
     }
 }

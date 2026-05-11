@@ -50,7 +50,7 @@ public class AdminDashboardServlet extends HttpServlet {
                 String.format("%.2f", orderDAO.getTotalSalesAmount()));
 
         // data lists
-        request.setAttribute("productList", productDAO.getAllProducts());
+        request.setAttribute("productList", productDAO.getBestSellingProducts());
         request.setAttribute("recentOrders", orderDAO.getRecentOrders(5));
     }
 }
