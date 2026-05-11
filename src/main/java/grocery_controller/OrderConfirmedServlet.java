@@ -9,6 +9,6 @@ public class OrderConfirmedServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/pages/orderConfirmed.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/OrderConfirmed.jsp").forward(request, response);
     }
 }
