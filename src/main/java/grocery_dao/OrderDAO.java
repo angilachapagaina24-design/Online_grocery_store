@@ -51,7 +51,7 @@ public class OrderDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Order o = new Order();
-                    o.setOrder_status(rs.getInt("order_id"));         // Fix: was setOrder_status(int)
+                    o.setOrderId(rs.getInt("order_id"));         
                     o.setUserName(rs.getString("full_name"));
                     o.setTotal_amount(rs.getDouble("total_amount"));
                     o.setOrder_status(rs.getString("order_status"));
@@ -111,16 +111,19 @@ public class OrderDAO {
  
             con.commit();
  
+        } Connection con = null;
+        try {
+            con = DBGroceryConfig.getConnection();
+            con.setAutoCommit(false);
+            // ... your insert logic ...
+            con.commit();
         } catch (Exception e) {
-            System.out.println("=== ORDER FAILED ===");
-            System.out.println("Error: " + e.getMessage());
+            if (con != null) try { con.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
             e.printStackTrace();
             generatedOrderId = -1;
-            // Fix: rollback was missing
-            // Note: rollback needs its own connection reference; restructure if needed.
-            // If using try-with-resources above, rollback must be done inside the try block.
+        } finally {
+            if (con != null) try { con.close(); } catch (SQLException ex) { ex.printStackTrace(); }
         }
-        return generatedOrderId;
     }
 }
  
