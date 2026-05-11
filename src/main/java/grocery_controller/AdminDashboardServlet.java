@@ -19,32 +19,37 @@ import java.util.List;
 @WebServlet("/adminDashboard")
 public class AdminDashboardServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	   
-	@Override    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // 1. Load your database stats (Sales, Orders, etc.)
+
+        // Prevent browser caching (IMPORTANT)
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        // Load fresh data from database
         loadDashboardData(request);
-        
-        // 2. Forward to the actual JSP file
-        
-        request.getRequestDispatcher("/pages/Admin.jsp").forward(request, response);
+
+        ProductDAO productDAO = null;
+		// Send to JSP page
+        request.setAttribute("totalProducts", productDAO.getTotalProductCount());
     }
 
     private void loadDashboardData(HttpServletRequest request) {
-        ProductDAO productDAO = new ProductDAO();
+
+    	ProductDAO productDAO = new ProductDAO();
         OrderDAO orderDAO = new OrderDAO();
 
-        request.setAttribute("totalProducts", productDAO.getTotalProductCount1());
+        // dashboard stats
+        request.setAttribute("totalProducts", productDAO.getTotalProductCount());
         request.setAttribute("totalOrders", orderDAO.getTotalOrderCount());
-        request.setAttribute("totalSales", String.format("%.2f", orderDAO.getTotalSalesAmount()));
+        request.setAttribute("totalSales",
+                String.format("%.2f", orderDAO.getTotalSalesAmount()));
 
+        // data lists
         request.setAttribute("productList", productDAO.getAllProducts());
         request.setAttribute("recentOrders", orderDAO.getRecentOrders(5));
     }

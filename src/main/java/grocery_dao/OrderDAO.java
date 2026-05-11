@@ -7,31 +7,55 @@ import grocery_model.CartItem;
 import grocery_utilities.DBGroceryConfig;
 
 public class OrderDAO {
-    
 
     public int getTotalOrderCount() {
         int count = 0;
+
         String sql = "SELECT COUNT(*) FROM orders";
         try (Connection con = DBGroceryConfig.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
+
             if (rs.next()) count = rs.getInt(1);
         } catch (Exception e) { e.printStackTrace(); }
+
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return count;
     }
 
     public double getTotalSalesAmount() {
         double total = 0;
+
         String sql = "SELECT SUM(total_amount) FROM orders WHERE order_status='delivered'";
         try (Connection con = DBGroceryConfig.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
+
             if (rs.next()) total = rs.getDouble(1);
         } catch (Exception e) { e.printStackTrace(); }
+
+
+            if (rs.next()) {
+                total = rs.getDouble(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return total;
     }
 
     public List<Order> getRecentOrders(int limit) {
+
         List<Order> list = new ArrayList<>();
         String sql = "SELECT o.order_id, u.full_name, o.total_amount, o.order_status " +
                      "FROM orders o JOIN users u ON o.user_id = u.user_id " +
@@ -41,7 +65,9 @@ public class OrderDAO {
             ps.setInt(1, limit);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+
                 Order o = new Order();
+
                 o.setOrder_status(rs.getInt("order_id"));
                 o.setUserName(rs.getString("full_name"));
                 o.setTotal_amount(rs.getDouble("total_amount"));
