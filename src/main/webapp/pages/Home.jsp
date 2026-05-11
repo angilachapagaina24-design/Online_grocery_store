@@ -53,17 +53,20 @@
          <input type="hidden" name="action" value="add"> <input type="hidden" name="id" value="1"> 
          <input type="hidden" name="name" value="Fresh Apple"> <input type="hidden" name="price" value="320"> 
          <input type="hidden" name="image" value="apple.png"> 
-         <button type="submit">Add to Cart</button> 
-         </form> </div> <div class="product-card"> 
-         <img src="${pageContext.request.contextPath}/Images/MoongDal.png"> 
+         <button type="button" onclick="addToCart(1, 'Fresh Apple', 320, 'apple.png')">Add to Cart</button>
+         </form> 
+         </div> 
          
+         
+         <div class="product-card"> 
+         <img src="${pageContext.request.contextPath}/Images/MoongDal.png">         
          <h4>Mung Dal</h4>
           <p class="price">Rs. 280 per kilo</p> 
           <form action="${pageContext.request.contextPath}/cart" method="post"> 
           <input type="hidden" name="action" value="add"> <input type="hidden" name="id" value="2"> 
           <input type="hidden" name="name" value="Moong Dal"> <input type="hidden" name="price" value="280"> 
           <input type="hidden" name="image" value="MoongDal.png"> 
-          <button type="submit">Add to Cart</button>
+          <button type="button" onclick="addToCart(2, 'Moong Dal', 280, 'MoongDal.png')">Add to Cart</button>
            </form> 
            </div> 
            
@@ -77,9 +80,11 @@
            <input type="hidden" name="name" value="Dairy Milk Silk Combo"> 
            <input type="hidden" name="price" value="1600"> 
            <input type="hidden" name="image" value="Dairymilk.png"> 
-           <button type="submit">Add to Cart</button>
+           <button type="button" onclick="addToCart(3, 'Dairy Milk Silk Combo', 1600, 'Dairymilk.png')">Add to Cart</button>
             </form> 
             </div> 
+            
+            
             <div class="product-card"> 
             <img src="${pageContext.request.contextPath}/Images/cauli.png"> 
             <h4>Cauli flower</h4> 
@@ -90,10 +95,12 @@
             <input type="hidden" name="name" value="Cauliflower"> 
             <input type="hidden" name="price" value="80"> 
             <input type="hidden" name="image" value="cauli.png"> 
-            <button type="submit">Add to Cart</button> 
+           <button type="button" onclick="addToCart(4, 'Cauliflower', 80, 'cauli.png')">Add to Cart</button>
             </form>
              </div>
-<div class="product-card"> 
+             
+             
+		<div class="product-card"> 
 		<img src="${pageContext.request.contextPath}/Images/milk2.png"> 
 		<h4>Milk</h4> 
 		<p class="price">Rs. 100/ltr</p> 
@@ -103,9 +110,11 @@
 		 <input type="hidden" name="name" value="Milk"> 
 		 <input type="hidden" name="price" value="100"> 
 		 <input type="hidden" name="image" value="milk2.png">
-		  <button type="submit">Add to Cart</button> 
+		 <button type="button" onclick="addToCart(5, 'Milk', 100, 'milk2.png')">Add to Cart</button>
 		  </form>
 		   </div>
+		   
+		   
 		    <div class="product-card">
 		     <img src="${pageContext.request.contextPath}/Images/jam.png"> 
 		     <h4>Jam</h4>
@@ -114,7 +123,7 @@
 		      <input type="hidden" name="action" value="add"> <input type="hidden" name="id" value="6">
 		       <input type="hidden" name="name" value="Jam"> <input type="hidden" name="price" value="450"> 
 		       <input type="hidden" name="image" value="jam.png"> 
-		       <button type="submit">Add to Cart</button> 
+		       <button type="button" onclick="addToCart(6, 'Jam', 450, 'jam.png')">Add to Cart</button>
 		       </form> 
 		       </div> 
 		       </div> 
@@ -155,6 +164,46 @@
 	        				  location.reload(); // reload to update cart count }); } 
 	          </script> 
 	          
+	          
+	          
+	          <script>
+function addToCart(id, name, price, image) {
+    const params = new URLSearchParams();
+    params.append('action', 'add');
+    params.append('id', id);
+    params.append('name', name);
+    params.append('price', price);
+    params.append('image', image);
+
+    // Scroll position save garne reload hunu agi
+    localStorage.setItem('scrollpos', window.scrollY);
+
+    fetch('${pageContext.request.contextPath}/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString()
+    })
+    .then(response => {
+        if (response.ok) {
+            location.reload(); // Reload garda aba saved scroll position ma jancha
+        }
+    })
+    .catch(err => console.error("Error:", err));
+}
+
+// Reload pachi scroll position back garne logic
+document.addEventListener("DOMContentLoaded", function() {
+    var scrollpos = localStorage.getItem('scrollpos');
+    if (scrollpos) {
+        window.scrollTo(0, scrollpos);
+        localStorage.removeItem('scrollpos'); // Ekchoti scroll bhayepachi clear garne
+    }
+});
+</script>
+
+
+
+
 <jsp:include page="Footer.jsp" />
 
  </body> 
