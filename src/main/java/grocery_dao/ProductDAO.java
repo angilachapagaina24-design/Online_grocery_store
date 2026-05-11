@@ -1,4 +1,5 @@
 package grocery_dao;
+import java.sql.Date;
  
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,48 +10,51 @@ import grocery_utilities.DBGroceryConfig;
 public class ProductDAO {
 
     // ── Fetch ALL products (initial page load) ────────────────────────────────
-    public List<Product> getAllProducts() {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM product";
-
-        try (Connection con = DBGroceryConfig.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                list.add(mapRow(rs));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
-    }
-
-    // ── Fetch by category NAME via JOIN with category table ───────────────────
-    public List<Product> getProductsByCategoryName(String categoryName) {
-        List<Product> list = new ArrayList<>();
-        String sql = "SELECT p.* FROM product p " +
-                     "JOIN category c ON p.category_id = c.category_id " +
-                     "WHERE LOWER(c.category_name) = LOWER(?)";
-
-        try (Connection con = DBGroceryConfig.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-
-            ps.setString(1, categoryName);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                list.add(mapRow(rs));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
-    }
+	public List<Product> getBestSellingProducts() {
+	    List<Product> list = new ArrayList<>();
+	 
+	    String sql = "SELECT p.*, COUNT(oi.product_id) AS total_sold " +
+	                 "FROM product p " +
+	                 "LEFT JOIN order_items oi ON p.product_id = oi.product_id " +
+	                 "GROUP BY p.product_id " +
+	                 "ORDER BY total_sold DESC " +
+	                 "LIMIT 8";
+	 
+	    try (Connection con = DBGroceryConfig.getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
+	 
+	        while (rs.next()) {
+	            list.add(mapRow(rs));
+	        }
+	 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return list;
+	}
+	 
+	/**
+	 * Latest: newest products by product_id DESC
+	 */
+	public List<Product> getLatestProducts() {
+	    List<Product> list = new ArrayList<>();
+	 
+	    String sql = "SELECT * FROM product ORDER BY product_id DESC LIMIT 8";
+	 
+	    try (Connection con = DBGroceryConfig.getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
+	 
+	        while (rs.next()) {
+	            list.add(mapRow(rs));
+	        }
+	 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return list;
+	}
 
     // ── Fetch by category ID ──────────────────────────────────────────────────
     public List<Product> getProductsByCategory(int categoryId) {
@@ -181,7 +185,8 @@ public class ProductDAO {
         p.setUnit(rs.getString("unit"));
         p.setImageUrl(rs.getString("image_url"));
         p.setBrand(rs.getString("brand"));
-        p.setExpiryDate(rs.getString("expiry_date"));
+        Date expiry = rs.getDate("expiry_date");
+        p.setExpiryDate(expiry != null ? expiry.toString() : null);
         p.setStatus(rs.getString("status"));
         return p;
     }

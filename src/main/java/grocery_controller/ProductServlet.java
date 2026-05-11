@@ -41,6 +41,7 @@ public class ProductServlet extends HttpServlet {
 
         } else {
             productList = productDAO.getAllProducts();
+            System.out.println(">>> PRODUCT LIST SIZE: " + productList.size());
             request.setAttribute("activeCategory", "All Products");
         }
 

@@ -40,55 +40,25 @@ cssbody {
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    padding: 15px;
-    border-radius: 12px;
-    background: #fff;
-    border: 2px solid #f0f0f0;
+    padding: 10px;
+    border-radius: 0;
+    background: transparent;
+    border: none;
     transition: 0.3s ease;
     cursor: pointer;
     min-width: 90px;
 }
 
 .cat-item:hover {
-    transform: translateY(-8px);
-    border-color: #2ecc71;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transform: translateY(-6px);
+    border: none;
+    box-shadow: none;
 }
 
 .cat-item.active-cat {
-    border-color: #27ae60;
-    background: #eafaf1;
-    box-shadow: 0 4px 16px rgba(39,174,96,0.15);
-}
-
-.cat-item.active-cat p {
-    color: #27ae60;
-    font-weight: 700;
-}
-
-.cat-item .circle-box {
-    transition: 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 90px;
-}
-
-.cat-item:hover .circle-box {
-    transform: scale(1.08);
-}
-
-.cat-item p {
-    margin-top: 8px;
-    font-weight: 600;
-    color: #333;
-    transition: 0.3s;
-    text-align: center;
-    font-size: 13px;
-}
-
-.cat-item:hover p {
-    color: #2e7d32;
+    border: none;
+    background: transparent;
+    box-shadow: none;
 }
 
 .product-list {

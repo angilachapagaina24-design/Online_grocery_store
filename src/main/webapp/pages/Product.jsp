@@ -32,25 +32,43 @@
         overflow: hidden;
         position: relative;
     }
-    
+
+    /* ── REMOVE the square card from every cat-item ── */
+    .cat-item {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 10px !important;
+    }
+    .cat-item.active-cat {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    /* ── Circle image styling ── */
     .circle-box {
-    border: 2px solid #f0f0f0;
-    border-radius: 50%;
-    transition: 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 90px;
-    width: 90px;
-    overflow: hidden;
-    background: #fff;
-	}
-	
-	.cat-item.active-cat .circle-box {
-    border: 2px solid #2ecc71 !important;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important;
-}
-    
+        border: 2px solid #f0f0f0;
+        border-radius: 50%;
+        transition: 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 90px;
+        width: 90px;
+        overflow: hidden;
+        background: #fff;
+    }
+    .cat-item:hover .circle-box {
+        border: 2px solid #2ecc71;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        transform: scale(1.08);
+    }
+    .cat-item.active-cat .circle-box {
+        border: 2px solid #27ae60 !important;
+        box-shadow: 0 4px 16px rgba(39,174,96,0.25) !important;
+    }
 </style>
 </head>
 
