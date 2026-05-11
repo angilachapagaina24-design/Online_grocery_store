@@ -13,9 +13,9 @@
 <body>
     <div class="success-box">
         <h1>🎉 Yeah Congratulations!</h1>
-        <p>Your grocery order has been successfully placed.</p>
-        <br>
-        <a href="home.jsp" class="btn-home">Continue Shopping</a>
-    </div>
+<p>Your grocery order has been successfully placed.</p>
+<p>Order ID: <strong>#<%= request.getParameter("orderId") %></strong></p>
+<br>
+<a href="<%= request.getContextPath() %>/home" class="btn-home">Continue Shopping</a>    </div>
 </body>
 </html>

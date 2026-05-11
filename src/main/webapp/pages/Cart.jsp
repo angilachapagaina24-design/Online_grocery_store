@@ -16,7 +16,7 @@
     <h2>Your Cart</h2>
 
     <% 
-        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+    List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
         double total = 0; 
     %>
 

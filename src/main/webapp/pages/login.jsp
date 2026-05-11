@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,7 +30,17 @@
     <!-- Form -->
     <form action="${pageContext.request.contextPath}/login" method="POST">
 
-        <p class="error-msg">${error}</p>
+        <%-- Show Error Message --%>
+		<c:if test="${not empty error}">
+   			 <p class="error-msg" style="color: red; text-align: center;">${error}</p>
+		</c:if>
+
+		<%-- Show Logout Success Message --%>
+		<c:if test="${param.message == 'loggedout'}">
+    	<p class="success-msg" style="color: green; text-align: center; font-weight: bold;">
+        You have been logged out successfully!
+    </p>
+</c:if>
 
        <div class="field">
     		<label>EMAIL</label>
