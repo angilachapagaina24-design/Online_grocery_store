@@ -38,6 +38,7 @@ public class ContactServlet extends HttpServlet {
             request.setAttribute("message", "Failed to send message.");
         }
 
+     // Use this if your file is webapp/pages/Contact.jsp
         request.getRequestDispatcher("/pages/Contact.jsp").forward(request, response);
     }
 

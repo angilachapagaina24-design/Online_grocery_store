@@ -51,7 +51,7 @@ public class OrderDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Order o = new Order();
-                    o.setOrderId(rs.getInt("order_id"));         
+                    o.setOrder_status(rs.getInt("order_id"));         
                     o.setUserName(rs.getString("full_name"));
                     o.setTotal_amount(rs.getDouble("total_amount"));
                     o.setOrder_status(rs.getString("order_status"));
@@ -66,7 +66,7 @@ public class OrderDAO {
  
     public int placeOrder(int userId, double totalAmount,
                           String shippingAddress, String paymentMethod,
-                          List<CartItem> cartItems) {
+                          List<CartItem> cartItems) throws SQLException {
  
         String orderSql = "INSERT INTO orders (user_id, total_amount, shipping_address, payment_method) " +
                           "VALUES (?, ?, ?, ?)";
@@ -124,6 +124,7 @@ public class OrderDAO {
         } finally {
             if (con != null) try { con.close(); } catch (SQLException ex) { ex.printStackTrace(); }
         }
+		return generatedOrderId;
     }
 }
  

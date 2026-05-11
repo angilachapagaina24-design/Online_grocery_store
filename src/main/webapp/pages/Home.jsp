@@ -3,7 +3,7 @@
 <html> 
 <head> 
 <meta charset="UTF-8"> 
-<title>Insert title here</title> 
+<title>Home</title> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Home.css"> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Footer.css"> 

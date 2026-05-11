@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/checkout")
@@ -83,9 +84,15 @@ public class CheckoutServlet extends HttpServlet {
 
         // Place order in DB
         OrderDAO orderDAO = new OrderDAO();
-        int orderId = orderDAO.placeOrder(
-            user.getUserId(), total, shippingAddress, paymentMethod, cart
-        );
+        int orderId = 0;
+		try {
+			orderId = orderDAO.placeOrder(
+			    user.getUserId(), total, shippingAddress, paymentMethod, cart
+			);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         if (orderId != -1) {
             // Clear cart after successful order

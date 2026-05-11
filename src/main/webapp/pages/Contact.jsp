@@ -5,12 +5,18 @@
     <meta charset="UTF-8">
     <title>Contact Us - FreshMart</title>
 
-    <!-- CSS -->
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Footer.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/contact.css">
-    
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/header.css">
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/Footer.css">
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/contact.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 <jsp:include page="header.jsp"/>
@@ -34,14 +40,32 @@
     <div class="contact-box">
 
         <!-- FORM -->
-        <form action="contact" method="post" class="form">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <input type="text" name="subject" placeholder="Subject" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
+        <form action="${pageContext.request.contextPath}/contact"
+      method="post"
+      class="form">
 
-        </form>
+    <input type="text"
+           name="name"
+           placeholder="Your Name"
+           required>
+
+    <input type="email"
+           name="email"
+           placeholder="Your Email"
+           required>
+
+    <input type="text"
+           name="subject"
+           placeholder="Subject"
+           required>
+
+    <textarea name="message"
+              placeholder="Your Message"
+              required></textarea>
+
+    <button type="submit">Send Message</button>
+
+</form>
 
         <!-- INFO -->
         <div class="info">
