@@ -76,12 +76,15 @@ body {
 .search-btn {
     background: #219150;
     border: none;
-    padding: 0 14px;
+    padding: 0 16px;
     height: 100%;
     cursor: pointer;
     color: white;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 }
 
 .search-btn:hover {

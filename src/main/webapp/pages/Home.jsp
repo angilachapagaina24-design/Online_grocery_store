@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+
 <html> 
 <head> 
 <meta charset="UTF-8"> 
@@ -153,20 +155,12 @@
 	          </div> 
 	          
 	          
-	          <script> function addToCart(id, name, price) {
-	        	  fetch('${pageContext.request.contextPath}/cart',
-	        			  {
-	        		  method: 'POST', headers: {
-	        			  'Content-Type': 'application/x-www-form-urlencoded', }, 
-	        			  body: action=add&id=${id}&name=${name}&price=${price} }) .then(() => 
-	        			  { 
-	        				  location.reload(); // reload to update cart count }); } 
-	          </script> 
+	          
 	          
 	          
 	          
 	          <script>
->>>>>>> 2e350ed (Updated grocery store features and UI)
+
 function addToCart(id, name, price, image) {
     const params = new URLSearchParams();
     params.append('action', 'add');
@@ -203,3 +197,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </body>
 </html>
+                        

@@ -1,43 +1,50 @@
-	package grocery_controller;
-	import grocery_dao.OrderDAO;
-	import grocery_dao.OrderDAO;
-	import grocery_dao.ProductDAO;
-	import grocery_model.Product;
-	import grocery_model.User;
-	import jakarta.servlet.ServletException;
-	import jakarta.servlet.annotation.WebServlet;
-	import jakarta.servlet.http.HttpServlet;
-	import jakarta.servlet.http.HttpServletRequest;
-	import jakarta.servlet.http.HttpServletResponse;
-	import jakarta.servlet.http.HttpSession;
-	
-	import java.io.IOException;
-import java.util.ArrayList;
+package grocery_controller;
+
+import grocery_dao.ProductDAO;
+import grocery_model.User;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import java.io.IOException;
 import java.util.List;
-	 
-	/**
-	 * InventoryServlet
-	 * URL: /admin/inventory
-	 * GET  → shows all products (or search results)
-	 */
-	@WebServlet("/inventory")
-	public class InventoryServlet extends HttpServlet {
+import grocery_model.Product;
 
-		@Override
-		protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		        throws ServletException, IOException {
+@WebServlet("/inventory")
+public class InventoryServlet extends HttpServlet {
 
-		    HttpSession session = request.getSession(false);
-		    User user = (session != null) ? (User) session.getAttribute("user") : null;
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		    if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
-		        response.sendRedirect(request.getContextPath() + "/pages/login.jsp");
-		        return;
-		    }
+        HttpSession session = request.getSession(false);
+        User user = (session != null) ? (User) session.getAttribute("user") : null;
 
-		    // Existing logic to load products...
-		    ProductDAO productDAO = new ProductDAO();
-		    request.setAttribute("productList", productDAO.getAllProducts());
-		    request.getRequestDispatcher("/pages/inventory.jsp").forward(request, response);
-		}
-	}
+        if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        ProductDAO productDAO = new ProductDAO();
+        List<Product> productList;
+
+        String keyword = request.getParameter("keyword");
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            productList = productDAO.searchProducts(keyword.trim());
+        } else {
+            productList = productDAO.getAllProducts();
+        }
+
+        // Pass URL success/error messages through to JSP
+        String successMsg = request.getParameter("successMsg");
+        String errorMsg   = request.getParameter("errorMsg");
+        if (successMsg != null) request.setAttribute("successMsg", successMsg);
+        if (errorMsg   != null) request.setAttribute("errorMsg",   errorMsg);
+
+        request.setAttribute("productList", productList);
+        request.getRequestDispatcher("/pages/inventory.jsp").forward(request, response);
+    }
+}

@@ -1,77 +1,52 @@
 package grocery_controller;
 
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-
 import java.io.IOException;
-import java.util.Properties;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-import jakarta.mail.*;
-import jakarta.mail.internet.*;
-
-@WebServlet("/contact")
+@WebServlet("/ContactServlet")
 public class ContactServlet extends HttpServlet {
 
-    private static final String FROM_EMAIL = "yourgmail@gmail.com";
-    private static final String PASSWORD = "your_app_password";
+    private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    	request.getRequestDispatcher("/pages/Contact.jsp").forward(request, response);
-    }
-
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String subject = request.getParameter("subject");
-        String messageText = request.getParameter("message");
+        request.setCharacterEncoding("UTF-8");
 
-        try {
-            sendEmail(name, email, subject, messageText);
-            request.setAttribute("message", "Message sent successfully!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("message", "Failed to send message.");
+        String name    = request.getParameter("name");
+        String email   = request.getParameter("email");
+        String subject = request.getParameter("subject");
+        String message = request.getParameter("message");
+
+        boolean valid = name    != null && !name.trim().isEmpty()
+                     && email   != null && !email.trim().isEmpty()
+                     && message != null && !message.trim().isEmpty();
+
+        if (valid) {
+            System.out.println("===== New Contact Message =====");
+            System.out.println("Name   : " + name.trim());
+            System.out.println("Email  : " + email.trim());
+            System.out.println("Subject: " + (subject != null ? subject.trim() : "N/A"));
+            System.out.println("Message: " + message.trim());
+            System.out.println("================================");
+            request.setAttribute("showPopup", true);
+        } else {
+            request.setAttribute("showPopup", false);
         }
 
-     // Use this if your file is webapp/pages/Contact.jsp
-        request.getRequestDispatcher("/pages/Contact.jsp").forward(request, response);
+       
+        request.getRequestDispatcher("/pages/contact.jsp").forward(request, response);
     }
 
-    private void sendEmail(String name, String email, String subject, String messageText) throws Exception {
-
-        Properties props = new Properties();
-
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-
-        Session session = Session.getInstance(props,
-                new Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(FROM_EMAIL, PASSWORD);
-                    }
-                });
-
-        Message message = new MimeMessage(session);
-
-        message.setFrom(new InternetAddress(FROM_EMAIL));
-        message.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse(FROM_EMAIL)); // send to yourself
-
-        message.setSubject("FreshMart Contact: " + subject);
-
-        message.setText(
-                "Name: " + name + "\n"
-              + "Email: " + email + "\n\n"
-              + "Message:\n" + messageText
-        );
-
-        Transport.send(message);
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("showPopup", false);
+        request.getRequestDispatcher("/pages/contact.jsp").forward(request, response);
     }
 }
