@@ -69,6 +69,33 @@
         border: 2px solid #27ae60 !important;
         box-shadow: 0 4px 16px rgba(39,174,96,0.25) !important;
     }
+    
+    .out-of-stock-btn {
+    background-color: #ccc !important;
+    color: #666 !important;
+    cursor: not-allowed !important;
+    border: none;
+}
+
+/* Optional: red "Out of Stock" badge on the card */
+.product-item .oos-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+
+.product-item.oos .img-placeholder img {
+    opacity: 0.45;
+    filter: grayscale(60%);
+}
 </style>
 </head>
 
@@ -168,46 +195,52 @@
         <c:choose>
 
             <%-- Products found → render each one dynamically --%>
-            <c:when test="${not empty productList}">
-                <c:forEach var="p" items="${productList}">
-                    <div class="product-item">
-
-                        <div class="img-placeholder" style="width:100%; height:150px; overflow:hidden; border-radius:8px;">
-                            <c:choose>
-                                <c:when test="${not empty p.imageUrl}">
-                                   <img src="${pageContext.request.contextPath}/Images/${p.imageUrl}"
-     									alt="${p.name}"
-    									style="width:100%; height:100%; object-fit:cover;"
-     									onerror="this.parentNode.innerHTML='<span class=\'no-img\'>No Image</span>'">
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="no-img">No Image</span>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-
-                        <p>${p.name}</p>
-                        <span>Rs. <fmt:formatNumber value="${p.price}" maxFractionDigits="0"/></span>
-
-                        <c:if test="${p.stockQuantity > 0}">
-                            <form action="${pageContext.request.contextPath}/cart" method="post">
-                                <input type="hidden" name="action" value="add">
-                                <input type="hidden" name="id"    value="${p.productId}">
-                                <input type="hidden" name="name"  value="${p.name}">
-                                <input type="hidden" name="price" value="${p.price}">
-                                <input type="hidden" name="image" value="${p.imageUrl}">
-                                <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-                            </form>
-                        </c:if>
-
-                        <c:if test="${p.stockQuantity <= 0}">
-                            <button class="add-to-cart-btn out-of-stock-btn" disabled>Out of Stock</button>
-                        </c:if>
-
-                    </div>
-                </c:forEach>
-            </c:when>
-
+           <c:when test="${not empty productList}">
+			    <c:forEach var="p" items="${productList}">
+			
+			        <%-- 1. Add 'oos' class conditionally --%>
+			        <div class="product-item ${p.stockQuantity <= 0 ? 'oos' : ''}">
+			
+			            <%-- 2. Add the red badge right here, inside the card --%>
+			            <c:if test="${p.stockQuantity <= 0}">
+			                <span class="oos-badge">Out of Stock</span>
+			            </c:if>
+			
+			            <div class="img-placeholder" style="width:100%; height:150px; overflow:hidden; border-radius:8px;">
+			                <c:choose>
+			                    <c:when test="${not empty p.imageUrl}">
+			                        <img src="${pageContext.request.contextPath}/Images/${p.imageUrl}"
+			                             alt="${p.name}"
+			                             style="width:100%; height:100%; object-fit:cover;"
+			                             onerror="this.parentNode.innerHTML='<span class=\'no-img\'>No Image</span>'">
+			                    </c:when>
+			                    <c:otherwise>
+			                        <span class="no-img">No Image</span>
+			                    </c:otherwise>
+			                </c:choose>
+			            </div>
+			
+			            <p>${p.name}</p>
+			            <span>Rs. <fmt:formatNumber value="${p.price}" maxFractionDigits="0"/></span>
+			
+			            <c:if test="${p.stockQuantity > 0}">
+			                <form action="${pageContext.request.contextPath}/cart" method="post">
+			                    <input type="hidden" name="action" value="add">
+			                    <input type="hidden" name="id"    value="${p.productId}">
+			                    <input type="hidden" name="name"  value="${p.name}">
+			                    <input type="hidden" name="price" value="${p.price}">
+			                    <input type="hidden" name="image" value="${p.imageUrl}">
+			                    <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+			                </form>
+			            </c:if>
+			
+			            <c:if test="${p.stockQuantity <= 0}">
+			                <button class="add-to-cart-btn out-of-stock-btn" disabled>Out of Stock</button>
+			            </c:if>
+			
+			        </div>
+			    </c:forEach>
+			</c:when>
             <%-- No products found --%>
             <c:otherwise>
                 <div class="no-products">
