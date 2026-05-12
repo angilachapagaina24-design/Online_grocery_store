@@ -21,32 +21,110 @@
     </div>
 </div>
 
-<!-- ===== CATEGORIES ===== -->
-<div class="section">
-    <h2>Featured Categories</h2>
-    <div class="category-container">
-        <div class="cat-item">
-            <img src="${pageContext.request.contextPath}/Images/fruits 1.png" width="90">
-            <p>Fruits</p>
+
+
+
+<!-- ===== BEST SELLING / LATEST TABS ===== -->
+<div class="product-tabs-wrapper">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('bestSelling', this)">Best Selling</button>
+        <button class="tab-btn" onclick="showTab('latest', this)">Latest</button>
+    </div>
+
+    <!-- Best Selling Tab -->
+    <div id="bestSelling" class="tab-content active">
+        <div class="product-container">
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="${pageContext.request.contextPath}/Images/banana.png" alt="Banana">
+                </div>
+                <div class="product-info">
+                    <h4>Organic Bananas</h4>
+                    <p class="price">Rs. 120</p>
+                    <button class="add-btn" onclick="addToCart(2, 'Banana', 120, 'banana.png')">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="${pageContext.request.contextPath}/Images/milk.png" alt="Milk">
+                </div>
+                <div class="product-info">
+                    <h4>Fresh Milk</h4>
+                    <p class="price">Rs. 75</p>
+                    <button class="add-btn" onclick="addToCart(25, 'Milk', 75, 'milk.png')">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="${pageContext.request.contextPath}/Images/bread.png" alt="Bread">
+                </div>
+                <div class="product-info">
+                    <h4>Whole Bread</h4>
+                    <p class="price">Rs. 75</p>
+                    <button class="add-btn" onclick="addToCart(31, 'Bread', 75, 'bread.png')">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="${pageContext.request.contextPath}/Images/orangejuice.png" alt="Orange Juice">
+                </div>
+                <div class="product-info">
+                    <h4>Orange Juice</h4>
+                    <p class="price">Rs. 180</p>
+                    <button class="add-btn" onclick="addToCart(8, 'Orange Juice', 180, 'orangejuice.png')">Add to Cart</button>
+                </div>
+            </div>
         </div>
-        <div class="cat-item">
-            <img src="${pageContext.request.contextPath}/Images/vegetables 1.png" width="90">
-            <p>Vegetables</p>
-        </div>
-        <div class="cat-item">
-            <img src="${pageContext.request.contextPath}/Images/dairy 1.png" width="90">
-            <p>Dairy</p>
-        </div>
-        <div class="cat-item">
-            <img src="${pageContext.request.contextPath}/Images/bakery.png" width="90">
-            <p>Bakery</p>
-        </div>
-        <div class="cat-item">
-            <img src="${pageContext.request.contextPath}/Images/beverages.jpg" width="90">
-            <p>Beverages</p>
+    </div>
+
+    <!-- Latest Tab -->
+    <div id="latest" class="tab-content">
+        <div class="product-container">
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="${pageContext.request.contextPath}/Images/mango.png" alt="Mango">
+                </div>
+                <div class="product-info">
+                    <h4>Sweet Mango</h4>
+                    <p class="price">Rs. 200</p>
+                    <button class="add-btn" onclick="addToCart(5, 'Mango', 200, 'mango.png')">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="${pageContext.request.contextPath}/Images/paneer.png" alt="Paneer">
+                </div>
+                <div class="product-info">
+                    <h4>Fresh Paneer</h4>
+                    <p class="price">Rs. 300</p>
+                    <button class="add-btn" onclick="addToCart(30, 'Paneer', 300, 'paneer.png')">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="${pageContext.request.contextPath}/Images/cake.png" alt="Cake">
+                </div>
+                <div class="product-info">
+                    <h4>Chocolate Cake</h4>
+                    <p class="price">Rs. 550</p>
+                    <button class="add-btn" onclick="addToCart(32, 'Cake', 550, 'cake.png')">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrap">
+                    <img src="${pageContext.request.contextPath}/Images/curry.png" alt="Curry Powder">
+                </div>
+                <div class="product-info">
+                    <h4>Curry Powder</h4>
+                    <p class="price">Rs. 180</p>
+                    <button class="add-btn" onclick="addToCart(42, 'Curry Powder', 180, 'curry.png')">Add to Cart</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+
 
 <!-- ===== PRODUCTS ===== -->
 <div class="section" style="background: white;">
@@ -195,6 +273,15 @@
 
 <!-- ===== SCRIPT ===== -->
 <script>
+
+function showTab(tabId, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    btn.classList.add('active');
+}
+
+
 function addToCart(id, name, price, image) {
     const params = new URLSearchParams();
     params.append('action', 'add');
