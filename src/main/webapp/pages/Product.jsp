@@ -7,111 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Products - FreshMart</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Product.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Product.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Footer.css">
 
-<style>
-    body { padding-top: 70px; }
 
-    .product-list {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 16px;
-        margin-top: 25px;
-    }
-
-    .product-item {
-        width: calc(25% - 12px);
-        min-width: 200px;
-        padding: 20px;
-        border: 1px solid #f0f0f0;
-        background: #fff;
-        text-align: center;
-        border-radius: 12px;
-        transition: 0.3s;
-        box-sizing: border-box;
-        overflow: hidden;
-        position: relative;
-    }
-    .product-item:hover {
-        box-shadow: 0 8px 24px rgba(0,0,0,0.10);
-        transform: translateY(-3px);
-    }
-
-    /* ── Out of Stock ── */
-    .product-item.oos .img-placeholder img {
-        opacity: 0.4;
-        filter: grayscale(70%);
-    }
-    .oos-badge {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: #e74c3c;
-        color: #fff;
-        font-size: 11px;
-        font-weight: 700;
-        padding: 3px 10px;
-        border-radius: 20px;
-        z-index: 1;
-        letter-spacing: 0.5px;
-    }
-    .add-to-cart-btn {
-        background: #2e7d32;
-        color: white;
-        border: none;
-        padding: 9px 18px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 13px;
-        font-weight: 600;
-        width: 100%;
-        margin-top: 10px;
-        transition: background 0.2s;
-    }
-    .add-to-cart-btn:hover { background: #1b5e20; }
-    .out-of-stock-btn {
-        background: #e0e0e0 !important;
-        color: #999 !important;
-        cursor: not-allowed !important;
-    }
-
-    /* ── Category circles ── */
-    .cat-item {
-        border: none !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        padding: 10px !important;
-        text-align: center;
-        cursor: pointer;
-    }
-    .circle-box {
-        border: 2px solid #f0f0f0;
-        border-radius: 50%;
-        transition: 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 90px;
-        width: 90px;
-        overflow: hidden;
-        background: #fff;
-        margin: 0 auto;
-    }
-    .cat-item:hover .circle-box {
-        border-color: #2ecc71;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        transform: scale(1.08);
-    }
-    .cat-item.active-cat .circle-box {
-        border-color: #27ae60 !important;
-        box-shadow: 0 4px 16px rgba(39,174,96,0.25) !important;
-    }
-    .cat-item p { font-size: 13px; margin-top: 8px; color: #555; }
-</style>
 </head>
 
 <body>
