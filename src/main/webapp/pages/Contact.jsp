@@ -9,6 +9,10 @@
     <meta charset="UTF-8">
     <title>Contact Us | FreshMart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Footer.css">
+    
+    
     <style>
         :root {
             --main-green: #2d6a4f;
@@ -18,25 +22,24 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--light-bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+  		  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   		  background: #ffffff;
+  		  margin: 0;
+   		  padding: 0;
+		}
+		
 
-        /* ── Card ── */
-        .contact-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            display: flex;
-            gap: 50px;
-            max-width: 900px;
-            width: 90%;
-        }
+       .contact-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    gap: 50px;
+    max-width: 900px;
+    width: 90%;
+    margin: 140px auto 60px auto;
+}
 
         .form-side { flex: 1.5; }
 
@@ -158,7 +161,7 @@
     </style>
 </head>
 <body>
-
+<jsp:include page="header.jsp"/>
 <div class="contact-card">
 
     <!-- Left: Form -->
@@ -166,7 +169,7 @@
         <h2>Contact Us</h2>
         <p>We'd love to hear from you!</p>
 
-        <form method="POST" action="${pageContext.request.contextPath}/ContactServlet">
+        <form method="POST" action="${pageContext.request.contextPath}/contact">
             <input   type="text"  name="name"    class="input-box" placeholder="Your Name"    required>
             <input   type="email" name="email"   class="input-box" placeholder="Your Email"   required>
             <input   type="text"  name="subject" class="input-box" placeholder="Subject">
@@ -212,5 +215,6 @@
     });
 </script>
 
+<jsp:include page="Footer.jsp" />
 </body>
 </html>

@@ -6,7 +6,7 @@
     <!-- Logo -->
     <div class="Logo">
         <a href="${pageContext.request.contextPath}/home" style="text-decoration:none; color:inherit;">
-            <img src="${pageContext.request.contextPath}/Images/logo.png"
+            <img src="${pageContext.request.contextPath}/Images/Logo1.png"
                  alt="FreshMart"
                  style="height:52px; width:auto; object-fit:contain; display:block;">
         </a>

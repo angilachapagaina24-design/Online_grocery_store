@@ -45,12 +45,12 @@
 
             <div class="photo">
                 <div class="img"></div>
-                <p>Sampada Parajuli</p>
+                <p>Angila Chapagain</p>
             </div>
 
             <div class="photo">
                 <div class="img"></div>
-                <p>Angila Chapagain</p>
+                <p>Sampada Parajuli</p>
             </div>
 
         </div>
