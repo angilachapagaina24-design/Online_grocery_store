@@ -224,15 +224,11 @@
 
                         <%-- Add to Cart (only when in stock) --%>
                         <c:if test="${p.stockQuantity > 0}">
-                            <form action="${pageContext.request.contextPath}/cart" method="post">
-                                <input type="hidden" name="action" value="add">
-                                <input type="hidden" name="id"    value="${p.productId}">
-                                <input type="hidden" name="name"  value="${p.name}">
-                                <input type="hidden" name="price" value="${p.price}">
-                                <input type="hidden" name="image" value="${p.imageUrl}">
-                                <button type="submit" class="add-to-cart-btn">🛒 Add to Cart</button>
-                            </form>
-                        </c:if>
+		    				<button type="button" class="add-to-cart-btn"
+   							 onclick="addToCart('${p.productId}', '${p.name}', '${p.price}', '${p.imageUrl}')">
+   							 Add to Cart
+							</button>
+						</c:if>
 
                         <%-- Disabled button when out of stock --%>
                         <c:if test="${p.stockQuantity <= 0}">
@@ -258,5 +254,51 @@
 </div>
 
 <jsp:include page="Footer.jsp"/>
+
+
+<script>
+
+function addToCart(id, name, price, image) {
+
+    const params = new URLSearchParams();
+    params.append('action', 'add');
+    params.append('id', id);
+    params.append('name', name);
+    params.append('price', price);
+    params.append('image', image);
+
+    // Save scroll position
+    localStorage.setItem('scrollpos', window.scrollY);
+
+    fetch('${pageContext.request.contextPath}/cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params.toString()
+    })
+    .then(response => {
+        if (response.ok) {
+            location.reload();
+        }
+    })
+    .catch(err => console.error("Error:", err));
+}
+
+
+// Restore scroll position
+document.addEventListener("DOMContentLoaded", function() {
+
+    var scrollpos = localStorage.getItem('scrollpos');
+
+    if (scrollpos) {
+        window.scrollTo(0, scrollpos);
+        localStorage.removeItem('scrollpos');
+    }
+});
+
+</script>
+</script>
+
 </body>
 </html>

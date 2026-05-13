@@ -31,13 +31,13 @@ public class CartServlet extends HttpServlet {
             String idParam    = request.getParameter("id");
             String nameParam  = request.getParameter("name");
             String priceParam = request.getParameter("price");
-            String imageParam = request.getParameter("image"); 
+            String imageParam = request.getParameter("image");
 
             if (idParam != null && nameParam != null && priceParam != null) {
                 int    id    = Integer.parseInt(idParam);
                 String name  = nameParam;
                 double price = Double.parseDouble(priceParam);
-                String image = (imageParam != null) ? imageParam : "";  
+                String image = (imageParam != null) ? imageParam : "";
 
                 boolean found = false;
                 for (CartItem item : cart) {
@@ -47,11 +47,12 @@ public class CartServlet extends HttpServlet {
                         break;
                     }
                 }
-
                 if (!found) {
-                    cart.add(new CartItem(id, name, price, 1, image));  
+                    cart.add(new CartItem(id, name, price, 1, image));
                 }
             }
+
+            
         }
 
         // REMOVE ITEM
