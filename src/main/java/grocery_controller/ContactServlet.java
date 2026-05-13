@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/ContactServlet")
+@WebServlet("/contact")
 public class ContactServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -40,13 +40,13 @@ public class ContactServlet extends HttpServlet {
         }
 
        
-        request.getRequestDispatcher("/pages/contact.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/Contact.jsp").forward(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("showPopup", false);
-        request.getRequestDispatcher("/pages/contact.jsp").forward(request, response);
+        request.getRequestDispatcher("/pages/Contact.jsp").forward(request, response);
     }
 }
