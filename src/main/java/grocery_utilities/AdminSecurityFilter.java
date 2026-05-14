@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import grocery_model.User;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/adminDashboard", "/inventory", "/addProduct", "/manageOrders", "/manageUsers"})
+//@WebFilter(urlPatterns = {"/adminDashboard", "/inventory", "/addProduct", "/manageOrders", "/manageUsers"})
 public class AdminSecurityFilter implements Filter {
     
     @Override

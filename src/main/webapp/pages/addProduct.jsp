@@ -30,11 +30,11 @@
                 <span class="nav-icon">➕</span>
                 <span>Add Product</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/manageOrders" class="nav-item">
+            <a href="${pageContext.request.contextPath}/manageOrders" class="nav-item">
                 <span class="nav-icon">📋</span>
                 <span>Orders</span>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/manageUsers" class="nav-item">
+            <a href="${pageContext.request.contextPath}/manageUsers" class="nav-item">
                 <span class="nav-icon">👥</span>
                 <span>Users</span>
             </a>

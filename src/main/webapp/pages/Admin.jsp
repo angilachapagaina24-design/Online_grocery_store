@@ -52,12 +52,12 @@
         <div class="topbar">
             <div class="topbar-left">
                 <h2>Dashboard</h2>
-                <p class="breadcrumb">Welcome back, <strong>${sessionScope.user.fullName}</strong></p>
+                <p class="breadcrumb">Welcome back, <strong>Admin</strong></p>
             </div>
             <div class="topbar-right">
                 <div class="admin-badge">
                     <span></span>
-                    <span>${sessionScope.user.fullName}</span>
+                    <span>Admin</span>
                     <span class="role-tag">Admin</span>
                 </div>
             </div>

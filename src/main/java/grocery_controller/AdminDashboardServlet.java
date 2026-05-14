@@ -13,38 +13,31 @@ import java.io.IOException;
 
 @WebServlet("/adminDashboard")
 public class AdminDashboardServlet extends HttpServlet {
-
+ 
     private static final long serialVersionUID = 1L;
-
+ 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Security: only admins
-        HttpSession session = request.getSession(false);
-        User user = (session != null) ? (User) session.getAttribute("user") : null;
-        if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
-
+ 
         // Prevent browser caching
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
-
+ 
         ProductDAO productDAO = new ProductDAO();
         OrderDAO   orderDAO   = new OrderDAO();
-
+ 
         // Stats
         request.setAttribute("totalProducts", productDAO.getTotalProductCount());
         request.setAttribute("totalOrders",   orderDAO.getTotalOrderCount());
         request.setAttribute("totalSales",    String.format("%.2f", orderDAO.getTotalSalesAmount()));
-
+ 
         // Table data
         request.setAttribute("productList",  productDAO.getBestSellingProducts());
         request.setAttribute("recentOrders", orderDAO.getRecentOrders(5));
-
+ 
         request.getRequestDispatcher("/pages/Admin.jsp").forward(request, response);
     }
 }
+ 

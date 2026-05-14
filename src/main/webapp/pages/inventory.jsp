@@ -119,7 +119,7 @@
                                     <!-- Product name + image -->
                                     <td>
                                         <div class="product-cell">
-                                            <img src="${pageContext.request.contextPath}/${product.imageUrl}"
+                                            <img src="${pageContext.request.contextPath}${product.imageUrl}"
                                                  alt="${product.name}"
                                                  class="product-thumb"
                                                  onerror="this.src='${pageContext.request.contextPath}/Images/placeholder.png'">
