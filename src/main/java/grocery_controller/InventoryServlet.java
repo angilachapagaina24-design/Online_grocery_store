@@ -15,10 +15,25 @@ import grocery_model.Product;
 
 @WebServlet("/inventory")
 public class InventoryServlet extends HttpServlet {
+	
+	
  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	
+    	HttpSession session = request.getSession(false);
+
+    	User adminUser = (session != null)
+    	        ? (User) session.getAttribute("adminUser")
+    	        : null;
+    	if (adminUser == null ||
+    	   !"admin".equalsIgnoreCase(adminUser.getRole())) {
+    	    response.sendRedirect(request.getContextPath() + "/login");
+    	    return;
+    	}
+    	
  
         ProductDAO productDAO = new ProductDAO();
         List<Product> productList;

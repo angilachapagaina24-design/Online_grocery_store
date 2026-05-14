@@ -44,7 +44,11 @@ public class RegisterServlet extends HttpServlet {
         user.setEmail(email);
         user.setPassword(password);
         user.setPhone(mobile);
-        user.setAddress("");
+        user.setAddress("");       
+        
+     // yo chai test garna ko lagi temporarily use gareko ho admin ma register garna
+       // user.setRole("admin");
+        
         user.setRole("customer");
         user.setStatus("active");
 
