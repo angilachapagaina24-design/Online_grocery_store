@@ -161,7 +161,7 @@ public class UserDAO {
         return 0;
     }
 
-    // ── Row mapper ────────────────────────────────────────────────────────────
+   
     private User mapRow(ResultSet rs) throws Exception {
         User u = new User();
         u.setUserId(rs.getInt("user_id"));

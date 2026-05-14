@@ -56,7 +56,7 @@
                 <p class="breadcrumb">Fill in the details to add a new product.</p>
             </div>
             <div class="topbar-right">
-                <a href="${pageContext.request.contextPath}/admin/inventory" class="btn-outline">
+                <a href="${pageContext.request.contextPath}/inventory" class="btn-outline">
                     📦 Go to Inventory List
                 </a>
             </div>
@@ -74,9 +74,9 @@
         <div class="form-card">
 
             <%-- multipart/form-data needed for file upload --%>
-            <form action="${pageContext.request.contextPath}/admin/addProduct"
-                  method="post"
-                  enctype="multipart/form-data">
+           <form action="${pageContext.request.contextPath}/addProduct"
+      		method="post"
+      		enctype="multipart/form-data">
 
                 <!-- ROW 1: Product Name + Brand -->
                 <div class="form-row">

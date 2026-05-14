@@ -78,7 +78,7 @@ public class EditProductServlet extends HttpServlet {
                 String uploadPath = getServletContext().getRealPath("") + File.separator + "Images";
                 new File(uploadPath).mkdirs();
                 filePart.write(uploadPath + File.separator + fileName);
-                imageUrl = fileName;
+                imageUrl = "Images/" + fileName;
             }
  
             Product p = new Product();
