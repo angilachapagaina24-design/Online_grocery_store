@@ -27,6 +27,13 @@ public class EditProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	 HttpSession session = request.getSession(false);
+    	    User adminUser = (session != null) ? (User) session.getAttribute("adminUser") : null;
+    	    if (adminUser == null || !"admin".equalsIgnoreCase(adminUser.getRole())) {
+    	        response.sendRedirect(request.getContextPath() + "/login");
+    	        return;
+    	    }
  
         String pidStr = request.getParameter("productId");
         if (pidStr == null) {
@@ -52,6 +59,14 @@ public class EditProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
  
+    	 HttpSession session = request.getSession(false);
+    	    User adminUser = (session != null) ? (User) session.getAttribute("adminUser") : null;
+    	    if (adminUser == null || !"admin".equalsIgnoreCase(adminUser.getRole())) {
+    	        response.sendRedirect(request.getContextPath() + "/login");
+    	        return;
+    	    }
+    	    
+    	    
         CategoryDAO categoryDAO = new CategoryDAO();
  
         try {

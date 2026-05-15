@@ -13,6 +13,7 @@ import grocery_model.User;
 	@WebServlet("/login")
 	public class LoginServlet extends HttpServlet {
 	
+		
 		@Override
 		protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		        throws ServletException, IOException {
@@ -28,7 +29,7 @@ import grocery_model.User;
 		        }
 		        
 		        // Customer session check
-		        User user = (User) session.getAttribute("user");
+		        User user = (User) session.getAttribute("user");  // ✅ yaha define garnu
 		        if (user != null) {
 		            response.sendRedirect(request.getContextPath() + "/home");
 		            return;
@@ -38,7 +39,6 @@ import grocery_model.User;
 		    // No session — show login page
 		    request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
 		}
-
 	    @Override
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {

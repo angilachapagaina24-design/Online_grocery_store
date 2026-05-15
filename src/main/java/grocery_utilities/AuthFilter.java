@@ -38,6 +38,10 @@ public class AuthFilter implements Filter {
  
         // Get session WITHOUT creating a new one
         HttpSession session = request.getSession(false);
+        
+        
+     // LoginServlet.java ma admin session
+        User adminUser = (session != null) ? (User) session.getAttribute("adminUser") : null;
         User user = (session != null) ? (User) session.getAttribute("user") : null;
  
         String uri = request.getRequestURI();
@@ -59,18 +63,16 @@ public class AuthFilter implements Filter {
             }
  
         // ------------ADMIN PAGES-----------------
+     // Admin pages check
         if (uri.startsWith(context + "/admin/")) {
-
-            if (user == null) {
-                response.sendRedirect(context + "/login.jsp?error=login_required");
+            if (adminUser == null) {  // ✅ adminUser key use garnu
+                response.sendRedirect(context + "/login?error=login_required");
                 return;
             }
-
-            if (!"admin".equalsIgnoreCase(user.getRole())) {
+            if (!"admin".equalsIgnoreCase(adminUser.getRole())) {
                 response.sendRedirect(context + "/error/unauthorized.jsp");
                 return;
             }
-
             chain.doFilter(req, res);
             return;
         }

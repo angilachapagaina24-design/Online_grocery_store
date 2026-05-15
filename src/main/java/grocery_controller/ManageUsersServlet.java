@@ -13,30 +13,27 @@ import java.util.List;
 @WebServlet("/manageUsers")
 public class ManageUsersServlet extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
+	    HttpSession session = request.getSession(false);
 
-        if(session == null || session.getAttribute("user") == null){
-            response.sendRedirect(request.getContextPath() + "/login");
-            return;
-        }
+	    //  "adminUser" key check garnu
+	    if(session == null || session.getAttribute("adminUser") == null){
+	        response.sendRedirect(request.getContextPath() + "/login");
+	        return;
+	    }
 
-        UserDAO userDAO = new UserDAO();
+	    UserDAO userDAO = new UserDAO();
+	    String keyword = request.getParameter("keyword");
+	    String role = request.getParameter("role");
+	    List<User> userList = userDAO.getAllUsersFiltered(keyword, role);
+	    request.setAttribute("userList", userList);
+	    request.getRequestDispatcher("/pages/ManageUsers.jsp").forward(request, response);
+	}
 
-        String keyword = request.getParameter("keyword");
-        String role = request.getParameter("role");
-
-        List<User> userList = userDAO.getAllUsersFiltered(keyword, role);
-
-        request.setAttribute("userList", userList);
-
-        request.getRequestDispatcher("/pages/manageUsers.jsp")
-               .forward(request, response);
-    }
-
+	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

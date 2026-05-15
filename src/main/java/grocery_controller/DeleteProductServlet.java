@@ -20,8 +20,8 @@ public class DeleteProductServlet extends HttpServlet {
 
         // Admin check
         HttpSession session = request.getSession(false);
-        User user = (session != null) ? (User) session.getAttribute("user") : null;
-        if (user == null || !"admin".equalsIgnoreCase(user.getRole())) {
+        User adminUser = (session != null) ? (User) session.getAttribute("adminUser") : null;
+        if (adminUser == null || !"admin".equalsIgnoreCase(adminUser.getRole())) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }

@@ -3,13 +3,14 @@ package grocery_controller;
 import grocery_dao.CategoryDAO;
 import grocery_dao.ProductDAO;
 import grocery_model.Product;
- 
+import grocery_model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
  
 import java.io.File;
@@ -32,6 +33,14 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	HttpSession session = request.getSession(false);
+        User adminUser = (session != null) ? (User) session.getAttribute("adminUser") : null;
+        if (adminUser == null || !"admin".equalsIgnoreCase(adminUser.getRole())) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+        
         CategoryDAO categoryDAO = new CategoryDAO();
         request.setAttribute("categoryList", categoryDAO.getAllCategories());
         request.getRequestDispatcher("/pages/addProduct.jsp").forward(request, response);
@@ -40,6 +49,13 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	HttpSession session = request.getSession(false);
+        User adminUser = (session != null) ? (User) session.getAttribute("adminUser") : null;
+        if (adminUser == null || !"admin".equalsIgnoreCase(adminUser.getRole())) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
 
         CategoryDAO categoryDAO = new CategoryDAO();
         

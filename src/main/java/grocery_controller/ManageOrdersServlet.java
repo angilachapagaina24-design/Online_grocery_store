@@ -2,11 +2,14 @@ package grocery_controller;
 
 import grocery_dao.OrderDAO;
 import grocery_model.Order;
+import grocery_model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -18,6 +21,13 @@ public class ManageOrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	HttpSession session = request.getSession(false);
+        User adminUser = (session != null) ? (User) session.getAttribute("adminUser") : null;
+        if (adminUser == null || !"admin".equalsIgnoreCase(adminUser.getRole())) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
  
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
  

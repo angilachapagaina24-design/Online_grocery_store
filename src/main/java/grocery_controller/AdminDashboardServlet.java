@@ -24,13 +24,13 @@ public class AdminDashboardServlet extends HttpServlet {
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
 
-        // ✅ adminUser session bata lina parxa
+        //  adminUser session bata lina parxa
         HttpSession session = request.getSession(false);
         User adminUser = (session != null)
                        ? (User) session.getAttribute("adminUser")
                        : null;
 
-        // ✅ Null check — login nagari access block
+        //  Null check — login nagari access block
         if (adminUser == null || 
         		   !"admin".equalsIgnoreCase(adminUser.getRole())) {
 
