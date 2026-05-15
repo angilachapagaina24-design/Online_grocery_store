@@ -134,9 +134,56 @@
             <button type="submit" class="btn-primary">Save Changes</button>
             <button type="button" class="btn-outline" onclick="toggleEdit(false)">Cancel</button>
         </form>
-    </div>
+        
+       </div>
+       
+      
 
-</div>
+    <!-- ══ CHANGE PASSWORD SECTION ══ -->
+<div class="profile-section" style="margin-top: 15px;">
+    
+    <button class="btn-edit" onclick="togglePasswordForm()" id="changePassBtn">
+        Change Password
+    </button>
+
+    <div id="changePasswordForm" style="display:none; margin-top: 20px;">
+        
+        <!-- Error message -->
+        <% if (request.getAttribute("passError") != null) { %>
+            <div class="alert alert-error">&#10007; <%= request.getAttribute("passError") %></div>
+        <% } %>
+        <!-- Success message -->
+        <% if (successMsg != null && !successMsg.isEmpty() && successMsg.contains("Password")) { %>
+            <div class="alert alert-success">&#10003; <%= successMsg %></div>
+        <% } %>
+
+        <form action="<%= request.getContextPath() %>/profile" method="post">
+            <input type="hidden" name="action" value="changePassword"/>
+            
+            <div class="form-card">
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <input type="password" name="currentPassword"
+                           placeholder="Recent password" required/>
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" name="newPassword"
+                           placeholder="New password (min 6 chars)" required/>
+                </div>
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" name="confirmPassword"
+                           placeholder="Retype new password" required/>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary">Save New Password</button>
+            <button type="button" class="btn-outline" onclick="togglePasswordForm()">Cancel</button>
+        </form>
+    </div>
+  </div>
+ </div> 
 
 <script>
     function toggleEdit(show) {
@@ -147,7 +194,28 @@
     <% if (errorMsg != null && !errorMsg.isEmpty()) { %>
         toggleEdit(true);
     <% } %>
+    
+    
+    function togglePasswordForm() {
+        var form = document.getElementById('changePasswordForm');
+        var btn  = document.getElementById('changePassBtn');
+        if (form.style.display === 'none') {
+            form.style.display = 'block';
+            btn.textContent = 'Cancel';
+        } else {
+            form.style.display = 'none';
+            btn.textContent = 'Change Password';
+        }
+    }
+    
+ // passError aayo bhane auto-open garnus
+    <% if (request.getAttribute("passError") != null) { %>
+        document.addEventListener("DOMContentLoaded", function() {
+            togglePasswordForm();
+        });
+    <% } %>
+    
+    
 </script>
-
 </body>
 </html>

@@ -2,6 +2,7 @@ package grocery_dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import grocery_model.User;
@@ -138,6 +139,23 @@ public class UserDAO {
         } catch (Exception e) { e.printStackTrace(); }
         return false;
     }
+    
+    
+ //   Change Password
+    public boolean changePassword(int userId, String newPassword) {
+        String sql = "UPDATE users SET password = ? WHERE user_id = ?";
+        try (Connection conn = DBGroceryConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, PasswordUtil.getHashPassword(newPassword)); // BCrypt hash
+            ps.setInt(2, userId);
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     // ── Admin: count stats ────────────────────────────────────────────────────
     public int getTotalUserCount() {
@@ -167,6 +185,7 @@ public class UserDAO {
         u.setUserId(rs.getInt("user_id"));
         u.setFullName(rs.getString("full_name"));
         u.setEmail(rs.getString("email"));
+        u.setPassword(rs.getString("password"));  
         u.setPhone(rs.getString("phone"));
         u.setAddress(rs.getString("address"));
         u.setRole(rs.getString("role"));

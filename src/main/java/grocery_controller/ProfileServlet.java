@@ -2,6 +2,7 @@ package grocery_controller;
 
 import grocery_dao.UserDAO;
 import grocery_model.User;
+import grocery_utilities.PasswordUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -49,14 +50,63 @@ public class ProfileServlet extends HttpServlet {
         }
 
         User sessionUser = (User) session.getAttribute("user");
+        String action = request.getParameter("action");
 
-        String fullName = request.getParameter("fullName");
+        // --- CHANGE PASSWORD ---
+        if ("changePassword".equals(action)) {
+            String currentPassword = request.getParameter("currentPassword");
+            String newPassword     = request.getParameter("newPassword");
+            String confirmPassword = request.getParameter("confirmPassword");
+
+            if (currentPassword == null || newPassword == null || confirmPassword == null
+                    || currentPassword.isBlank() || newPassword.isBlank()) {
+                request.setAttribute("passError", "Sabai fields bharnu parcha!");
+                request.setAttribute("user", sessionUser);
+                request.getRequestDispatcher("/pages/Profile.jsp").forward(request, response);
+                return;
+            }
+            if (!newPassword.equals(confirmPassword)) {
+                request.setAttribute("passError", "New password ra confirm password match bhayena!");
+                request.setAttribute("user", sessionUser);
+                request.getRequestDispatcher("/pages/Profile.jsp").forward(request, response);
+                return;
+            }
+            if (newPassword.length() < 6) {
+                request.setAttribute("passError", "Password kam se kam 6 characters ko hunu parcha!");
+                request.setAttribute("user", sessionUser);
+                request.getRequestDispatcher("/pages/Profile.jsp").forward(request, response);
+                return;
+            }
+
+            UserDAO userDAO = new UserDAO();
+            User dbUser = userDAO.getUserById(sessionUser.getUserId());
+
+            if (!PasswordUtil.checkPassword(currentPassword, dbUser.getPassword())) {
+                request.setAttribute("passError", "Haalko password milena!");
+                request.setAttribute("user", dbUser);
+                request.getRequestDispatcher("/pages/Profile.jsp").forward(request, response);
+                return;
+            }
+
+            boolean success = userDAO.changePassword(sessionUser.getUserId(), newPassword);
+            if (success) {
+                response.sendRedirect(request.getContextPath() + "/profile?successMsg=Password+changed+successfully!");
+            } else {
+                request.setAttribute("passError", "Password change garna sakiena, pheri try garnus!");
+                request.setAttribute("user", dbUser);
+                request.getRequestDispatcher("/pages/Profile.jsp").forward(request, response);
+            }
+            return;  // ← important
+        }
+
+        // --- PROFILE UPDATE ---
+        String fullName = request.getParameter("fullName");  // ✅ yaha define hunu parcha
         String phone    = request.getParameter("phone");
         String address  = request.getParameter("address");
 
-        // Basic validation
         if (fullName == null || fullName.isBlank()) {
             request.setAttribute("errorMsg", "Name cannot be empty.");
+            request.setAttribute("user", sessionUser);
             request.getRequestDispatcher("/pages/Profile.jsp").forward(request, response);
             return;
         }
@@ -74,7 +124,6 @@ public class ProfileServlet extends HttpServlet {
         boolean success = userDAO.updateUser(updatedUser);
 
         if (success) {
-            // Update session with new name
             sessionUser.setFullName(fullName);
             sessionUser.setPhone(phone);
             sessionUser.setAddress(address);
@@ -82,6 +131,7 @@ public class ProfileServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/profile?successMsg=Profile+Updated!");
         } else {
             request.setAttribute("errorMsg", "Failed to update profile. Please try again.");
+            request.setAttribute("user", sessionUser);
             request.getRequestDispatcher("/pages/Profile.jsp").forward(request, response);
         }
     }
