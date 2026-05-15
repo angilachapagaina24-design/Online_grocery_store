@@ -6,16 +6,29 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.*;
 import grocery_model.CartItem;
+import grocery_model.User;
 
 @WebServlet("/cart")
 public class CartServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        
+        HttpSession session = request.getSession(false);
+        User loggedInUser = (session != null) ? (User) session.getAttribute("user") : null;
+
+        if (loggedInUser == null) {
+            // AJAX request hola — redirect JSON response pathaunus
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
+            response.getWriter().write("{\"redirect\": \"" + request.getContextPath() + "/login\"}");
+            return;
+        }
+
 
         @SuppressWarnings("unchecked")
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -112,4 +125,6 @@ public class CartServlet extends HttpServlet {
         // FIX: use context-relative path so it works from any URL depth
         request.getRequestDispatcher("/pages/Cart.jsp").forward(request, response);
     }
+    
+    
 }

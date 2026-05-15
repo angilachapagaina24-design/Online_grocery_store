@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -298,12 +299,19 @@ function addToCart(id, name, price, image) {
         body: params.toString()
     })
     .then(response => {
+        // ✅ 401 aayo bhane login page ma pathau
+        if (response.status === 401) {
+            return response.json().then(data => {
+                window.location.href = data.redirect;
+            });
+        }
         if (response.ok) {
             location.reload();
         }
     })
     .catch(err => console.error("Error:", err));
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
     var scrollpos = localStorage.getItem('scrollpos');
