@@ -134,15 +134,21 @@ public class ProductDAO {
     // ── Search by keyword ─────────────────────────────────────────────────────
     public List<Product> searchProducts(String keyword) {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM product WHERE " +
-                     "LOWER(name) LIKE LOWER(?) OR LOWER(description) LIKE LOWER(?)";
+        
+        String sql = "SELECT p.* FROM product p " +
+                     "JOIN category c ON p.category_id = c.category_id " +
+                     "WHERE LOWER(p.name) LIKE LOWER(?) " +           // name: start-with
+                     "OR LOWER(c.category_name) = LOWER(?)";          // category: exact match only
 
         try (Connection con = DBGroceryConfig.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            String k = "%" + keyword + "%";
-            ps.setString(1, k);
-            ps.setString(2, k);
+            String kName = keyword.toLowerCase() + "%";   // "b%" → Banana, Broccoli, Butter, Bread
+            String kCat  = keyword.toLowerCase();          // "bakery" exact match matra
+
+            ps.setString(1, kName);
+            ps.setString(2, kCat);
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(mapRow(rs));
