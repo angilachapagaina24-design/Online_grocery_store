@@ -10,12 +10,19 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/manageUser")
-public class ManageUserServlet extends HttpServlet {
+@WebServlet("/manageUsers")
+public class ManageUsersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+
+        if(session == null || session.getAttribute("user") == null){
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
 
         UserDAO userDAO = new UserDAO();
 
@@ -39,13 +46,13 @@ public class ManageUserServlet extends HttpServlet {
         String action = request.getParameter("action");
         int userId = Integer.parseInt(request.getParameter("userId"));
 
-        if ("delete".equals(action)) {
+        if ("deleteUser".equals(action)) {
 
             userDAO.deleteUser(userId);
 
         } else if ("toggleStatus".equals(action)) {
 
-            String currentStatus = request.getParameter("status");
+            String currentStatus = request.getParameter("currentStatus");
 
             String newStatus =
                     currentStatus.equals("active")

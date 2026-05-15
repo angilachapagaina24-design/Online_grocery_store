@@ -93,7 +93,7 @@
 
         <!-- Filter bar -->
         <div class="filter-bar">
-            <form action="${pageContext.request.contextPath}/manageUser" method="get">
+            <form action="${pageContext.request.contextPath}/manageUsers" method="get">
                 <div class="search-input-wrap">
                     <span class="search-icon">🔍</span>
                     <input type="text" name="keyword" placeholder="Search by name, email, phone"
@@ -106,7 +106,7 @@
                     <option value="customer" ${roleFilter == 'customer' ? 'selected' : ''}>Customer</option>
                 </select>
                 <c:if test="${not empty roleFilter or not empty keyword}">
-                    <a href="${pageContext.request.contextPath}/manageUser" class="btn-outline">Clear</a>
+                    <a href="${pageContext.request.contextPath}/manageUsers" class="btn-outline">Clear</a>
                 </c:if>
             </form>
         </div>
@@ -177,7 +177,7 @@
                                             <c:otherwise>
 
                                                 <!-- Toggle active/inactive -->
-                                                <form action="${pageContext.request.contextPath}/manageUser"
+                                                <form action="${pageContext.request.contextPath}/manageUsers"
                                                       method="post" style="display:inline;">
                                                     <input type="hidden" name="action"        value="toggleStatus">
                                                     <input type="hidden" name="userId"        value="${u.userId}">
@@ -190,7 +190,7 @@
                                                 </form>
 
                                                 <!-- Delete -->
-                                                <form action="${pageContext.request.contextPath}/manageUser"
+                                                <form action="${pageContext.request.contextPath}/manageUsers"
                                                       method="post" style="display:inline;"
                                                       onsubmit="return confirm('Permanently delete ${u.fullName}? This cannot be undone.')">
                                                     <input type="hidden" name="action" value="deleteUser">
