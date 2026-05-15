@@ -49,7 +49,7 @@
         <div class="pd-image-col">
             <div class="pd-image-wrap">
                 <img
-                    src="<%= request.getContextPath() %>/<%= product.getImageUrl() != null ? product.getImageUrl() : "Images/placeholder.png" %>"
+                    src="<%= request.getContextPath() %>/Images/<%= product.getImageUrl() != null ? product.getImageUrl() : "placeholder.png" %>"
                     alt="<%= product.getName() %>"
                     class="pd-main-img"
                     onerror="this.src='<%= request.getContextPath() %>/Images/placeholder.png'"

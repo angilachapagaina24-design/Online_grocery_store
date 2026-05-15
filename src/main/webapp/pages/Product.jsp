@@ -10,8 +10,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Product.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Footer.css">
-
-
 </head>
 
 <body>
@@ -91,29 +89,36 @@
             <c:when test="${not empty productList}">
                 <c:forEach var="p" items="${productList}">
 
-                    <%-- Add 'oos' class when out of stock --%>
                     <div class="product-item ${p.stockQuantity <= 0 ? 'oos' : ''}">
 
-                        <%-- Red Out of Stock badge --%>
+                        <%-- Out of Stock badge --%>
                         <c:if test="${p.stockQuantity <= 0}">
                             <span class="oos-badge">Out of Stock</span>
                         </c:if>
 
-                        <div class="img-placeholder" style="width:100%; height:150px; overflow:hidden; border-radius:8px;">
-                            <c:choose>
-                                <c:when test="${not empty p.imageUrl}">
-                                    <img src="${pageContext.request.contextPath}/Images/${p.imageUrl}"
-                                         alt="${p.name}"
-                                         style="width:100%; height:100%; object-fit:cover;"
-                                         onerror="this.parentNode.innerHTML='<span style=\'line-height:150px;color:#ccc;\'>No Image</span>'">
-                                </c:when>
-                                <c:otherwise>
-                                    <span style="line-height:150px; color:#ccc;">No Image</span>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
+                        <%-- Image + Name = clickable link to ProductDetail page --%>
+                        <a href="${pageContext.request.contextPath}/productDetail?id=${p.productId}"
+                           style="text-decoration:none; color:inherit; display:block;">
 
-                        <p style="font-weight:600; margin:12px 0 4px;">${p.name}</p>
+                            <div class="img-placeholder" style="width:100%; height:150px; overflow:hidden; border-radius:8px;">
+                                <c:choose>
+                                    <c:when test="${not empty p.imageUrl}">
+                                        <img src="${pageContext.request.contextPath}/Images/${p.imageUrl}"
+                                             alt="${p.name}"
+                                             style="width:100%; height:100%; object-fit:cover;"
+                                             onerror="this.parentNode.innerHTML='<span style=\'line-height:150px;color:#ccc;\'>No Image</span>'">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span style="line-height:150px; color:#ccc;">No Image</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+
+                            <p style="font-weight:600; margin:12px 0 4px;">${p.name}</p>
+
+                        </a>
+                        <%-- End clickable area --%>
+
                         <span style="color:#2e7d32; font-size:15px; font-weight:700;">
                             Rs. <fmt:formatNumber value="${p.price}" maxFractionDigits="0"/>
                         </span>
@@ -124,11 +129,11 @@
 
                         <%-- Add to Cart (only when in stock) --%>
                         <c:if test="${p.stockQuantity > 0}">
-		    				<button type="button" class="add-to-cart-btn"
-   							 onclick="addToCart('${p.productId}', '${p.name}', '${p.price}', '${p.imageUrl}')">
-   							 Add to Cart
-							</button>
-						</c:if>
+                            <button type="button" class="add-to-cart-btn"
+                                onclick="addToCart('${p.productId}', '${p.name}', '${p.price}', '${p.imageUrl}')">
+                                Add to Cart
+                            </button>
+                        </c:if>
 
                         <%-- Disabled button when out of stock --%>
                         <c:if test="${p.stockQuantity <= 0}">
@@ -155,7 +160,6 @@
 
 <jsp:include page="Footer.jsp"/>
 
-
 <script>
 
 function addToCart(id, name, price, image) {
@@ -174,7 +178,6 @@ function addToCart(id, name, price, image) {
         body: params.toString()
     })
     .then(response => {
-        // ✅ 401 aayo bhane login page ma pathau
         if (response.status === 401) {
             return response.json().then(data => {
                 window.location.href = data.redirect;
@@ -187,11 +190,9 @@ function addToCart(id, name, price, image) {
     .catch(err => console.error("Error:", err));
 }
 
-// Restore scroll position
+// Restore scroll position after cart add
 document.addEventListener("DOMContentLoaded", function() {
-
     var scrollpos = localStorage.getItem('scrollpos');
-
     if (scrollpos) {
         window.scrollTo(0, scrollpos);
         localStorage.removeItem('scrollpos');
@@ -199,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 </script>
-</script>
 
 </body>
 </html>
+
