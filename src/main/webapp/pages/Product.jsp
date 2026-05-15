@@ -159,7 +159,6 @@
 <script>
 
 function addToCart(id, name, price, image) {
-
     const params = new URLSearchParams();
     params.append('action', 'add');
     params.append('id', id);
@@ -167,24 +166,26 @@ function addToCart(id, name, price, image) {
     params.append('price', price);
     params.append('image', image);
 
-    // Save scroll position
     localStorage.setItem('scrollpos', window.scrollY);
 
     fetch('${pageContext.request.contextPath}/cart', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: params.toString()
     })
     .then(response => {
+        // ✅ 401 aayo bhane login page ma pathau
+        if (response.status === 401) {
+            return response.json().then(data => {
+                window.location.href = data.redirect;
+            });
+        }
         if (response.ok) {
             location.reload();
         }
     })
     .catch(err => console.error("Error:", err));
 }
-
 
 // Restore scroll position
 document.addEventListener("DOMContentLoaded", function() {
