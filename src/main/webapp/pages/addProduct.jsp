@@ -38,6 +38,11 @@
                 <span class="nav-icon">👥</span>
                 <span>Users</span>
             </a>
+            <a href="${pageContext.request.contextPath}/adminProfile" class="nav-item">
+   			 <span class="nav-icon">👤</span>
+  			  <span>My Profile</span>
+			</a>
+			
             <a href="${pageContext.request.contextPath}/logout" class="nav-item logout">
                 <span class="nav-icon">🚪</span>
                 <span>Logout</span>
