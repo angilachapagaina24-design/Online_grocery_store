@@ -35,48 +35,72 @@
     <!-- Best Selling Tab -->
     <div id="bestSelling" class="tab-content active">
         <div class="product-container">
-            <div class="product-card">
-                <div class="product-img-wrap">
-                    <img src="${pageContext.request.contextPath}/Images/banana.png" alt="Banana">
-                </div>
-                <div class="product-info">
-                    <h4>Organic Bananas</h4>
-                    <p class="price">Rs. 120</p>
-                    <button class="add-btn" onclick="addToCart(2, 'Banana', 120, 'banana.png')">Add to Cart</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-img-wrap">
-                    <img src="${pageContext.request.contextPath}/Images/milk.png" alt="Milk">
-                </div>
-                <div class="product-info">
-                    <h4>Fresh Milk</h4>
-                    <p class="price">Rs. 75</p>
-                    <button class="add-btn" onclick="addToCart(25, 'Milk', 75, 'milk.png')">Add to Cart</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-img-wrap">
-                    <img src="${pageContext.request.contextPath}/Images/bread.png" alt="Bread">
-                </div>
-                <div class="product-info">
-                    <h4>Whole Bread</h4>
-                    <p class="price">Rs. 75</p>
-                    <button class="add-btn" onclick="addToCart(31, 'Bread', 75, 'bread.png')">Add to Cart</button>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-img-wrap">
-                    <img src="${pageContext.request.contextPath}/Images/orangejuice.png" alt="Orange Juice">
-                </div>
-                <div class="product-info">
-                    <h4>Orange Juice</h4>
-                    <p class="price">Rs. 180</p>
-                    <button class="add-btn" onclick="addToCart(8, 'Orange Juice', 180, 'orangejuice.png')">Add to Cart</button>
-                </div>
-            </div>
-        </div>
-    </div>
+            <!-- Banana card fix -->
+		<div class="product-card">
+  		  <div class="product-img-wrap">
+  	      <a href="${pageContext.request.contextPath}/productDetail?id=2">
+            <img src="${pageContext.request.contextPath}/Images/banana.png" alt="Banana">
+     	   </a>
+   		 </div>
+   		 <div class="product-info">
+        <a href="${pageContext.request.contextPath}/productDetail?id=2">
+            <h4>Organic Bananas</h4>
+        </a>
+        <p class="price">Rs. 120</p>
+        <button class="add-btn" onclick="addToCart(2, 'Banana', 120, 'banana.png')">Add to Cart</button>
+   		 </div>
+	</div>
+
+           <!-- Milk card -->
+		<div class="product-card">
+   		 <div class="product-img-wrap">
+     		   <a href="${pageContext.request.contextPath}/productDetail?id=25">
+          	  <img src="${pageContext.request.contextPath}/Images/milk.png" alt="Milk">
+       		 </a>
+   		 </div>
+   		 <div class="product-info">
+    	    <a href="${pageContext.request.contextPath}/productDetail?id=25">
+            <h4>Fresh Milk</h4>
+      	  </a>
+      	  <p class="price">Rs. 75</p>
+      	  <button class="add-btn" onclick="addToCart(25, 'Milk', 75, 'milk.png')">Add to Cart</button>
+   		 </div>
+		</div>
+
+
+            <!-- Bread card -->
+				<div class="product-card">
+    			<div class="product-img-wrap">
+       				 <a href="${pageContext.request.contextPath}/productDetail?id=31">
+           			 <img src="${pageContext.request.contextPath}/Images/bread.png" alt="Bread">
+       				 </a>
+   				 </div>
+    				<div class="product-info">
+        	  	 	<a href="${pageContext.request.contextPath}/productDetail?id=31">
+         	  	    <h4>Whole Bread</h4>
+      		  	</a>
+       				 <p class="price">Rs. 75</p>
+      				  <button class="add-btn" onclick="addToCart(31, 'Bread', 75, 'bread.png')">Add to Cart</button>
+  			  </div>
+			</div>
+
+          	 <!-- Orange Juice card -->
+			<div class="product-card">
+ 			   <div class="product-img-wrap">
+    			    <a href="${pageContext.request.contextPath}/productDetail?id=8">
+       			     <img src="${pageContext.request.contextPath}/Images/orangejuice.png" alt="Orange Juice">
+       			 </a>
+   			 </div>
+   			 <div class="product-info">
+     			   <a href="${pageContext.request.contextPath}/productDetail?id=8">
+     			   <h4>Orange Juice</h4>
+      				  </a>
+      				  <p class="price">Rs. 180</p>
+        		<button class="add-btn" onclick="addToCart(8, 'Orange Juice', 180, 'orangejuice.png')">Add to Cart</button>
+   				 </div>
+				</div>
+       		 </div>
+   		 </div>
 
     <!-- Latest Tab -->
     <div id="latest" class="tab-content">
