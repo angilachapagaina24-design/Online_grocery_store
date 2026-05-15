@@ -1,5 +1,6 @@
 USE grocery_store;
 
+<<<<<<< HEAD
 -- CATEGORY DATA
 INSERT INTO category
 (category_id, category_name, image_url, description, status)
@@ -10,6 +11,14 @@ VALUES
 (4,'Bakery','bakery.png','Baked goods','active'),
 (5,'Beverages','beverages 1.png','Drinks and juices','active'),
 (6,'Spices & Seasoning','spices and seasoning 1.png','Spices and seasonings','active');
+=======
+-- =========================
+-- USERS
+-- =========================
+INSERT INTO users (full_name, email, password, phone, address, role) VALUES,
+('John Doe',   'john@gmail.com',    '123456',   '9811111111', 'Kathmandu', 'customer'),
+('Jane Smith', 'jane@gmail.com',    '123456',   '9822222222', 'Lalitpur',  'customer');
+>>>>>>> 33f353a (sql)
 
 -- USERS DATA
 INSERT INTO users

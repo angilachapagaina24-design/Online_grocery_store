@@ -47,9 +47,10 @@ public class RegisterServlet extends HttpServlet {
         user.setAddress("");       
         
      // yo chai test garna ko lagi temporarily use gareko ho admin ma register garna
-       // user.setRole("admin");
         
-        user.setRole("customer");
+        user.setRole("admin");
+        
+        //user.setRole("customer");
         user.setStatus("active");
 
         // UserDAO use gara — direct DB connection chaidaina
