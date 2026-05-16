@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * Unauthorized users are redirected to the login page.
  */
-@WebFilter(urlPatterns = {"/admin/*", "/user/*"})
+@WebFilter(urlPatterns = {"/admin/", "/user/"})
 public class AuthFilter implements Filter {
  
     @Override

@@ -10,7 +10,7 @@ public class DBGroceryConfig {
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/" + DB_NAME + 
         "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String USER = "root";
-    private static final String PASSWORD = "root";
+    private static final String PASSWORD = "";
 
     // Private constructor (prevents object creation)
     private DBGroceryConfig() {
