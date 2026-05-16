@@ -192,69 +192,87 @@
             </div>
         </div>
 
-        <!-- Mung Dal -->
+        <!-- carrot -->
         <div class="product-card">
             <div class="product-img-wrap">
-                <a href="${pageContext.request.contextPath}/productDetail?id=2">
-                    <img src="${pageContext.request.contextPath}/Images/carrot.png" alt="Mung Dal">
+                <a href="${pageContext.request.contextPath}/productDetail?id=17">
+                    <img src="${pageContext.request.contextPath}/Images/carrot.png" alt="Carrot">
                 </a>
             </div>
             <div class="product-info">
-                <a href="${pageContext.request.contextPath}/productDetail?id=2" style="text-decoration:none; color:inherit;">
+                <a href="${pageContext.request.contextPath}/productDetail?id=17" style="text-decoration:none; color:inherit;">
                     <h4>Carrot</h4>
                 </a>
                 <p class="price">Rs. 280 per kilo</p>
-                <button type="button" class="add-btn" onclick="addToCart(21, 'Carrot', 80, 'carrot.png')">Add to Cart</button>
+                <button type="button" class="add-btn" onclick="addToCart(17, 'Carrot', 80, 'carrot.png')">Add to Cart</button>
             </div>
         </div>
 
         
 
-        <!-- Cauliflower -->
+        <!-- Croissant -->
         <div class="product-card">
             <div class="product-img-wrap">
-                <a href="${pageContext.request.contextPath}/productDetail?id=4">
-                    <img src="${pageContext.request.contextPath}/Images/cauli.png" alt="Cauliflower">
+                <a href="${pageContext.request.contextPath}/productDetail?id=29">
+                    <img src="${pageContext.request.contextPath}/Images/croissant.png" alt="Croissant">
                 </a>
             </div>
             <div class="product-info">
                 <a href="${pageContext.request.contextPath}/productDetail?id=4" style="text-decoration:none; color:inherit;">
-                    <h4>Cauli flower</h4>
+                    <h4>Croissant</h4>
                 </a>
-                <p class="price">Rs. 80/kg</p>
-                <button type="button" class="add-btn" onclick="addToCart(4, 'Cauliflower', 80, 'cauli.png')">Add to Cart</button>
+                <p class="price">Rs. 150</p>
+                <button type="button" class="add-btn" onclick="addToCart(29, 'Croissant', 150, 'croissant.png')">Add to Cart</button>
             </div>
         </div>
 
-        <!-- Milk -->
+        <!-- Apple Juice -->
         <div class="product-card">
             <div class="product-img-wrap">
+                <a href="${pageContext.request.contextPath}/productDetail?id=11">
+                    <img src="${pageContext.request.contextPath}/Images/applejuice.png" alt="Apple Juice">
+                </a>
+            </div>
+            <div class="product-info">
+                <a href="${pageContext.request.contextPath}/productDetail?id=11" style="text-decoration:none; color:inherit;">
+                    <h4>Apple Juice</h4>
+                </a>
+                <p class="price">Rs. 170</p>
+                <button type="button" class="add-btn" onclick="addToCart(11, 'Apple Juice', 170, 'applejuice.png')">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Grapes -->
+        <div class="product-card">
+            <div class="product-img-wrap">
+                <a href="${pageContext.request.contextPath}/productDetail?id=4">
+                    <img src="${pageContext.request.contextPath}/Images/grapes.png" alt="Jam">
+                </a>
+            </div>
+            <div class="product-info">
+                <a href="${pageContext.request.contextPath}/productDetail?id=4" style="text-decoration:none; color:inherit;">
+                    <h4>Grapes</h4>
+                </a>
+                <p class="price">Rs. 240</p>
+                <button type="button" class="add-btn" onclick="addToCart(4, 'Grapes', 240, 'grapes.png')">Add to Cart</button>
+            </div>
+        </div>
+        
+        
+        
+        <!-- Mango -->
+         <div class="product-card">
+            <div class="product-img-wrap">
                 <a href="${pageContext.request.contextPath}/productDetail?id=5">
-                    <img src="${pageContext.request.contextPath}/Images/milk2.png" alt="Milk">
+                    <img src="${pageContext.request.contextPath}/Images/mango.png" alt="Mango">
                 </a>
             </div>
             <div class="product-info">
                 <a href="${pageContext.request.contextPath}/productDetail?id=5" style="text-decoration:none; color:inherit;">
-                    <h4>Milk</h4>
+                    <h4>mango</h4>
                 </a>
-                <p class="price">Rs. 100/ltr</p>
-                <button type="button" class="add-btn" onclick="addToCart(5, 'Milk', 100, 'milk2.png')">Add to Cart</button>
-            </div>
-        </div>
-
-        <!-- Jam -->
-        <div class="product-card">
-            <div class="product-img-wrap">
-                <a href="${pageContext.request.contextPath}/productDetail?id=6">
-                    <img src="${pageContext.request.contextPath}/Images/jam.png" alt="Jam">
-                </a>
-            </div>
-            <div class="product-info">
-                <a href="${pageContext.request.contextPath}/productDetail?id=6" style="text-decoration:none; color:inherit;">
-                    <h4>Jam</h4>
-                </a>
-                <p class="price">Rs. 450</p>
-                <button type="button" class="add-btn" onclick="addToCart(6, 'Jam', 450, 'jam.png')">Add to Cart</button>
+                <p class="price">Rs. 200</p>
+                <button type="button" class="add-btn" onclick="addToCart(5, 'Mango', 200, 'mango.png')">Add to Cart</button>
             </div>
         </div>
 
