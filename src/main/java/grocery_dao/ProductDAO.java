@@ -61,7 +61,9 @@ public class ProductDAO {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                list.add(mapRow(rs));
+                Product p = mapRow(rs);
+                p.setTotalSold(rs.getInt("total_sold")); // ✅ THAPNU
+                list.add(p);
             }
 
         } catch (Exception e) {

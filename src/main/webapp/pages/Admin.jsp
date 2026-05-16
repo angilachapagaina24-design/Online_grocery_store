@@ -127,9 +127,9 @@
                             <td>${product.name}</td>
                             <td>Rs. ${product.price}</td>
                             <td>
-                                <span class="badge ${product.stockQuantity gt 10 ? 'badge-green' : 'badge-red'}">
-                                    ${product.stockQuantity} ${product.unit}
-                                </span>
+                                <span class="badge ${product.totalSold gt 0 ? 'badge-green' : 'badge-red'}">
+  								  ${product.totalSold} sold
+								</span>
                             </td>
                         </tr>
                     </c:forEach>

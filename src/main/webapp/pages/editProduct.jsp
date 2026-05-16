@@ -7,7 +7,9 @@
         response.sendRedirect(request.getContextPath() + "/inventory");
         return;
     }
+    request.setAttribute("product", p);
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +71,7 @@
                 <div class="form-group">
                     <label>Current Image</label>
                     <br>
-                    <img src="${pageContext.request.contextPath}/Images/<%= p.getImageUrl() %>"
+                    <img src="${pageContext.request.contextPath}/<%= p.getImageUrl() %>"
                          alt="Current" class="current-img"
                          onerror="this.src='${pageContext.request.contextPath}/Images/placeholder.png'">
                     <br>
@@ -97,13 +99,18 @@
                     <div class="form-group">
                         <label>Category *</label>
                         <select name="categoryId" required>
-                            <c:forEach var="cat" items="${categoryList}">
-                                <option value="${cat.categoryId}"
-                                    <%= p.getCategoryId() == Integer.parseInt("${cat.categoryId}") ? "selected" : "" %>>
-                                    ${cat.categoryName}
-                                </option>
-                            </c:forEach>
-                        </select>
+   						 <c:forEach var="cat" items="${categoryList}">
+    					    <c:choose>
+       				     <c:when test="${cat.categoryId == product.categoryId}">
+            			    <option value="${cat.categoryId}" selected>${cat.categoryName}</option>
+          					  </c:when>
+          					  <c:otherwise>
+                			<option value="${cat.categoryId}">${cat.categoryName}</option>
+          				  </c:otherwise>
+       				    </c:choose>
+   					 </c:forEach>
+				  </select>
+
                     </div>
                     <div class="form-group">
                         <label>Unit</label>

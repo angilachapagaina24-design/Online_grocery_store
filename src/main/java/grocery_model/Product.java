@@ -17,6 +17,7 @@ public class Product {
     private String brand;
     private String expiryDate;
     private String status;
+    private int totalSold;
  
     // Default constructor
     public Product() {}
@@ -55,4 +56,7 @@ public class Product {
  
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    
+    public int getTotalSold()           { return totalSold; }
+    public void setTotalSold(int v)     { this.totalSold = v; }
 }
