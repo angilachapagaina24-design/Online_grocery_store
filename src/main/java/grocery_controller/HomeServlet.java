@@ -20,17 +20,17 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //  Admin session xa bhane adminDashboard pathaucha
         HttpSession session = request.getSession(false);
-        if (session != null) {
-            User adminUser = (User) session.getAttribute("adminUser");
-            if (adminUser != null && "admin".equalsIgnoreCase(adminUser.getRole())) {
-                response.sendRedirect(request.getContextPath() + "/adminDashboard");
-                return;
-            }
+
+        User user = (session != null) ? (User) session.getAttribute("user") : null;
+
+        // User session chaina bhane login page
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
         }
 
-        // Normal user lai — home page dekhaucha
+        // User session xa bhane — home page dekhaucha (admin session check gardaina)
         CategoryDAO categoryDAO = new CategoryDAO();
         ProductDAO productDAO = new ProductDAO();
         request.setAttribute("categoryList", categoryDAO.getAllCategories());

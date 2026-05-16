@@ -23,7 +23,7 @@
         <div class="cat-item ${empty param.category ? 'active-cat' : ''}">
             <a href="${pageContext.request.contextPath}/product">
                 <div class="circle-box">
-                    <img src="${pageContext.request.contextPath}/Images/all.png" width="70"
+                    <img src="${pageContext.request.contextPath}/Images/all.png" width="130"
                          onerror="this.style.fontSize='32px';this.textContent='🛒';">
                 </div>
             </a>

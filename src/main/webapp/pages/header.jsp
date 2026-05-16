@@ -50,16 +50,7 @@
         </a>
 
         <!-- Login / My Orders + Profile -->
-       
 <c:choose>
-    <%-- pahila --%>
-    <c:when test="${not empty sessionScope.adminUser}">
-        <a href="${pageContext.request.contextPath}/adminDashboard"
-           style="color:white; text-decoration:none; font-size:14px; font-weight:600;">
-            🛡️ Admin Dashboard
-        </a>
-    </c:when>
-
     <%-- Normal user --%>
     <c:when test="${not empty sessionScope.user}">
         <a href="${pageContext.request.contextPath}/profile" style="

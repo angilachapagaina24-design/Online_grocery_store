@@ -28,7 +28,8 @@
     <div class="divider">Welcome Back</div>
 
     <!-- Form -->
-    <form action="${pageContext.request.contextPath}/login" method="POST">
+   
+    <form action="${pageContext.request.contextPath}/login" method="POST" autocomplete="off">
 
         <%-- Show Error Message --%>
 		<c:if test="${not empty error}">
