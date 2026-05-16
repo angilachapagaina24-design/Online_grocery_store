@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import grocery_model.Order;
+import grocery_model.OrderItem;
 import grocery_model.CartItem;
 import grocery_utilities.DBGroceryConfig;
 
@@ -19,19 +20,56 @@ public class OrderDAO {
             if (rs.next()) count = rs.getInt(1);
         } catch (Exception e) { e.printStackTrace(); }
         return count;
-    }
-
-    // ── Dashboard: total sales (delivered orders only) ────────────────────────
+    }	
+    
+    	
+ // ── Dashboard: total sales (confirmed/delivered orders) ──────────────────
     public double getTotalSalesAmount() {
-        double total = 0;
-        String sql = "SELECT COALESCE(SUM(total_amount),0) FROM orders WHERE order_status='delivered'";
+        // ✅ delivered matra hoina, confirmed pani count garnu
+        String sql = "SELECT COALESCE(SUM(total_amount), 0) FROM orders " +
+                     "WHERE order_status IN ('delivered', 'confirmed', 'shipped')";
         try (Connection con = DBGroceryConfig.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) total = rs.getDouble(1);
-        } catch (Exception e) { e.printStackTrace(); }
-        return total;
+            if (rs.next()) return rs.getDouble(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
+
+    // ── Dashboard: sales per month for current year ───────────────────────────
+    public java.util.Map<String, Double> getMonthlySalesCurrentYear() {
+        java.util.Map<String, Double> map = new java.util.LinkedHashMap<>();
+        // Sabai 12 months default 0 rakhu
+        String[] months = {"Jan","Feb","Mar","Apr","May","Jun",
+                           "Jul","Aug","Sep","Oct","Nov","Dec"};
+        for (String m : months) map.put(m, 0.0);
+
+        String sql = "SELECT MONTHNAME(order_date) as mon, " +
+                     "       MONTH(order_date) as mon_num, " +
+                     "       SUM(total_amount) as total " +
+                     "FROM orders " +
+                     "WHERE YEAR(order_date) = YEAR(CURDATE()) " +
+                     "  AND order_status IN ('delivered', 'confirmed', 'shipped') " +
+                     "GROUP BY mon_num, mon " +
+                     "ORDER BY mon_num";
+
+        try (Connection con = DBGroceryConfig.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                // First 3 letters of month name
+                String mon = rs.getString("mon").substring(0, 3);
+                map.put(mon, rs.getDouble("total"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+   
 
     // ── Dashboard: recent orders (last N) ─────────────────────────────────────
     public List<Order> getRecentOrders(int limit) {
@@ -101,6 +139,7 @@ public class OrderDAO {
                     o.setPaymentStatus(rs.getString("payment_status"));
                     o.setShippingAddress(rs.getString("delivery_address"));
                     o.setCreatedAt(rs.getString("order_date"));
+                    o.setItems(getItemsByOrderId(o.getOrderId()));
                     list.add(o);
                 }
             }
@@ -122,30 +161,55 @@ public class OrderDAO {
         }
         return false;
     }
+    
+    
+    public List<OrderItem> getItemsByOrderId(int orderId) {
+        List<OrderItem> items = new ArrayList<>();
+        String sql = "SELECT * FROM order_items WHERE order_id = ?";
+        try (Connection con = DBGroceryConfig.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, orderId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                OrderItem item = new OrderItem();
+                item.setOrderItemId(rs.getInt("order_item_id"));
+                item.setOrderId(rs.getInt("order_id"));
+                item.setProductId(rs.getInt("product_id"));
+                item.setProductName(rs.getString("product_name"));
+                item.setQuantity(rs.getInt("quantity"));
+                item.setPrice(rs.getDouble("price"));
+                items.add(item);
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+        return items;
+    }
+    
+    
 
     // ── Customer: get orders by user ID ───────────────────────────────────────
     public List<Order> getOrdersByUser(int userId) {
         List<Order> list = new ArrayList<>();
         String sql = "SELECT order_id, total_amount, order_status, payment_method, order_date, delivery_address " +
-                "FROM orders WHERE user_id = ? ORDER BY order_id DESC";
+                     "FROM orders WHERE user_id = ? ORDER BY order_id DESC";
         try (Connection con = DBGroceryConfig.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, userId);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Order o = new Order();
-                    o.setOrderId(rs.getInt("order_id"));
-                    o.setTotalAmount(rs.getDouble("total_amount"));
-                    o.setOrderStatus(rs.getString("order_status"));
-                    o.setPaymentMethod(rs.getString("payment_method"));
-                    o.setShippingAddress(rs.getString("delivery_address"));
-                    o.setCreatedAt(rs.getString("order_date"));
-                    list.add(o);
-                }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Order o = new Order();
+                o.setOrderId(rs.getInt("order_id"));
+                o.setTotalAmount(rs.getDouble("total_amount"));
+                o.setOrderStatus(rs.getString("order_status"));
+                o.setPaymentMethod(rs.getString("payment_method"));
+                o.setShippingAddress(rs.getString("delivery_address"));
+                o.setCreatedAt(rs.getString("order_date"));
+                o.setItems(getItemsByOrderId(o.getOrderId())); // ✅ items load
+                list.add(o);
             }
         } catch (Exception e) { e.printStackTrace(); }
         return list;
     }
+
 
     // ── Place order with stock deduction (atomic transaction) ─────────────────
     public int placeOrder(int userId, double totalAmount, String shippingAddress,

@@ -50,31 +50,41 @@
         </a>
 
         <!-- Login / My Orders + Profile -->
-        <c:choose>
-            <c:when test="${not empty sessionScope.user}">
-                <!-- Profile avatar -->
-                <a href="${pageContext.request.contextPath}/profile" style="
-                    display: inline-flex; align-items: center; gap: 6px;
-                    text-decoration: none; color: white;">
-                    <span style="width:36px; height:36px; border-radius:50%; background:#1b5e20;
-                                 border:2px solid white; display:inline-flex; align-items:center;
-                                 justify-content:center; font-weight:700; font-size:15px; color:white;">
-                        ${fn:substring(sessionScope.user.fullName, 0, 1)}
-                    </span>
-                </a>
-                <!-- My Orders (replaces Logout) -->
-                <a href="${pageContext.request.contextPath}/myOrders"
-                   style="color:white; text-decoration:none; margin-left:8px; font-size:14px;">
-                    My Orders
-                </a>
-            </c:when>
-            <c:otherwise>
-                <a href="${pageContext.request.contextPath}/login"
-                   style="color:white; text-decoration:none; font-size:14px;">
-                    Sign in
-                </a>
-            </c:otherwise>
-        </c:choose>
+       
+<c:choose>
+    <%-- pahila --%>
+    <c:when test="${not empty sessionScope.adminUser}">
+        <a href="${pageContext.request.contextPath}/adminDashboard"
+           style="color:white; text-decoration:none; font-size:14px; font-weight:600;">
+            🛡️ Admin Dashboard
+        </a>
+    </c:when>
+
+    <%-- Normal user --%>
+    <c:when test="${not empty sessionScope.user}">
+        <a href="${pageContext.request.contextPath}/profile" style="
+            display: inline-flex; align-items: center; gap: 6px;
+            text-decoration: none; color: white;">
+            <span style="width:36px; height:36px; border-radius:50%; background:#1b5e20;
+                         border:2px solid white; display:inline-flex; align-items:center;
+                         justify-content:center; font-weight:700; font-size:15px; color:white;">
+                ${fn:substring(sessionScope.user.fullName, 0, 1)}
+            </span>
+        </a>
+        <a href="${pageContext.request.contextPath}/myOrders"
+           style="color:white; text-decoration:none; margin-left:8px; font-size:14px;">
+            My Orders
+        </a>
+    </c:when>
+
+    <%-- Not logged in --%>
+    <c:otherwise>
+        <a href="${pageContext.request.contextPath}/login"
+           style="color:white; text-decoration:none; font-size:14px;">
+            Sign in
+        </a>
+    </c:otherwise>
+</c:choose>
 
     </div>
 </div>

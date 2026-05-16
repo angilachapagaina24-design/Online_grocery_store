@@ -46,8 +46,10 @@ public class AdminDashboardServlet extends HttpServlet {
         request.setAttribute("totalProducts", productDAO.getTotalProductCount());
         request.setAttribute("totalOrders",   orderDAO.getTotalOrderCount());
         request.setAttribute("totalSales",    String.format("%.2f", orderDAO.getTotalSalesAmount()));
+        request.setAttribute("monthlySales", orderDAO.getMonthlySalesCurrentYear()); 
         request.setAttribute("productList",   productDAO.getBestSellingProducts());
         request.setAttribute("recentOrders",  orderDAO.getRecentOrders(5));
+        
 
         request.getRequestDispatcher("/pages/Admin.jsp").forward(request, response);
     }

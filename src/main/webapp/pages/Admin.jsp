@@ -73,12 +73,12 @@
         <!-- ── STATS CARDS ── -->
         <div class="stats-row">
             <div class="stat-card green">
-                <div class="stat-icon"></div>
-                <div class="stat-info">
-                    <p class="stat-label">Total Sales</p>
-                    <h3 class="stat-value">Rs. ${totalSales != null ? totalSales : '0.00'}</h3>
-                </div>
-            </div>
+  			  <div class="stat-info">
+    		    <span class="stat-label">TOTAL SALES</span>
+     		    <span class="stat-value">Rs. ${totalSales}</span>
+     		    <span style="font-size:12px; color:#888;">This month</span>
+   			 </div>
+		</div>
             <div class="stat-card orange">
                 <div class="stat-icon"></div>
                 <div class="stat-info">
@@ -191,6 +191,44 @@
             </div>
 
         </div>
+        
+        <%@ page import="java.util.Map" %>
+
+<!-- Monthly Sales Chart -->
+<div class="dash-card" style="margin-top: 28px;">
+    <h3 style="margin-bottom: 20px;">📈 Monthly Sales — <%= java.time.Year.now().getValue() %></h3>
+
+    <%
+        Map<String, Double> monthlySales = (Map<String, Double>) request.getAttribute("monthlySales");
+        double maxVal = 1.0;
+        if (monthlySales != null) {
+            for (double v : monthlySales.values()) if (v > maxVal) maxVal = v;
+        }
+    %>
+
+    <div style="display:flex; align-items:flex-end; gap:10px; height:200px; padding: 0 10px;">
+        <%
+            if (monthlySales != null) {
+                for (Map.Entry<String, Double> entry : monthlySales.entrySet()) {
+                    double pct = (entry.getValue() / maxVal) * 100;
+                    String barColor = entry.getValue() > 0 ? "#27ae60" : "#e0e0e0";
+        %>
+            <div style="display:flex; flex-direction:column; align-items:center; flex:1;">
+                <span style="font-size:11px; color:#555; margin-bottom:4px;">
+                    <%= entry.getValue() > 0 ? "Rs." + String.format("%.0f", entry.getValue()) : "" %>
+                </span>
+                <div style="width:100%; background:<%= barColor %>; border-radius:6px 6px 0 0;
+                            height:<%= Math.max(pct, 2) %>%; min-height:4px;
+                            transition: height 0.3s;">
+                </div>
+                <span style="font-size:11px; color:#888; margin-top:6px;"><%= entry.getKey() %></span>
+            </div>
+        <%
+                }
+            }
+        %>
+    </div>
+</div>
        
 
     </div>

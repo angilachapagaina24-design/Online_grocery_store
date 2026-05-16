@@ -1,5 +1,8 @@
 package grocery_model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Order {
 
     private int    orderId;
@@ -10,9 +13,10 @@ public class Order {
     private String paymentStatus;
     private String shippingAddress;
     private String createdAt;
-
-    // For JOIN queries (not a DB column)
     private String userName;
+    
+    
+    private List<OrderItem> items = new ArrayList<>();
 
     public Order() {}
 
@@ -50,4 +54,7 @@ public class Order {
 
     public String getUserName()              { return userName; }
     public void setUserName(String userName) { this.userName = userName; }
+    
+    public List<OrderItem> getItems()              { return items; }
+    public void setItems(List<OrderItem> items)    { this.items = items; }
 }
